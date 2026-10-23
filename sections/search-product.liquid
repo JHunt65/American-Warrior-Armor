@@ -1,0 +1,56 @@
+<div id="shopify-section-1516211652395" class="shopify-section index-section searchgearSec">
+  <div class="page-width">
+    <div class="custom-content">
+      <div class="custom__item custom__item--1516211710854 small--one-whole medium-up--one-third" >
+        <div class="custom__item-inner custom__item-inner--html">
+          <p class="h5" style="text-align: right">Search for <b>your Gear</b> </p>
+        </div>
+      </div>
+      <div class="custom__item custom__item--1516211716652 small--one-half medium-up--one-third " >
+        <div class="custom__item-inner custom__item-inner--html">
+          <form action="/search">
+            <input type="hidden" name="type" value="product">
+            <input type="text" name="q" placeholder="Search by Category" value="" autocapitalize="off" autocomplete="off" autocorrect="off" style="width: 100%;">
+            <button class="btn search__submit" type="submit">{{ 'general.search.submit' | t }}</button>
+          </form>
+        </div>
+      </div>
+      <div class="custom__item custom__item--1516211725802 small--one-half medium-up--one-third " >
+        <div class="custom__item-inner custom__item-inner--html">
+          <form action="/search">
+            <input type="hidden" name="type" value="product">
+            <input type="text" name="q" placeholder="Search by Brand" value="" autocapitalize="off" autocomplete="off" autocorrect="off" style="width: 100%;">
+            <button class="btn search__submit" type="submit">{{ 'general.search.submit' | t }}</button>
+          </form>
+        </div>
+      </div>
+      <!-- <div class="custom__item custom__item--1565781378951 small--one-half medium-up--one-half " >
+<div class="custom__item-inner custom__item-inner--html">
+<p></p>
+<h1>Jitsu Armor Home Page</h1>
+<p></p>
+</div>
+-->
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Search Section",
+    "settings": [
+],
+"presets":[
+	{
+		"name": "Search Section",
+		"category":"New"
+	}
+]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
