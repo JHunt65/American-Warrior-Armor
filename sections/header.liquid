@@ -1,0 +1,490 @@
+{% if section.settings.message %}
+  <style>
+    .notification-bar {
+      background-color: {{ section.settings.color_bg }};
+    }
+
+    .notification-bar__message {
+      color: {{ section.settings.color_text }};
+    }
+
+    {% if section.settings.logo != blank %}
+      .site-header__logo-image {
+        max-width: {{ section.settings.logo_max_width | escape }}px;
+      }
+    {% endif %}
+
+
+      .site-header__logo-image {
+        margin: 0;
+      }
+  </style>
+{% endif %}
+
+{% comment %}
+
+<div data-section-id="{{ section.id }}" data-section-type="header-section" style="background-color: #000;">
+  <nav class="mobile-nav-wrapper medium-up--hide" role="navigation">
+    <ul id="MobileNav" class="mobile-nav">
+      {% for link in linklists[section.settings.main_linklist].links %}
+        {%- assign child_list_handle = link.title | handleize -%}
+
+        <li class="mobile-nav__item{% unless forloop.last %} border-bottom{% endunless %}">
+          {% if linklists[child_list_handle].links != blank %}
+            <button type="button" class="btn--link js-toggle-submenu mobile-nav__link" data-target="{{ child_list_handle }}" data-level="1">
+              {{ link.title }}
+              <div class="mobile-nav__icon">
+                {% include 'icon-chevron-right' %}
+                <span class="icon__fallback-text">{{ 'layout.navigation.expand' | t }}</span>
+              </div>
+            </button>
+            <ul class="mobile-nav__dropdown" data-parent="{{ child_list_handle }}" data-level="2">
+              <li class="mobile-nav__item border-bottom">
+                <div class="mobile-nav__table">
+                  <div class="mobile-nav__table-cell mobile-nav__return">
+                    <button class="btn--link js-toggle-submenu mobile-nav__return-btn" type="button">
+                      {% include 'icon-chevron-left' %}
+                      <span class="icon__fallback-text">{{ 'layout.navigation.collapse' | t }}</span>
+                    </button>
+                  </div>
+                  <a href="{{ link.url }}" class="mobile-nav__sublist-link mobile-nav__sublist-header">
+                    {{ link.title }}
+                  </a>
+                </div>
+              </li>
+
+              {% for childlink in linklists[child_list_handle].links %}
+                {% assign grand_child_list_handle = childlink.title | handle %}
+
+                <li class="mobile-nav__item{% unless forloop.last %} border-bottom{% endunless %}">
+                  {% if linklists[grand_child_list_handle].links != blank %}
+                    <button type="button" class="btn--link js-toggle-submenu mobile-nav__link mobile-nav__sublist-link" data-target="{{ grand_child_list_handle }}">
+                      {{ childlink.title }}
+                      <div class="mobile-nav__icon">
+                        {% include 'icon-chevron-right' %}
+                        <span class="icon__fallback-text">{{ 'layout.navigation.expand' | t }}</span>
+                      </div>
+                    </button>
+                    <ul class="mobile-nav__dropdown" data-parent="{{ grand_child_list_handle }}" data-level="3">
+                      <li class="mobile-nav__item border-bottom">
+                        <div class="mobile-nav__table">
+                          <div class="mobile-nav__table-cell mobile-nav__return">
+                            <button type="button" class="btn--link js-toggle-submenu mobile-nav__return-btn" data-target="{{ child_list_handle }}">
+                              {% include 'icon-chevron-left' %}
+                              <span class="icon__fallback-text">{{ 'layout.navigation.collapse' | t }}</span>
+                            </button>
+                          </div>
+                          <a href="{{ childlink.url }}" class="mobile-nav__sublist-link mobile-nav__sublist-header">
+                            {{ childlink.title }}
+                          </a>
+                        </div>
+                      </li>
+                      {% for grandchildlink in linklists[grand_child_list_handle].links %}
+                        <li class="mobile-nav__item{% unless forloop.last %} border-bottom{% endunless %}">
+                          <a href="{{ grandchildlink.url }}" class="mobile-nav__sublist-link">
+                            {{ grandchildlink.title | escape }}
+                          </a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                    <a href="{{ childlink.url }}" class="mobile-nav__sublist-link">
+                      {{ childlink.title | escape }}
+                    </a>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <a href="{{ link.url }}" class="mobile-nav__link">
+              {{ link.title }}
+            </a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+
+  {% if section.settings.message %}
+    {% if section.settings.home_page_only == false or template.name == 'index' %}
+      <style>
+        .announcement-bar {
+          background-color: {{ section.settings.color_bg }};
+        }
+
+        .announcement-bar--link:hover {
+          {% assign brightness = section.settings.color_bg | color_brightness %}
+
+          {% if brightness <= 192 %}
+            {% assign lightenAmount = 255 | minus: brightness | divided_by: 255 | times: 16 %}
+            background-color: {{ section.settings.color_bg | color_lighten: lightenAmount }};
+          {% else %}
+            {% assign darkenAmount = 255 | divided_by: brightness | times: 8 %}
+            background-color: {{ section.settings.color_bg | color_darken: darkenAmount }};
+          {% endif %}
+        }
+
+        .announcement-bar__message {
+          color: {{ section.settings.color_text }};
+        }
+      </style>
+
+      {% if section.settings.message_link == blank %}
+        <div class="announcement-bar">
+      {% else %}
+        <a href="{{ section.settings.message_link }}" class="announcement-bar announcement-bar--link">
+      {% endif %}
+
+        <p class="announcement-bar__message">{{ section.settings.message_text | escape }}</p>
+
+      {% if section.settings.message_link == blank %}
+        </div>
+      {% else %}
+        </a>
+      {% endif %}
+
+    {% endif %}
+  {% endif %}
+
+  <header class="site-header logo--left" role="banner">
+    <div class="grid grid--no-gutters grid--table">
+
+      <div class="grid__item small--one-whole medium-up--one-third logo-align--left">
+        {% comment %}
+          Use the uploaded logo from theme settings if enabled.
+          Site name gets precedence with H1 tag on homepage, div on other pages.
+        {% endcomment %}
+        {% if template.name == 'index' %}
+          <h1 class="h2 site-header__logo" itemscope itemtype="http://schema.org/Organization">
+        {% else %}
+          <div class="h2 site-header__logo" itemscope itemtype="http://schema.org/Organization">
+        {% endif %}
+          {% if section.settings.logo %}
+            {%- assign img_url = section.settings.logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+            <a href="/" itemprop="url" class="site-header__logo-image{% if section.settings.align_logo == 'center' %} site-header__logo-image--centered{% endif %}">
+              {% capture logo_alt %}{{ section.settings.logo.alt | default: shop.name }}{% endcapture %}
+              <img class="lazyload js"
+                   src="{{ section.settings.logo | img_url: '300x300' }}"
+                   data-src="{{ img_url }}"
+                   data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                   data-aspectratio="{{ section.settings.logo.aspect_ratio }}"
+                   data-sizes="auto"
+                   alt="{{ logo_alt | escape }}"
+                   style="max-width: {{ section.settings.logo_max_width }}px">
+              <noscript>
+                {% capture image_size %}{{ section.settings.logo_max_width | escape }}x{% endcapture %}
+                <img src="{{ section.settings.logo | img_url: image_size }}"
+                     srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
+                     alt="{{ section.settings.logo.alt | default: shop.name }}"
+                     itemprop="logo"
+                     style="max-width: {{ section.settings.logo_max_width }}px;">
+              </noscript>
+            </a>
+          {% else %}
+            <a class="site-header__logo-link" href="/" itemprop="url">{{ shop.name }}</a>
+          {% endif %}
+        {% if template.name == 'index' %}
+          </h1>
+        {% else %}
+          </div>
+        {% endif %}
+      </div>
+
+
+      <div class="grid__item small--hide medium-up--two-thirds text-right site-header__icons{% if shop.customer_accounts_enabled %} site-header__icons--plus{% endif %}">
+               {% include 'header-info'%}   
+      </div>
+      
+    </div>
+    
+      <div class="grid grid--no-gutters grid--table">
+                
+      <div class="grid__item small--one-half medium-up--three-quarters text-left site-header__icons{% if shop.customer_accounts_enabled %} site-header__icons--plus{% endif %}">
+
+            <nav class="small--hide" id="AccessibleNav" role="navigation">
+    {% include 'site-nav', nav_alignment: 'site-nav--centered' %}
+  </nav>
+        </div>
+              <div class="grid__item small--one-half medium-up--one-quarter text-right site-header__icons{% if shop.customer_accounts_enabled %} site-header__icons--plus{% endif %}">
+           			{% include 'header-icons'%}
+
+        </div>
+      </div>
+  </header>
+  
+</div>
+
+{% endcomment %}
+
+
+<div id="shopify-section-header" class="shopify-section">
+  
+  <div data-section-id="header" data-section-type="header-section">
+    <nav class="mobile-nav-wrapper medium-up--hide" role="navigation">
+      <ul id="MobileNav" class="mobile-nav">
+ {% for link in linklists[section.settings.main_linklist].links %}
+        {%- assign child_list_handle = link.title | handleize -%}
+
+        <li class="mobile-nav__item{% unless forloop.last %} border-bottom{% endunless %}">
+          {% if linklists[child_list_handle].links != blank %}
+            <button type="button" class="btn--link js-toggle-submenu mobile-nav__link" data-target="{{ child_list_handle }}" data-level="1">
+              {{ link.title }}
+              <div class="mobile-nav__icon">
+                {% include 'icon-chevron-right' %}
+                <span class="icon__fallback-text">{{ 'layout.navigation.expand' | t }}</span>
+              </div>
+            </button>
+            <ul class="mobile-nav__dropdown" data-parent="{{ child_list_handle }}" data-level="2">
+              <li class="mobile-nav__item border-bottom">
+                <div class="mobile-nav__table">
+                  <div class="mobile-nav__table-cell mobile-nav__return">
+                    <button class="btn--link js-toggle-submenu mobile-nav__return-btn" type="button">
+                      {% include 'icon-chevron-left' %}
+                      <span class="icon__fallback-text">{{ 'layout.navigation.collapse' | t }}</span>
+                    </button>
+                  </div>
+                  <a href="{{ link.url }}" class="mobile-nav__sublist-link mobile-nav__sublist-header">
+                    {{ link.title }}
+                  </a>
+                </div>
+              </li>
+
+              {% for childlink in linklists[child_list_handle].links %}
+                {% assign grand_child_list_handle = childlink.title | handle %}
+
+                <li class="mobile-nav__item{% unless forloop.last %} border-bottom{% endunless %}">
+                  {% if linklists[grand_child_list_handle].links != blank %}
+                    <button type="button" class="btn--link js-toggle-submenu mobile-nav__link mobile-nav__sublist-link" data-target="{{ grand_child_list_handle }}">
+                      {{ childlink.title }}
+                      <div class="mobile-nav__icon">
+                        {% include 'icon-chevron-right' %}
+                        <span class="icon__fallback-text">{{ 'layout.navigation.expand' | t }}</span>
+                      </div>
+                    </button>
+                    <ul class="mobile-nav__dropdown" data-parent="{{ grand_child_list_handle }}" data-level="3">
+                      <li class="mobile-nav__item border-bottom">
+                        <div class="mobile-nav__table">
+                          <div class="mobile-nav__table-cell mobile-nav__return">
+                            <button type="button" class="btn--link js-toggle-submenu mobile-nav__return-btn" data-target="{{ child_list_handle }}">
+                              {% include 'icon-chevron-left' %}
+                              <span class="icon__fallback-text">{{ 'layout.navigation.collapse' | t }}</span>
+                            </button>
+                          </div>
+                          <a href="{{ childlink.url }}" class="mobile-nav__sublist-link mobile-nav__sublist-header">
+                            {{ childlink.title }}
+                          </a>
+                        </div>
+                      </li>
+                      {% for grandchildlink in linklists[grand_child_list_handle].links %}
+                        <li class="mobile-nav__item{% unless forloop.last %} border-bottom{% endunless %}">
+                          <a href="{{ grandchildlink.url }}" class="mobile-nav__sublist-link">
+                            {{ grandchildlink.title | escape }}
+                          </a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                    <a href="{{ childlink.url }}" class="mobile-nav__sublist-link">
+                      {{ childlink.title | escape }}
+                    </a>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <a href="{{ link.url }}" class="mobile-nav__link">
+              {{ link.title }}
+            </a>
+          {% endif %}
+        </li>
+      {% endfor %}
+      </ul>
+    </nav>
+    <header class="site-header logo--left{% unless template == 'index' %} header--page{% endunless %}" role="banner">
+    	<div class="headerTop">
+        	<div class="page-width">
+              <div class="menuToogle">
+                <button type="button" class="btn--link site-header__menu js-mobile-nav-toggle mobile-nav--open"> <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-hamburger" viewBox="0 0 37 40">
+                  <path d="M33.5 25h-30c-1.1 0-2-.9-2-2s.9-2 2-2h30c1.1 0 2 .9 2 2s-.9 2-2 2zm0-11.5h-30c-1.1 0-2-.9-2-2s.9-2 2-2h30c1.1 0 2 .9 2 2s-.9 2-2 2zm0 23h-30c-1.1 0-2-.9-2-2s.9-2 2-2h30c1.1 0 2 .9 2 2s-.9 2-2 2z"/>
+                  </svg> <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" viewBox="0 0 37 40">
+                  <path d="M21.3 23l11-11c.8-.8.8-2 0-2.8-.8-.8-2-.8-2.8 0l-11 11-11-11c-.8-.8-2-.8-2.8 0-.8.8-.8 2 0 2.8l11 11-11 11c-.8.8-.8 2 0 2.8.4.4.9.6 1.4.6s1-.2 1.4-.6l11-11 11 11c.4.4.9.6 1.4.6s1-.2 1.4-.6c.8-.8.8-2 0-2.8l-11-11z"/>
+                  </svg> <span class="icon__fallback-text">expand/collapse</span> </button>
+              </div>
+            	<div class="site-header__icons-wrapper">
+            <ul>
+            	<li><span class="mailIc">{{ section.settings.contact_text }} 
+                  <a href="mailto:{{ section.settings.contact_text_mail }}" title="{{ section.settings.contact_text_mail }}">{{ section.settings.contact_text_mail }}</a>
+                  </span></li>
+                <li>
+                	<button type="button" class="btn--link site-header__search-toggle js-drawer-open-top medium-up--hide"> <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-search" viewBox="0 0 37 40">
+            <path d="M35.6 36l-9.8-9.8c4.1-5.4 3.6-13.2-1.3-18.1-5.4-5.4-14.2-5.4-19.7 0-5.4 5.4-5.4 14.2 0 19.7 2.6 2.6 6.1 4.1 9.8 4.1 3 0 5.9-1 8.3-2.8l9.8 9.8c.4.4.9.6 1.4.6s1-.2 1.4-.6c.9-.9.9-2.1.1-2.9zm-20.9-8.2c-2.6 0-5.1-1-7-2.9-3.9-3.9-3.9-10.1 0-14C9.6 9 12.2 8 14.7 8s5.1 1 7 2.9c3.9 3.9 3.9 10.1 0 14-1.9 1.9-4.4 2.9-7 2.9z"/>
+            </svg> <span class="icon__fallback-text">Search</span> </button>
+                	<div class="site-header__search small--hide">
+              			<form action="/search" method="get" class="search-header search" role="search">
+                <input class="search-header__input search__input"
+    type="search"
+    name="q"
+    placeholder="Search"
+    aria-label="Search">
+                <button class="search-header__submit search__submit btn--link" type="submit"> <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-search" viewBox="0 0 37 40">
+                <path d="M35.6 36l-9.8-9.8c4.1-5.4 3.6-13.2-1.3-18.1-5.4-5.4-14.2-5.4-19.7 0-5.4 5.4-5.4 14.2 0 19.7 2.6 2.6 6.1 4.1 9.8 4.1 3 0 5.9-1 8.3-2.8l9.8 9.8c.4.4.9.6 1.4.6s1-.2 1.4-.6c.9-.9.9-2.1.1-2.9zm-20.9-8.2c-2.6 0-5.1-1-7-2.9-3.9-3.9-3.9-10.1 0-14C9.6 9 12.2 8 14.7 8s5.1 1 7 2.9c3.9 3.9 3.9 10.1 0 14-1.9 1.9-4.4 2.9-7 2.9z"/>
+                </svg> <span class="icon__fallback-text">Submit</span> </button>
+              </form>
+            		</div>
+            	</li>
+              {% if customer %}
+              <li><a href="/account" class="acntIc">My Account</a></li>
+              {% else %}
+              <li><a href="/account/login" class="acntIc">My Account</a></li>
+              {% endif %}
+                <li>
+                	<a href="/cart" class="site-header__cart"> 
+                      <img src="{{ 'cart-ic.png' | asset_url }}" alt=""> 
+                      <span class="cartCount">{{ cart.item_count }}</span> 
+                      <span class="visually-hidden">Cart</span> 
+                      <span class="icon__fallback-text">Cart</span> </a>
+                </li>
+            </ul>
+            
+          </div>
+          	</div>
+        </div>
+        <div class="headerBottom">
+        	<div class="page-width">
+            <div class="headerLeft">
+                <h1 class="h2 site-header__logo" itemscope itemtype="http://schema.org/Organization"> 
+                  
+                  {% if template == 'index' %}
+                  <a href="/" itemprop="url" class="site-header__logo-image"> 
+                    <img class="lazyload js" src="{{ section.settings.logo | img_url: 'master' }}" data-sizes="auto" alt="Jitsu Armor">
+                <noscript>
+                <img src="{{ section.settings.logo | img_url: 'master' }}" alt="Jitsu Armor" itemprop="logo">
+                </noscript>
+                </a> 
+                  {% else %}
+                  <a href="/" itemprop="url" class="site-header__logo-image"> 
+                    <img class="lazyload js" src="{{ section.settings.logo-page | img_url: 'master' }}" data-sizes="auto" alt="Jitsu Armor">
+                <noscript>
+                <img src="{{ section.settings.logo-page | img_url: 'master' }}" alt="Jitsu Armor" itemprop="logo">
+                </noscript>
+                </a> 
+                  
+                  {% endif %}
+                  
+              </h1>
+                <div class="menuToogle">
+                	<button type="button" class="btn--link site-header__menu js-mobile-nav-toggle mobile-nav--open"> <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-hamburger" viewBox="0 0 37 40">
+            <path d="M33.5 25h-30c-1.1 0-2-.9-2-2s.9-2 2-2h30c1.1 0 2 .9 2 2s-.9 2-2 2zm0-11.5h-30c-1.1 0-2-.9-2-2s.9-2 2-2h30c1.1 0 2 .9 2 2s-.9 2-2 2zm0 23h-30c-1.1 0-2-.9-2-2s.9-2 2-2h30c1.1 0 2 .9 2 2s-.9 2-2 2z"/>
+            </svg> <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" viewBox="0 0 37 40">
+            <path d="M21.3 23l11-11c.8-.8.8-2 0-2.8-.8-.8-2-.8-2.8 0l-11 11-11-11c-.8-.8-2-.8-2.8 0-.8.8-.8 2 0 2.8l11 11-11 11c-.8.8-.8 2 0 2.8.4.4.9.6 1.4.6s1-.2 1.4-.6l11-11 11 11c.4.4.9.6 1.4.6s1-.2 1.4-.6c.8-.8.8-2 0-2.8l-11-11z"/>
+            </svg> <span class="icon__fallback-text">expand/collapse</span> </button>
+                </div>
+            </div>
+            <div class="headerRight">
+                <nav class="small--hide" id="AccessibleNav" role="navigation">
+    {% include 'site-nav', nav_alignment: 'site-nav--centered' %}
+              </nav>
+            </div>
+            </div>
+        </div>
+    </header>
+  </div>
+  
+</div>
+
+
+
+
+
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Home Logo image"
+      },
+	  {
+        "type": "image_picker",
+        "id": "logo-page",
+        "label": "Other Logo image"
+      },	
+      {
+        "type": "text",
+        "id": "logo_max_width",
+        "label": "Custom logo width (in pixels)",
+        "default": "100"
+      },
+      {
+        "type": "text",
+        "id": "phone_text",
+        "label": "Phone Number",
+        "default": "Add Phone Number"
+      },
+      {
+        "type": "text",
+        "id": "contact_text",
+        "label": "Contact Text",
+        "default": "Got a Question? Call Us"
+      },
+	  {
+        "type": "text",
+        "id": "contact_text_mail",
+        "label": "Contact mail"
+      },
+      {
+        "type": "text",
+        "id": "hours_text",
+        "label": "Hours of Operation",
+        "default": "Mon-Sat 9am-6pm Eastern"
+      },
+      {
+        "type": "link_list",
+        "id": "main_linklist",
+        "label": "Menu",
+        "default": "main-menu"
+      },
+      {
+        "type": "header",
+        "content": "Announcement bar"
+      },
+      {
+        "type": "checkbox",
+        "id": "message",
+        "label": "Show announcement",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "home_page_only",
+        "label": "Home page only",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "message_text",
+        "label": "Announcement text",
+        "default": "Announce something here"
+      },
+      {
+        "type": "url",
+        "id": "message_link",
+        "label": "Announcement link",
+        "info": "Optional"
+      },
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Bar",
+        "default": "#7796a8"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text",
+        "default": "#fff"
+      }
+    ]
+  }
+{% endschema %}

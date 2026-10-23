@@ -1,0 +1,96 @@
+<div class="cateSec">
+  <div class="page-width">
+    <ul>
+      <li>
+        <div class="cateBox">
+          {% if section.settings.img1 != blank %}
+          <img src="{{ section.settings.img1 | img_url: 'master' }}" alt="">
+          {% endif %}
+          <div class="cateDtl">
+            {% if section.settings.title1 != blank %}
+            <h2 class="cateTitle">{{ section.settings.title1 }}</h2>
+            {% endif %}
+            {% if section.settings.link1 != blank %}
+            <a href="{{ section.settings.link1 }}" class="shopBtn">{{ section.settings.btn1 }}</a>
+            {% endif %}
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="cateBox">
+          {% if section.settings.img2 != blank %}
+          <img src="{{ section.settings.img2 | img_url: 'master' }}" alt="">
+          {% endif %}
+          <div class="cateDtl">
+            {% if section.settings.title2 != blank %}
+            <h2 class="cateTitle">{{ section.settings.title2 }}</h2>
+            {% endif %}
+            {% if section.settings.link2 != blank %}
+            <a href="{{ section.settings.link2 }}" class="shopBtn">{{ section.settings.btn1 }}</a>
+            {% endif %}
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Category name",
+    "settings": [
+	{
+		"type":"image_picker",
+		"id":"img1",
+		"label":"Image"
+	},
+	{
+		"type":"text",
+		"id":"title1",
+		"label":"Title"
+	},
+	{
+		"type":"text",
+		"id":"btn1",
+		"label":"Button Name"
+	},
+	{
+		"type":"url",
+		"id":"link1",
+		"label":"Link"
+	},
+	{
+		"type":"image_picker",
+		"id":"img2",
+		"label":"Image"
+	},
+	{
+		"type":"text",
+		"id":"title2",
+		"label":"Title"
+	},
+	{
+		"type":"text",
+		"id":"btn2",
+		"label":"Button Name"
+	},
+	{
+		"type":"url",
+		"id":"link2",
+		"label":"Link"
+	}
+
+],
+"presets":[
+	{
+		"name": "Category Section",
+		"category":"New"
+	}
+]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

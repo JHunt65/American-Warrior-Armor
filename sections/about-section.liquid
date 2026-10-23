@@ -1,0 +1,66 @@
+<div class="aboutSec">
+  <div class="page-width">
+    <div class="aboutLeft">
+      {% if section.settings.title != blank %}
+      <h2 class="secTitle">{{ section.settings.title }}</h2>
+      {% endif %}
+      {% if section.settings.content != blank %}
+      {{ section.settings.content }}
+      {% endif %}
+      {% if section.settings.link != blank %}
+      <a href="{{ section.settings.link }}" class="moreBtn">{{ section.settings.btn }}</a>
+      {% endif %}
+    </div>
+    <div class="aboutRight">
+      {% if section.settings.img != blank %}
+      <img src="{{ section.settings.img | img_url: 'master' }}" alt="">
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "About Section",
+    "settings": [
+	{
+		"type":"text",
+		"id":"title",
+		"label":"Title"
+	},
+	{
+		"type":"richtext",
+		"id":"content",
+		"label":"Text"
+	},
+	{
+		"type":"text",
+		"id":"btn",
+		"label":"Button Name"
+	},
+	{
+		"type":"url",
+		"id":"link",
+		"label":"Link"
+	},
+	{
+		"type":"image_picker",
+		"id":"img",
+		"label":"Image"
+	}
+
+],
+"presets":[
+	{
+		"name": "About Section",
+		"category":"New"
+	}
+]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

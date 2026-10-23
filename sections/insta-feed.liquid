@@ -1,0 +1,36 @@
+<div class="instaSec">
+  <div class="page-width">
+    {% if section.settings.title != blank %}
+    <h2 class="instaTitle secTitle">{{ section.settings.title }}</h2>
+    {% endif %}
+  </div>
+  <div id="instafeed">
+    <a href="http://instagram.com/jitsuarmor"><img src="{{ 'insta-thum01.png' | asset_url }}" alt=""></a>
+    <a href="http://instagram.com/jitsuarmor"><img src="{{ 'insta-thum02.png' | asset_url }}" alt=""></a>
+    <a href="http://instagram.com/jitsuarmor"><img src="{{ 'insta-thum03.png' | asset_url }}" alt=""></a>
+    <a href="http://instagram.com/jitsuarmor"><img src="{{ 'insta-thum04.png' | asset_url }}" alt=""></a>
+    <a href="http://instagram.com/jitsuarmor"><img src="{{ 'insta-thum05.png' | asset_url }}" alt=""></a>
+    <a href="http://instagram.com/jitsuarmor"><img src="{{ 'insta-thum06.png' | asset_url }}" alt=""></a>
+    <a href="http://instagram.com/jitsuarmor"><img src="{{ 'insta-thum07.png' | asset_url }}" alt=""></a>
+    <a href="http://instagram.com/jitsuarmor"><img src="{{ 'insta-thum08.png' | asset_url }}" alt=""></a>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Instagram Section",
+    "settings": [
+	{
+		"type":"text",
+		"id":"title",
+		"label":"Title"
+	}
+],
+"presets":[
+	{
+		"name": "Instagram Section",
+		"category":"New"
+	}
+]
+  }
+{% endschema %}
