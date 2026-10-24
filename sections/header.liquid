@@ -223,98 +223,18 @@
   <div data-section-id="header" data-section-type="header-section">
     <nav class="mobile-nav-wrapper medium-up--hide" role="navigation">
       <ul id="MobileNav" class="mobile-nav">
- {% for link in linklists[section.settings.main_linklist].links %}
-        {%- assign link_handle = link.title | handleize -%}
-        {% unless link_handle == 'shop-all' or link_handle == 'our-story' %}
-        {%- assign child_list_handle = link.title | handleize -%}
-
-        <li class="mobile-nav__item{% unless forloop.last %} border-bottom{% endunless %}">
-          {% if linklists[child_list_handle].links != blank %}
-            <button type="button" class="btn--link js-toggle-submenu mobile-nav__link" data-target="{{ child_list_handle }}" data-level="1">
-              {{ link.title }}
-              <div class="mobile-nav__icon">
-                {% include 'icon-chevron-right' %}
-                <span class="icon__fallback-text">{{ 'layout.navigation.expand' | t }}</span>
-              </div>
-            </button>
-            <ul class="mobile-nav__dropdown" data-parent="{{ child_list_handle }}" data-level="2">
-              <li class="mobile-nav__item border-bottom">
-                <div class="mobile-nav__table">
-                  <div class="mobile-nav__table-cell mobile-nav__return">
-                    <button class="btn--link js-toggle-submenu mobile-nav__return-btn" type="button">
-                      {% include 'icon-chevron-left' %}
-                      <span class="icon__fallback-text">{{ 'layout.navigation.collapse' | t }}</span>
-                    </button>
-                  </div>
-                  <a href="{{ link.url }}" class="mobile-nav__sublist-link mobile-nav__sublist-header">
-                    {{ link.title }}
-                  </a>
-                </div>
-              </li>
-
-              {% for childlink in linklists[child_list_handle].links %}
-                {% assign grand_child_list_handle = childlink.title | handle %}
-
-                <li class="mobile-nav__item{% unless forloop.last %} border-bottom{% endunless %}">
-                  {% if linklists[grand_child_list_handle].links != blank %}
-                    <button type="button" class="btn--link js-toggle-submenu mobile-nav__link mobile-nav__sublist-link" data-target="{{ grand_child_list_handle }}">
-                      {{ childlink.title }}
-                      <div class="mobile-nav__icon">
-                        {% include 'icon-chevron-right' %}
-                        <span class="icon__fallback-text">{{ 'layout.navigation.expand' | t }}</span>
-                      </div>
-                    </button>
-                    <ul class="mobile-nav__dropdown" data-parent="{{ grand_child_list_handle }}" data-level="3">
-                      <li class="mobile-nav__item border-bottom">
-                        <div class="mobile-nav__table">
-                          <div class="mobile-nav__table-cell mobile-nav__return">
-                            <button type="button" class="btn--link js-toggle-submenu mobile-nav__return-btn" data-target="{{ child_list_handle }}">
-                              {% include 'icon-chevron-left' %}
-                              <span class="icon__fallback-text">{{ 'layout.navigation.collapse' | t }}</span>
-                            </button>
-                          </div>
-                          <a href="{{ childlink.url }}" class="mobile-nav__sublist-link mobile-nav__sublist-header">
-                            {{ childlink.title }}
-                          </a>
-                        </div>
-                      </li>
-                      {% for grandchildlink in linklists[grand_child_list_handle].links %}
-                        <li class="mobile-nav__item{% unless forloop.last %} border-bottom{% endunless %}">
-                          <a href="{{ grandchildlink.url }}" class="mobile-nav__sublist-link">
-                            {{ grandchildlink.title | escape }}
-                          </a>
-                        </li>
-                      {% endfor %}
-                    </ul>
-                  {% else %}
-                    <a href="{{ childlink.url }}" class="mobile-nav__sublist-link">
-                      {{ childlink.title | escape }}
-                    </a>
-                  {% endif %}
-                </li>
-              {% endfor %}
-            </ul>
-          {% else %}
-            <a href="{{ link.url }}" class="mobile-nav__link">
-              {{ link.title }}
-            </a>
-          {% endif %}
-        </li>
-        {% endunless %}
-      {% endfor %}
-      <li class="mobile-nav__item border-bottom">
-        <span class="mobile-nav__link">Shop by martial art</span>
-      </li>
-      <li class="mobile-nav__item border-bottom"><a href="/pages/mma" class="mobile-nav__link">MMA</a></li>
-      <li class="mobile-nav__item border-bottom"><a href="/pages/kickboxing" class="mobile-nav__link">KICKBOXING</a></li>
-      <li class="mobile-nav__item border-bottom"><a href="/pages/judo" class="mobile-nav__link">JUDO</a></li>
-      <li class="mobile-nav__item border-bottom"><a href="/pages/bjj" class="mobile-nav__link">BJJ</a></li>
-      <li class="mobile-nav__item border-bottom"><a href="/pages/karate" class="mobile-nav__link">KARATE</a></li>
+        <li class="mobile-nav__item border-bottom"><a href="/pages/mma" class="mobile-nav__link">MMA</a></li>
+        <li class="mobile-nav__item border-bottom"><a href="/pages/kickboxing" class="mobile-nav__link">KICKBOXING</a></li>
+        <li class="mobile-nav__item border-bottom"><a href="/pages/judo" class="mobile-nav__link">JUDO</a></li>
+        <li class="mobile-nav__item border-bottom"><a href="/pages/bjj" class="mobile-nav__link">BJJ</a></li>
+        <li class="mobile-nav__item border-bottom"><a href="/pages/karate" class="mobile-nav__link">KARATE</a></li>
+        <li class="mobile-nav__item border-bottom"><a href="/collections/all" class="mobile-nav__link">TRAINING GEAR</a></li>
       </ul>
     </nav>
     <header class="site-header logo--left{% unless template == 'index' %} header--page{% endunless %}" role="banner">
-    	<div class="headerTop">
-        	<div class="page-width">
+        <div class="headerTop">
+            <div class="page-width">
+              <p class="headerTop__tagline">Equipment for every kind of fighter.</p>
               <div class="menuToogle">
                 <button type="button" class="btn--link site-header__menu js-mobile-nav-toggle mobile-nav--open"> <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-hamburger" viewBox="0 0 37 40">
                   <path d="M33.5 25h-30c-1.1 0-2-.9-2-2s.9-2 2-2h30c1.1 0 2 .9 2 2s-.9 2-2 2zm0-11.5h-30c-1.1 0-2-.9-2-2s.9-2 2-2h30c1.1 0 2 .9 2 2s-.9 2-2 2zm0 23h-30c-1.1 0-2-.9-2-2s.9-2 2-2h30c1.1 0 2 .9 2 2s-.9 2-2 2z"/>
@@ -327,7 +247,7 @@
             	<li><span class="mailIc">{{ section.settings.contact_text }} 
                   <a href="mailto:{{ section.settings.contact_text_mail }}" title="{{ section.settings.contact_text_mail }}">{{ section.settings.contact_text_mail }}</a>
                   </span></li>
-                <li>
+                <li class="headerTop__utility">
                 	<button type="button" class="btn--link site-header__search-toggle js-drawer-open-top medium-up--hide"> <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-search" viewBox="0 0 37 40">
             <path d="M35.6 36l-9.8-9.8c4.1-5.4 3.6-13.2-1.3-18.1-5.4-5.4-14.2-5.4-19.7 0-5.4 5.4-5.4 14.2 0 19.7 2.6 2.6 6.1 4.1 9.8 4.1 3 0 5.9-1 8.3-2.8l9.8 9.8c.4.4.9.6 1.4.6s1-.2 1.4-.6c.9-.9.9-2.1.1-2.9zm-20.9-8.2c-2.6 0-5.1-1-7-2.9-3.9-3.9-3.9-10.1 0-14C9.6 9 12.2 8 14.7 8s5.1 1 7 2.9c3.9 3.9 3.9 10.1 0 14-1.9 1.9-4.4 2.9-7 2.9z"/>
             </svg> <span class="icon__fallback-text">Search</span> </button>
@@ -345,17 +265,10 @@
             		</div>
             	</li>
               {% if customer %}
-              <li><a href="/account" class="acntIc">My Account</a></li>
+              <li class="headerTop__utility"><a href="/account" class="acntIc">My Account</a></li>
               {% else %}
-              <li><a href="/account/login" class="acntIc">My Account</a></li>
+              <li class="headerTop__utility"><a href="/account/login" class="acntIc">My Account</a></li>
               {% endif %}
-                <li>
-                	<a href="/cart" class="site-header__cart"> 
-                      <img src="{{ 'cart-ic.png' | asset_url }}" alt=""> 
-                      <span class="cartCount">{{ cart.item_count }}</span> 
-                      <span class="visually-hidden">Cart</span> 
-                      <span class="icon__fallback-text">Cart</span> </a>
-                </li>
             </ul>
             
           </div>
@@ -387,6 +300,10 @@
                 <nav class="small--hide" id="AccessibleNav" role="navigation">
     {% include 'site-nav', nav_alignment: 'site-nav--centered' %}
               </nav>
+              <a href="/cart" class="header-cart" aria-label="Bag, {{ cart.item_count }} items">
+                <span>Bag</span>
+                <span class="header-cart__count">{{ cart.item_count }}</span>
+              </a>
             </div>
             </div>
         </div>

@@ -2405,6 +2405,81 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
 .curated-review__author { color:#171c24; font-size:12px; font-weight:750; text-align:center }
 .curated-review__product { color:#77808e; font-size:11px; text-align:center }
 
+@media only screen and (min-width:750px) {
+  .headerTop { height:36px; min-height:36px; padding:0; background:#111; color:#fff }
+  .headerTop .page-width {
+    display:flex;
+    width:100%;
+    max-width:1456px;
+    height:36px;
+    align-items:center;
+    justify-content:space-between;
+    margin:0 auto;
+    padding:0 32px;
+  }
+  .headerTop__tagline { margin:0; color:#fff; font-size:12px; font-weight:500 }
+  .headerTop .menuToogle,
+  .headerTop__utility { display:none !important }
+  .headerTop .site-header__icons-wrapper { width:auto; margin:0 }
+  .headerTop .site-header__icons-wrapper > ul { display:flex; align-items:center; margin:0; padding:0 }
+  .headerTop .site-header__icons-wrapper > ul li { margin:0; padding:0; border:0; line-height:1 }
+  .mailIc { padding:0; background:none; color:#fff; font-size:12px; font-weight:500 }
+  .mailIc a { margin-left:3px; color:#fff; font-weight:600 }
+
+  .headerBottom { border:0 }
+  .headerBottom > .page-width {
+    width:100%;
+    max-width:1270px;
+    min-height:151px;
+    margin:0 auto;
+    padding:0;
+  }
+  .headerBottom .headerLeft { flex:0 0 160px }
+  .headerBottom .site-header__logo img { width:160px; max-height:130px; object-fit:contain }
+  .headerBottom .headerRight {
+    display:flex;
+    flex:1 1 auto;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+    margin-left:70px;
+  }
+  .headerBottom #AccessibleNav { display:block }
+  .headerBottom .site-nav { justify-content:center; gap:clamp(18px, 2vw, 32px) }
+  .headerBottom .site-nav > li > a.site-nav__link--main { padding:14px 0; font-size:14px }
+  .header-cart {
+    display:inline-flex;
+    min-height:44px;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:0 15px;
+    border:1px solid #dedede;
+    border-radius:7px;
+    color:#111;
+    font-size:14px;
+    font-weight:700;
+    white-space:nowrap;
+  }
+  .header-cart:hover { border-color:#111; color:#111 }
+  .header-cart__count { font-variant-numeric:tabular-nums }
+
+  .martial-arts-hero { height:clamp(470px, calc(100vh - 187px), 680px); min-height:470px }
+  .martial-arts-hero__content.page-width {
+    width:100%;
+    max-width:1456px;
+    flex:0 0 100%;
+    margin:0 auto;
+    padding:0 50px;
+    text-align:left;
+  }
+  .martial-arts-hero__heading { max-width:540px; font-size:clamp(60px, 5.2vw, 84px) }
+  .martial-arts-hero__subheading { max-width:440px; font-size:17px; line-height:1.7 }
+  .martial-arts-hero__stamp { right:14%; transform:translateY(-50%) }
+  .martial-arts-hero__stamp b { transform:rotate(-10deg) }
+  .martial-arts-hero__stamp span { transform:rotate(-10deg) }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .martial-arts-hero__video { display:none }
   .site-nav a.site-nav__martial-link:hover::before,
@@ -2438,6 +2513,10 @@ select { border-radius:6px }
 }
 
 @media only screen and (max-width:749px) {
+  .headerTop__tagline { display:none }
+  .headerBottom .headerRight { display:flex; width:auto; align-items:center; justify-content:flex-end }
+  .header-cart { display:inline-flex; align-items:center; gap:5px; padding:8px 10px; border:1px solid #dedede; border-radius:6px; color:#111; font-size:12px; font-weight:700 }
+  .header-cart__count { font-variant-numeric:tabular-nums }
   .page-width { padding-left:18px; padding-right:18px }
   .headerTop .page-width { justify-content:space-between; padding-left:14px; padding-right:14px }
   .headerTop .menuToogle { display:inline-block !important; width:auto; margin:0 }

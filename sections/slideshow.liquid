@@ -29,8 +29,8 @@
         {% if section.settings.hero_subheading != blank %}
           <p class="martial-arts-hero__subheading">{{ section.settings.hero_subheading | escape }}</p>
         {% endif %}
-        {% if section.settings.hero_button_label != blank and section.settings.hero_button_link != blank %}
-          <a class="martial-arts-hero__button" href="{{ section.settings.hero_button_link }}">
+        {% if section.settings.hero_button_label != blank %}
+          <a class="martial-arts-hero__button" href="{{ section.settings.hero_button_link | default: routes.all_products_collection_url }}">
             {{ section.settings.hero_button_label | escape }}
           </a>
         {% endif %}
@@ -237,7 +237,7 @@
         "type": "textarea",
         "id": "hero_subheading",
         "label": "Hero description",
-        "default": "Training gear for the mat, the ring, and every discipline in between."
+        "default": "Find the fit that keeps you moving. Explore trusted training gear for the mat, the ring, and everywhere you put in the work."
       },
       {
         "type": "text",
