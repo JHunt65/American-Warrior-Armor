@@ -1,0 +1,73 @@
+{%- case page.handle -%}
+  {%- when 'mma' -%}
+    {%- assign martial_art_name = 'MMA' -%}
+    {%- assign martial_art_intro = 'Build a versatile kit for mixed martial arts training, from grappling rounds to striking work.' -%}
+    {%- assign gear_items = 'Rash guards~A close-fitting training layer for grappling and striking.|Fight shorts~Lightweight shorts made to move through every round.|MMA gloves~Open-finger gloves for mixed striking and grappling practice.|Boxing gloves~A useful option for dedicated striking sessions.|Hand wraps~Support for your hands and wrists under gloves.|Shin guards~Protection for drilling and sparring.|Mouthguard~A key piece of protection for contact training.|Groin protection~Protective support for training and sparring.' | split: '|' -%}
+  {%- when 'kickboxing' -%}
+    {%- assign martial_art_name = 'Kickboxing' -%}
+    {%- assign martial_art_intro = 'Find the clothing and protective essentials for pad work, technical drills, and sparring.' -%}
+    {%- assign gear_items = 'Athletic clothing or kickboxing shorts~Choose breathable training apparel or lightweight shorts for striking.|Boxing gloves~Gloves for bag work, pad rounds, and partner training.|Hand wraps~Support for hands and wrists beneath your gloves.|Shin guards~Protection for kicks, drills, and sparring.|Mouthguard~A key piece of protection for contact training.|Groin protection~Protective support for training and sparring.|Kick shields~A sturdy target for partner pad work and kick drills.' | split: '|' -%}
+  {%- when 'judo' -%}
+    {%- assign martial_art_name = 'Judo' -%}
+    {%- assign martial_art_intro = 'Get ready for throws, groundwork, and repeat practice with durable judo essentials.' -%}
+    {%- assign gear_items = 'Heavy-duty judogi~A durable uniform designed for gripping, throwing, and groundwork.|Rank belt~Complete your uniform with the belt for your current rank.|Training mats~A suitable mat surface supports safe throwing and practice.|Knee pads (optional)~Extra cushioning for groundwork and repeated drills.|Finger tape (optional)~A training staple for judoka who want extra finger support.' | split: '|' -%}
+  {%- when 'bjj' -%}
+    {%- assign martial_art_name = 'Brazilian Jiu-Jitsu (BJJ)' -%}
+    {%- assign martial_art_intro = 'Choose your gi or no-gi setup, then round it out with practical protection for training.' -%}
+    {%- assign gear_items = 'Gi and belt~A durable grappling uniform and belt for gi training.|Rash guard and grappling shorts~A flexible no-gi set for grappling rounds.|Mouthguard~A key piece of protection for contact training.|Knee pads (optional)~Extra cushioning for knees during drills and rolling.|Ear guards (optional)~Optional coverage for practitioners who prefer extra ear protection.' | split: '|' -%}
+  {%- when 'karate' -%}
+    {%- assign martial_art_name = 'Karate' -%}
+    {%- assign martial_art_intro = 'Get equipped for kata, kihon, and kumite with a training uniform and protective sparring essentials.' -%}
+    {%- assign gear_items = 'Karate gi~A lightweight uniform suited to your style and training.|Rank belt~Complete your uniform with the belt for your current rank.|Sparring gloves~Hand protection for kumite and partner drills.|Shin and foot guards~Protection for controlled sparring and practice.|Mouthguard~A key piece of protection for contact training.|Groin protection~Protective support for training and sparring.|Chest or body protector~Additional torso protection for sparring where required.|Head guard (optional)~Optional head protection for sparring where required.' | split: '|' -%}
+  {%- else -%}
+    {%- assign martial_art_name = page.title -%}
+    {%- assign martial_art_intro = page.content -%}
+    {%- assign gear_items = '' | split: '|' -%}
+{%- endcase -%}
+
+<main class="martial-art-page">
+  <header class="martial-art-page__hero">
+    <div class="page-width">
+      <p class="martial-art-page__eyebrow">Train your way · Every discipline</p>
+      <h1>{{ martial_art_name | escape }}</h1>
+      <p class="martial-art-page__intro">{{ martial_art_intro | escape }}</p>
+      <a class="martial-art-page__button" href="{{ routes.all_products_collection_url }}">Shop all gear</a>
+    </div>
+  </header>
+
+  <nav class="martial-art-page__nav page-width" aria-label="Shop by martial art">
+    <a href="/pages/mma"{% if page.handle == 'mma' %} aria-current="page"{% endif %}>MMA</a>
+    <a href="/pages/kickboxing"{% if page.handle == 'kickboxing' %} aria-current="page"{% endif %}>KICKBOXING</a>
+    <a href="/pages/judo"{% if page.handle == 'judo' %} aria-current="page"{% endif %}>JUDO</a>
+    <a href="/pages/bjj"{% if page.handle == 'bjj' %} aria-current="page"{% endif %}>BJJ</a>
+    <a href="/pages/karate"{% if page.handle == 'karate' %} aria-current="page"{% endif %}>KARATE</a>
+  </nav>
+
+  {% if gear_items.size > 0 %}
+    <section class="martial-art-page__gear page-width" aria-labelledby="martial-art-gear-heading">
+      <div class="martial-art-page__section-heading">
+        <p class="martial-art-page__eyebrow">Build your kit</p>
+        <h2 id="martial-art-gear-heading">Essential {{ martial_art_name | escape }} gear</h2>
+        <p>Start with the essentials for your discipline, then add the extras that fit your training.</p>
+      </div>
+      <ul class="martial-art-page__grid">
+        {% for gear_item in gear_items %}
+          {% assign gear_parts = gear_item | split: '~' %}
+          <li class="martial-art-page__card">
+            <span class="martial-art-page__number">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+            <h3>{{ gear_parts[0] | escape }}</h3>
+            <p>{{ gear_parts[1] | escape }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+      <p class="martial-art-page__note">Product availability varies. Browse the store to see currently available gear.</p>
+    </section>
+  {% endif %}
+</main>
+
+{% schema %}
+{
+  "name": "Martial art landing",
+  "settings": []
+}
+{% endschema %}

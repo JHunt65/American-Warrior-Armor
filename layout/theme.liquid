@@ -40,9 +40,7 @@
   
   <link rel="canonical" href="{{ canonical_url }}">
   
-  {% if settings.favicon != blank %}
-    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
-  {% endif %}
+  <link rel="icon" type="image/png" href="{{ 'american-warrior-armor-logo.png' | asset_url }}">
 
   {% capture seo_title %}
     {{ page_title }}

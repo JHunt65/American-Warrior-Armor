@@ -1964,3 +1964,562 @@ h1.product-single__title {font-size: 22px;margin-bottom: 10px;}
 {
 .col-page .grid__item--collection-template {width:100%}
 }
+
+/* Modern storefront refresh */
+:root {
+  --armor-ink: #111111;
+  --armor-muted: #666666;
+  --armor-coral: #e53935;
+  --armor-paper: #f7f7f7;
+  --armor-line: #e7e7e7;
+}
+
+html { scroll-behavior:smooth }
+body, input, textarea, button, select {
+  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+body { color:var(--armor-ink); background:#fff }
+a { transition:color .2s ease, background-color .2s ease, border-color .2s ease }
+.page-width { max-width:1440px; padding-left:32px; padding-right:32px }
+
+.announcement-bar,
+.announcement-bar--link:hover { background-color:var(--armor-coral) !important }
+.announcement-bar__message {
+  padding:10px 20px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.site-header { background:#fff; box-shadow:0 5px 22px rgba(17,24,39,.07); z-index:11 }
+.headerTop { height:auto; min-height:48px; padding:6px 0; background:var(--armor-ink); color:#fff; font-size:13px }
+.headerTop a { color:#fff }
+.headerTop a:hover { color:var(--armor-coral) }
+.headerTop ul li { line-height:34px; border-color:rgba(255,255,255,.16) }
+.headerTop .page-width { display:flex; justify-content:flex-end; align-items:center }
+.site-header__icons-wrapper { display:flex; align-items:center }
+.site-header__icons-wrapper > ul { display:flex; align-items:center; gap:20px }
+.site-header__icons-wrapper > ul li { border:0; padding:0; margin:0 }
+.mailIc { color:#d9deea; font-size:12px; font-weight:500 }
+.mailIc a { margin-left:5px; font-weight:600 }
+.search-header__input,
+.search-bar__input {
+  height:36px;
+  padding:8px 42px 8px 14px;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:6px;
+  background:rgba(255,255,255,.08);
+  font-size:13px;
+}
+.site-header .search-header__submit { right:5px; width:36px; height:36px }
+.site-header__cart { position:relative; display:flex; align-items:center; min-height:34px }
+.site-header__cart img { width:23px; height:auto; padding:0; filter:brightness(0) invert(1) }
+.cartCount { top:-5px; right:-12px; width:19px; height:19px; border:0; background:var(--armor-coral); color:#fff; font-size:11px; line-height:19px }
+.headerBottom { background:#fff; border-bottom:1px solid var(--armor-line) }
+.headerBottom > .page-width { display:flex; align-items:center; justify-content:space-between; min-height:92px }
+.headerLeft,
+.headerRight { display:block; width:auto; margin:0; text-align:initial }
+.site-header__logo { margin:0; padding:0; line-height:0 }
+.site-header__logo img { width:140px; height:auto; max-height:none; object-fit:contain }
+.header--page .headerBottom { background:#fff }
+.header--page .site-header__logo { margin:0; padding:0 }
+.header--page .headerBottom #SiteNav a { color:var(--armor-ink) }
+.site-nav { display:flex; align-items:center; gap:clamp(12px, 1.5vw, 22px); margin:0; padding:0 }
+.site-nav li { display:inline-block }
+.site-nav > li > a.site-nav__link--main {
+  padding:16px 10px;
+  font-size:15px;
+  font-weight:800;
+  letter-spacing:.05em;
+  white-space:nowrap;
+}
+.site-nav a,
+.header--page .headerBottom #SiteNav a {
+  position:relative;
+  z-index:0;
+  overflow:hidden;
+  padding:14px 13px;
+  border-radius:6px;
+  color:var(--armor-ink);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.07em;
+  transition:color .2s ease, background-color .2s ease;
+}
+.site-nav a:after,
+.template-index .site-nav a:after { display:none }
+.site-nav a.site-nav__martial-link::after,
+.template-index .site-nav a.site-nav__martial-link::after,
+.header--page .headerBottom #SiteNav a.site-nav__martial-link::after { display:block; width:60px; height:6px; background:var(--armor-coral) !important }
+.site-nav a:hover,
+.template-index .site-nav a:hover,
+.header--page .headerBottom #SiteNav a:hover {
+  color:var(--armor-coral) !important;
+  background:rgba(229,57,53,.08);
+}
+.site-nav__link .icon-chevron-down,
+.template-index .site-nav__link .icon-chevron-down { fill:currentColor }
+
+.template-index .main-content { padding-top:0 }
+.template-index .slideshow { height:clamp(350px, 41vw, 620px); margin:0 }
+.slideshow .slideshow__slide,
+.slideshow .slick-list,
+.slideshow .slick-track { height:100% }
+.slideshow__image { background-position:center center !important }
+.slideshow__overlay::before { background:linear-gradient(90deg, rgba(17,24,39,.32), transparent 75%); opacity:1 }
+.slideshow__text-content { text-align:left }
+.slideshow__text-content .page-width { max-width:1440px }
+.slideshow__title {
+  max-width:760px;
+  margin:0 0 14px;
+  font-size:clamp(34px, 5vw, 68px);
+  font-weight:800;
+  letter-spacing:-.04em;
+  line-height:1.03;
+  text-shadow:0 3px 20px rgba(0,0,0,.24);
+}
+.slideshow__subtitle {
+  display:block;
+  max-width:560px;
+  font-size:clamp(16px, 1.7vw, 21px);
+  line-height:1.55;
+  text-shadow:0 2px 12px rgba(0,0,0,.4);
+}
+.slideshow .slick-dots { display:block !important; bottom:18px; z-index:4 }
+.slideshow .slick-dots li button:before { font-size:9px; opacity:.5 }
+.slideshow .slick-dots li.slick-active button:before { opacity:1 }
+.slideshow .slick-prev.slick-arrow,
+.slideshow .slick-next.slick-arrow { z-index:4; opacity:.8 }
+
+.index-section { padding-top:56px; padding-bottom:56px }
+.index-section.product-slider { padding:64px 0 72px }
+.index-section.product-slider:nth-of-type(even) { background:var(--armor-paper) }
+.index-section .section-header { margin-bottom:28px }
+.secTitle { margin-bottom:0; color:var(--armor-ink); font-size:clamp(28px, 3vw, 38px); font-weight:750; letter-spacing:-.035em }
+.product-slider .grid--view-items { display:flex; flex-wrap:wrap; row-gap:24px }
+.product-slider .grid-view-item,
+#Collection .grid-view-item {
+  height:100%;
+  padding:14px;
+  overflow:hidden;
+  border:1px solid var(--armor-line);
+  border-radius:12px;
+  background:#fff;
+  box-shadow:0 4px 16px rgba(17,24,39,.035);
+  text-align:left;
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.product-slider .grid-view-item:hover,
+#Collection .grid-view-item:hover {
+  transform:translateY(-4px);
+  border-color:#d5d9e0;
+  box-shadow:0 14px 28px rgba(17,24,39,.09);
+}
+.grid-view-item__image-wrapper { margin-bottom:16px; overflow:hidden; border-radius:8px; background:#f6f7f9 }
+.grid-view-item__image-wrapper .grid-view-item__image { transition:transform .35s ease }
+.grid-view-item:hover .grid-view-item__image { transform:scale(1.035) }
+.aboutSec .aboutRight img { width:140px; max-width:100%; height:auto; margin:0 auto 24px }
+.password-header .site-header__logo-image img { width:220px; max-width:80vw; height:auto }
+.grid-view-item__title {
+  height:auto;
+  min-height:42px;
+  margin:0;
+  overflow:visible;
+  color:var(--armor-ink);
+  font-family:inherit;
+  font-size:15px;
+  font-weight:650;
+  line-height:1.4;
+}
+.grid-view-item__meta { margin-top:10px }
+.product-price__price { color:var(--armor-ink); font-weight:700 }
+.product-price__sale { color:var(--armor-coral) }
+.btn,
+.shopBtn,
+.moreBtn,
+.article--listing .btn.btn--small,
+.return-link-wrapper a {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:46px;
+  padding:12px 22px;
+  border:0;
+  border-radius:6px;
+  background:var(--armor-ink);
+  color:#fff;
+  font-size:12px;
+  font-weight:750;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  transition:transform .2s ease, background-color .2s ease;
+}
+.btn:hover,
+.shopBtn:hover,
+.moreBtn:hover,
+.article--listing .btn.btn--small:hover,
+.return-link-wrapper a:hover { transform:translateY(-2px); background:var(--armor-coral); color:#fff }
+
+.cateSec { padding:24px 0 8px }
+.cateSec ul { display:flex; gap:24px; margin:0; }
+.cateSec ul li { flex:1 1 0; width:auto; margin:0; padding:0 }
+.cateSec .cateBox { overflow:hidden; border-radius:14px; background:var(--armor-ink) }
+.cateSec .cateBox img { width:100%; transition:transform .4s ease; }
+.cateSec .cateBox:hover img { transform:scale(1.035) }
+.cateSec .cateBox .cateDtl { display:flex; flex-direction:column; align-items:flex-start; justify-content:space-between; padding:clamp(20px, 3vw, 42px) }
+.cateSec .cateBox .cateDtl .cateTitle { font-size:clamp(26px, 3vw, 42px); line-height:1.05; letter-spacing:-.03em }
+.cateSec .cateBox .cateDtl .shopBtn { position:static; margin-top:24px }
+
+.aboutSec { margin:56px 0; padding:24px 0; border-radius:14px; background-color:var(--armor-paper); color:var(--armor-muted) }
+.aboutSec .aboutLeft { padding-top:40px; padding-bottom:40px }
+.aboutSec .secTitle { margin-bottom:18px }
+.aboutSec .aboutLeft p { line-height:1.75 }
+.aboutSec .aboutRight img { border-radius:12px }
+.moreBtn { margin-top:8px }
+.site-footer { padding-top:0; background:var(--armor-ink); color:#e5e7eb }
+.site-footer p { color:#aeb7c6 }
+.site-footer a { color:#d5dbe5 }
+.site-footer a:hover { color:var(--armor-coral) }
+.footerTop { padding:58px 0 20px; background:none }
+.footerCols { display:flex; flex-wrap:wrap; gap:28px 20px; margin:0 }
+.footerCol,
+.footerCol:nth-child(2),
+.footerCol:nth-child(4),
+.footerCol:last-child { flex:1 1 175px; width:auto; margin:0; padding:0 }
+.footerCol:last-child { flex-basis:260px }
+.site-footer__menu h4 { border-color:rgba(255,255,255,.14); font-size:15px; font-weight:750; letter-spacing:.04em }
+.site-footer__menu .site-footer__linklist { line-height:2 }
+.site-footer__linklist-item { padding:0 }
+.contactInfo { padding:5px 0 24px }
+.site-footer__newsletter p { font-size:14px; line-height:1.6 }
+.site-footer__newsletter .input-group__field { border-radius:6px; background:#fff; color:var(--armor-ink) }
+.site-footer__newsletter .input-group__btn .btn { border-radius:6px; background:var(--armor-coral); font-size:12px; line-height:46px }
+.ftrTxt { border-color:rgba(255,255,255,.14); color:#aeb7c6; font-size:14px; line-height:1.7 }
+.footerBottom { padding:18px 0; background:#0b101a; font-size:12px }
+.footerBottom .ftrbtmLeft { width:60% }
+.footerBottom .ftrbtmRight { width:40% }
+
+.site-nav__discipline-wrap { display:flex; align-items:center; margin:0; padding:10px 0; list-style:none }
+.site-nav__disciplines { position:relative; z-index:1; display:flex; align-items:center; gap:clamp(16px, 2vw, 28px); margin:0; padding:0; list-style:none }
+.site-nav__disciplines .site-nav__link { padding:16px 4px; font-size:15px; font-weight:800; letter-spacing:.05em; white-space:nowrap }
+.site-nav__disciplines .site-nav__link:hover { color:var(--armor-coral) }
+.site-nav a.site-nav__martial-link { overflow:visible }
+.site-nav a.site-nav__martial-link::before,
+.site-nav a.site-nav__martial-link::after {
+  position:absolute;
+  top:50%;
+  left:50%;
+  z-index:2;
+  display:block;
+  width:60px;
+  height:6px;
+  transform:translate(-50%, -50%) rotate(var(--martial-x-angle)) scaleX(0);
+  border-radius:3px;
+  background:var(--armor-coral);
+  content:"";
+  opacity:0;
+  pointer-events:none;
+}
+.site-nav a.site-nav__martial-link::before { --martial-x-angle:45deg }
+.site-nav a.site-nav__martial-link::after { --martial-x-angle:-45deg }
+.site-nav a.site-nav__martial-link:hover,
+.site-nav a.site-nav__martial-link:focus-visible { color:var(--armor-coral) !important }
+.site-nav a.site-nav__martial-link:hover::before,
+.site-nav a.site-nav__martial-link:hover::after,
+.site-nav a.site-nav__martial-link:focus-visible::before,
+.site-nav a.site-nav__martial-link:focus-visible::after { animation:martial-x-slam .38s cubic-bezier(.2, 1.7, .45, 1) forwards }
+@keyframes martial-x-slam {
+  0% { transform:translate(-50%, -50%) rotate(var(--martial-x-angle)) scaleX(0); opacity:0 }
+  65% { transform:translate(-50%, -50%) rotate(var(--martial-x-angle)) scaleX(1.12); opacity:1 }
+  100% { transform:translate(-50%, -50%) rotate(var(--martial-x-angle)) scaleX(1); opacity:1 }
+}
+
+.martial-arts-hero {
+  position:relative;
+  display:flex;
+  min-height:clamp(420px, 48vw, 680px);
+  align-items:center;
+  overflow:hidden;
+  background:#111;
+  color:#fff;
+}
+.martial-arts-hero::after {
+  position:absolute;
+  top:50%;
+  right:7%;
+  width:clamp(340px, 38vw, 490px);
+  aspect-ratio:1;
+  transform:translateY(-50%);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:50%;
+  box-shadow:0 0 0 34px rgba(255,255,255,.03), 0 0 0 80px rgba(255,255,255,.02);
+  content:"";
+  pointer-events:none;
+}
+.martial-arts-hero__video,
+.martial-arts-hero__overlay {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+.martial-arts-hero__video { object-fit:cover; object-position:center 44% }
+.martial-arts-hero__overlay {
+  background:linear-gradient(90deg, rgba(0,0,0,.78) 0%, rgba(0,0,0,.52) 43%, rgba(0,0,0,.12) 100%), linear-gradient(0deg, rgba(0,0,0,.2), transparent 55%);
+}
+.martial-arts-hero__content { position:relative; z-index:2; padding-top:72px; padding-bottom:72px }
+.martial-arts-hero__stamp {
+  position:absolute;
+  z-index:2;
+  top:50%;
+  right:15%;
+  display:grid;
+  width:235px;
+  height:235px;
+  place-content:center;
+  transform:translateY(-50%) rotate(-10deg);
+  border:2px solid var(--armor-coral);
+  border-radius:50%;
+  color:#fff;
+  text-align:center;
+  pointer-events:none;
+}
+.martial-arts-hero__stamp b { color:#ff625c; font-size:66px; line-height:.9; letter-spacing:-.08em }
+.martial-arts-hero__stamp span { margin-top:13px; font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase }
+.martial-arts-hero__eyebrow { margin:0 0 16px; color:#ff7770; font-size:12px; font-weight:750; letter-spacing:.2em; text-transform:uppercase }
+.martial-arts-hero__heading {
+  max-width:780px;
+  margin:0 0 18px;
+  color:#fff;
+  font-size:clamp(48px, 7vw, 92px);
+  font-weight:850;
+  letter-spacing:-.06em;
+  line-height:.98;
+  text-transform:uppercase;
+}
+.martial-arts-hero__subheading { max-width:560px; margin:0 0 28px; color:#f0f0f0; font-size:clamp(16px, 1.8vw, 20px); line-height:1.65 }
+.martial-arts-hero__button {
+  display:inline-flex;
+  min-height:48px;
+  align-items:center;
+  justify-content:center;
+  padding:13px 24px;
+  border-radius:6px;
+  background:var(--armor-coral);
+  color:#fff;
+  font-size:12px;
+  font-weight:750;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.martial-arts-hero__button:hover { transform:translateY(-2px); background:#c92e2b; color:#fff }
+.martial-arts-hero__toggle {
+  position:absolute;
+  z-index:2;
+  right:28px;
+  bottom:24px;
+  min-height:40px;
+  padding:9px 14px;
+  border:1px solid rgba(255,255,255,.5);
+  border-radius:5px;
+  background:rgba(0,0,0,.45);
+  color:#fff;
+  cursor:pointer;
+  font-size:11px;
+  font-weight:700;
+}
+.martial-arts-hero__toggle:hover { background:rgba(0,0,0,.75) }
+
+.martial-art-page { background:#fff; color:var(--armor-ink) }
+.martial-art-page__hero {
+  padding:clamp(76px, 10vw, 132px) 0 clamp(68px, 8vw, 108px);
+  background:radial-gradient(circle at 78% 48%, rgba(229,57,53,.12), transparent 24%), linear-gradient(120deg, #111722 0%, #202a39 100%);
+  color:#fff;
+}
+.martial-art-page__eyebrow { margin:0 0 16px; color:var(--armor-coral); font-size:12px; font-weight:750; letter-spacing:.18em; text-transform:uppercase }
+.martial-art-page__hero h1 { margin:0 0 20px; color:#fff; font-size:clamp(48px, 8vw, 88px); font-weight:850; letter-spacing:-.06em; line-height:.98; text-transform:uppercase }
+.martial-art-page__intro { max-width:650px; margin:0 0 28px; color:#d5dbe5; font-size:clamp(17px, 2vw, 20px); line-height:1.7 }
+.martial-art-page__button {
+  display:inline-flex;
+  min-height:48px;
+  align-items:center;
+  justify-content:center;
+  padding:13px 24px;
+  border-radius:6px;
+  background:var(--armor-coral);
+  color:#fff;
+  font-size:12px;
+  font-weight:750;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.martial-art-page__button:hover { background:#c92e2b; color:#fff }
+.martial-art-page__nav { display:flex; flex-wrap:wrap; gap:10px; padding-top:24px; padding-bottom:24px; border-bottom:1px solid #e5e7eb }
+.martial-art-page__nav a { padding:10px 16px; border:1px solid #d8dde5; border-radius:999px; color:var(--armor-ink); font-size:12px; font-weight:750 }
+.martial-art-page__nav a:hover,
+.martial-art-page__nav a[aria-current="page"] { border-color:var(--armor-coral); background:var(--armor-coral); color:#fff }
+.martial-art-page__gear { padding-top:clamp(48px, 7vw, 88px); padding-bottom:clamp(56px, 8vw, 100px) }
+.martial-art-page__section-heading { max-width:700px; margin-bottom:32px }
+.martial-art-page__section-heading h2 { margin:0 0 12px; font-size:clamp(30px, 4vw, 46px); font-weight:800; letter-spacing:-.04em; line-height:1.08 }
+.martial-art-page__section-heading > p:last-child { color:#5e6877; font-size:16px; line-height:1.65 }
+.martial-art-page__grid { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:16px; margin:0; padding:0; list-style:none }
+.martial-art-page__card { min-height:190px; padding:24px; border:1px solid #e5e7eb; border-radius:12px; background:#fff; box-shadow:0 8px 28px rgba(17,24,39,.045) }
+.martial-art-page__number { display:inline-flex; width:30px; height:30px; align-items:center; justify-content:center; margin-bottom:18px; border-radius:50%; background:#fff0ef; color:var(--armor-coral); font-size:11px; font-weight:800 }
+.martial-art-page__card h3 { margin:0 0 10px; font-size:18px; font-weight:800; line-height:1.25 }
+.martial-art-page__card p { margin:0; color:#5e6877; font-size:14px; line-height:1.65 }
+.martial-art-page__note { margin:22px 0 0; color:#687385; font-size:13px }
+
+.curated-reviews {
+  padding:42px 24px 40px;
+  border-bottom:1px solid #e5e7eb;
+  background:#fbfbfb;
+}
+.curated-reviews__inner {
+  max-width:1440px;
+  margin:0 auto;
+}
+.curated-reviews__heading { margin-bottom:44px; text-align:center }
+.curated-reviews__eyebrow { margin:0 0 8px; color:var(--armor-coral); font-size:12px; font-weight:750; letter-spacing:.2em; text-transform:uppercase }
+.curated-reviews__heading h2 { margin:0; color:var(--armor-ink); font-size:clamp(26px, 3vw, 38px); font-weight:800; letter-spacing:-.04em; line-height:1.1 }
+.curated-reviews__viewport { position:relative; overflow-x:auto; overscroll-behavior-x:contain; scroll-behavior:smooth; scroll-snap-type:x mandatory; scrollbar-width:none }
+.curated-reviews__viewport::-webkit-scrollbar { display:none }
+.curated-reviews__track { display:flex; gap:12px; align-items:stretch }
+.curated-review {
+  display:flex;
+  flex:0 0 calc((100% - 72px) / 7);
+  min-width:0;
+  min-height:140px;
+  flex-direction:column;
+  padding:12px;
+  border:1px solid #e5e7eb;
+  border-radius:9px;
+  background:#fff;
+  text-align:center;
+  scroll-snap-align:start;
+}
+.curated-review__stars { margin-bottom:10px; color:var(--armor-coral); font-size:13px; letter-spacing:.08em; white-space:nowrap }
+.curated-review__stars--placeholder { color:var(--armor-coral) }
+.curated-review__text,
+.curated-review__empty { margin:auto 0; color:#4b5563; font-size:12px; line-height:1.5; overflow-wrap:anywhere; text-align:center }
+.curated-review__empty { color:#8a929e; font-style:italic }
+.curated-review__byline { display:grid; gap:3px; margin-top:0; padding-top:10px; border-top:1px solid #f0f1f3 }
+.curated-review__author { color:#171c24; font-size:12px; font-weight:750; text-align:center }
+.curated-review__product { color:#77808e; font-size:11px; text-align:center }
+
+@media (prefers-reduced-motion: reduce) {
+  .martial-arts-hero__video { display:none }
+  .site-nav a.site-nav__martial-link:hover::before,
+  .site-nav a.site-nav__martial-link:hover::after,
+  .site-nav a.site-nav__martial-link:focus-visible::before,
+  .site-nav a.site-nav__martial-link:focus-visible::after { animation:none; transform:translate(-50%, -50%) rotate(var(--martial-x-angle)); opacity:1 }
+}
+
+input:not([type="checkbox"]):not([type="radio"]),
+textarea,
+select { border-radius:6px }
+:focus-visible { outline:3px solid rgba(229,57,53,.6); outline-offset:3px }
+
+@media only screen and (max-width:991px) {
+  .page-width { padding-left:24px; padding-right:24px }
+  .headerBottom > .page-width { min-height:78px }
+  .site-header__logo img { width:116px }
+  .site-nav { gap:8px }
+  .site-nav a { padding:12px 9px; font-size:13px }
+  .site-nav > li > a.site-nav__link--main,
+  .site-nav__disciplines .site-nav__link { padding:12px 8px; font-size:13px }
+  .site-nav__disciplines { gap:14px }
+  .curated-review { flex-basis:calc((100% - 48px) / 5) }
+  .index-section.product-slider { padding:48px 0 56px }
+  .aboutSec .aboutLeft { width:65%; padding:30px 24px 30px 0 }
+  .aboutSec .aboutRight { width:35%; margin:0 }
+}
+
+@media only screen and (max-width:749px) {
+  .page-width { padding-left:18px; padding-right:18px }
+  .headerTop .page-width { justify-content:space-between; padding-left:14px; padding-right:14px }
+  .headerTop .menuToogle { display:inline-block !important; width:auto; margin:0 }
+  .headerBottom .headerLeft { width:auto; text-align:left }
+  .headerBottom .headerRight,
+  .headerBottom .menuToogle { display:none }
+  .headerBottom .site-header__logo { width:auto }
+  .headerTop .site-header__icons-wrapper > ul { gap:14px }
+  .headerTop .site-header__icons-wrapper > ul li:nth-child(2) { display:none }
+  .headerBottom > .page-width { min-height:70px }
+  .site-header__logo img { width:104px }
+  .template-index .slideshow { height:clamp(290px, 72vw, 430px) }
+  .martial-arts-hero { min-height:430px }
+  .martial-arts-hero__video { object-position:58% center }
+  .martial-arts-hero__overlay { background:linear-gradient(90deg, rgba(0,0,0,.72), rgba(0,0,0,.3)), linear-gradient(0deg, rgba(0,0,0,.25), transparent 50%) }
+  .martial-arts-hero__content { padding-top:56px; padding-bottom:72px }
+  .martial-arts-hero__heading { font-size:clamp(42px, 10vw, 62px) }
+  .martial-arts-hero__subheading { max-width:440px; font-size:16px }
+  .martial-arts-hero__stamp { right:-85px; opacity:.25 }
+  .martial-arts-hero__toggle { right:16px; bottom:16px }
+  .martial-art-page__grid { grid-template-columns:repeat(2, minmax(0, 1fr)) }
+  .curated-reviews { padding:36px 18px 34px }
+  .curated-reviews__heading { margin-bottom:32px }
+  .curated-reviews__track { gap:10px }
+  .curated-review { flex-basis:calc((100% - 20px) / 3); min-height:130px; padding:12px 10px }
+  .slideshow__overlay::before { background:linear-gradient(90deg, rgba(17,24,39,.4), rgba(17,24,39,.04)) }
+  .slideshow__text-content { padding:0 24px }
+  .slideshow .slick-prev.slick-arrow { left:8px }
+  .slideshow .slick-next.slick-arrow { right:8px }
+  .index-section { padding-top:40px; padding-bottom:40px }
+  .index-section.product-slider { padding:42px 0 48px }
+  .product-slider .grid--view-items { row-gap:16px }
+  .product-slider .grid-view-item,
+  #Collection .grid-view-item { padding:9px; border-radius:9px }
+  .grid-view-item__title { font-size:13px }
+  .cateSec ul { gap:14px }
+  .cateSec .cateBox .cateDtl { padding:18px }
+  .cateSec .cateBox .cateDtl .cateTitle { font-size:clamp(21px, 5vw, 32px) }
+  .cateSec .cateBox .cateDtl .shopBtn { min-height:38px; margin-top:16px; padding:9px 14px; font-size:10px }
+  .aboutSec { margin:38px 0; padding:18px 0 }
+  .aboutSec .aboutLeft { width:100%; padding:18px 0 24px }
+  .aboutSec .aboutRight { display:none }
+  .footerTop { padding:40px 0 16px }
+  .footerCol,
+  .footerCol:nth-child(2),
+  .footerCol:nth-child(4),
+  .footerCol:last-child { flex-basis:calc(50% - 10px) }
+}
+
+@media only screen and (max-width:480px) {
+  .curated-review { flex-basis:calc((100% - 10px) / 2) }
+  .martial-art-page__grid { grid-template-columns:1fr }
+  .martial-art-page__card { min-height:0 }
+}
+
+@media only screen and (max-width:479px) {
+  .announcement-bar__message { font-size:10px; letter-spacing:.04em }
+  .headerTop { min-height:42px; padding:4px 0 }
+  .headerTop .site-header__icons-wrapper > ul { gap:12px }
+  .headerTop ul li { line-height:30px }
+  .headerBottom > .page-width { min-height:62px }
+  .headerBottom .headerLeft { width:70%; text-align:left }
+  .headerBottom .headerRight { width:30%; display:block; text-align:right }
+  .headerBottom .headerLeft .menuToogle { display:none }
+  .headerBottom .site-header__logo { width:auto; text-align:left }
+  .headerBottom .site-header__logo img { margin:0; width:94px }
+  .headerTop .menuToogle { width:auto; margin:0 }
+  .menuToogle .site-header__menu { color:#fff }
+  .site-header .icon-hamburger,
+  .site-header .icon-close { fill:#fff }
+  .site-header__cart img { width:21px }
+  .template-index .slideshow { height:290px }
+  .slideshow__text-content { padding:0 28px }
+  .slideshow__title { font-size:32px }
+  .slideshow__subtitle { font-size:15px }
+  .cateSec ul { display:block }
+  .cateSec ul li { margin-bottom:14px }
+  .cateSec .cateBox .cateDtl .cateTitle { font-size:28px }
+  .footerCol,
+  .footerCol:nth-child(2),
+  .footerCol:nth-child(4),
+  .footerCol:last-child { flex-basis:100% }
+  .footerBottom .ftrbtmLeft,
+  .footerBottom .ftrbtmRight { width:100%; text-align:left }
+  .footerBottom .ftrbtmRight { padding-top:14px }
+  .footerBottom .ftrbtmRight img { margin:0 }
+}

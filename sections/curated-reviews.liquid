@@ -1,0 +1,217 @@
+<section class="curated-reviews" id="CuratedReviews-{{ section.id }}" aria-labelledby="CuratedReviewsHeading-{{ section.id }}">
+  <div class="curated-reviews__inner">
+    <div class="curated-reviews__heading">
+      {% if section.settings.eyebrow != blank %}
+        <p class="curated-reviews__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {% endif %}
+      <h2 id="CuratedReviewsHeading-{{ section.id }}">{{ section.settings.title | escape }}</h2>
+    </div>
+
+    <div class="curated-reviews__viewport" data-review-viewport tabindex="0" aria-label="Customer reviews" aria-live="off">
+      <div class="curated-reviews__track" data-review-track>
+        {% for block in section.blocks %}
+          <article class="curated-review" {{ block.shopify_attributes }}>
+            {% if block.settings.rating > 0 %}
+              <div class="curated-review__stars" role="img" aria-label="{{ block.settings.rating }} out of 5 stars">
+                {% for star in (1..5) %}
+                  <span aria-hidden="true">{% if star <= block.settings.rating %}&#9733;{% else %}&#9734;{% endif %}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+              <div class="curated-review__stars curated-review__stars--placeholder" aria-hidden="true">
+                {% for star in (1..5) %}<span>&#9733;</span>{% endfor %}
+              </div>
+            {% endif %}
+            {% if block.settings.review != blank %}
+              <p class="curated-review__text">{{ block.settings.review | escape }}</p>
+            {% else %}
+              <p class="curated-review__empty">Add a selected review in the theme editor.</p>
+            {% endif %}
+            <div class="curated-review__byline">
+              {% if block.settings.author != blank %}
+                <span class="curated-review__author">{{ block.settings.author | escape }}</span>
+              {% endif %}
+              {% if block.settings.product != blank %}
+                <span class="curated-review__product">{{ block.settings.product | escape }}</span>
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  (function() {
+    var section = document.getElementById('CuratedReviews-{{ section.id }}');
+    if (!section || section.dataset.reviewCarouselReady) return;
+    section.dataset.reviewCarouselReady = 'true';
+
+    var viewport = section.querySelector('[data-review-viewport]');
+    var track = section.querySelector('[data-review-track]');
+    var cards = track ? Array.prototype.slice.call(track.children) : [];
+    var timer = null;
+    var resumeTimer = null;
+    var paused = false;
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function getCurrentIndex() {
+      var nearest = 0;
+      var distance = Infinity;
+      cards.forEach(function(card, index) {
+        var nextDistance = Math.abs(card.offsetLeft - viewport.scrollLeft);
+        if (nextDistance < distance) {
+          nearest = index;
+          distance = nextDistance;
+        }
+      });
+      return nearest;
+    }
+
+    function getMaxIndex() {
+      if (!viewport || !track || !cards.length) return 0;
+      var gap = parseFloat(getComputedStyle(track).gap) || 0;
+      var step = cards[0].offsetWidth + gap;
+      var visibleCount = Math.floor((viewport.clientWidth + gap) / step);
+      return Math.max(0, cards.length - visibleCount);
+    }
+
+    function stopTimer() {
+      window.clearTimeout(timer);
+      timer = null;
+    }
+
+    function scheduleNext() {
+      stopTimer();
+      if (paused || reducedMotion || cards.length < 2) return;
+
+      timer = window.setTimeout(function() {
+        var currentIndex = getCurrentIndex();
+        if (currentIndex >= getMaxIndex()) {
+          viewport.style.scrollBehavior = 'auto';
+          viewport.scrollLeft = 0;
+          viewport.style.scrollBehavior = '';
+          scheduleNext();
+          return;
+        }
+        var nextIndex = currentIndex + 1;
+        viewport.scrollTo({ left: cards[nextIndex].offsetLeft, behavior: 'smooth' });
+        scheduleNext();
+      }, 3500);
+    }
+
+    function pause() {
+      paused = true;
+      stopTimer();
+      window.clearTimeout(resumeTimer);
+      if (viewport) {
+        viewport.style.scrollBehavior = 'auto';
+        viewport.scrollLeft = viewport.scrollLeft;
+        viewport.style.scrollBehavior = '';
+      }
+    }
+
+    function resume() {
+      paused = false;
+      scheduleNext();
+    }
+
+    if (viewport && cards.length) {
+      viewport.addEventListener('mouseenter', pause);
+      viewport.addEventListener('mouseleave', resume);
+      viewport.addEventListener('focusin', pause);
+      viewport.addEventListener('focusout', function(event) {
+        if (!viewport.contains(event.relatedTarget)) resume();
+      });
+      viewport.addEventListener('touchstart', pause, { passive: true });
+      viewport.addEventListener('touchend', function() {
+        window.clearTimeout(resumeTimer);
+        resumeTimer = window.setTimeout(resume, 2500);
+      }, { passive: true });
+      viewport.addEventListener('touchcancel', function() {
+        window.clearTimeout(resumeTimer);
+        resumeTimer = window.setTimeout(resume, 2500);
+      }, { passive: true });
+      viewport.addEventListener('scroll', function() {
+        if (!paused) scheduleNext();
+      }, { passive: true });
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) stopTimer();
+        else scheduleNext();
+      });
+      scheduleNext();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Curated reviews",
+  "class": "index-section",
+  "max_blocks": 21,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Customer voices"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Reviews from the training community"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "review",
+          "label": "Review excerpt",
+          "info": "Choose a review and add a brief excerpt. Use the full reviews page for longer reviews."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Reviewer name"
+        },
+        {
+          "type": "text",
+          "id": "product",
+          "label": "Product or training gear"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star rating",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 0
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Curated reviews",
+      "category": "Text",
+      "blocks": [
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" },
+        { "type": "review" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,5 +1,88 @@
 <div data-section-id="{{ section.id }}" data-section-type="slideshow-section">
 
+  {% unless section.settings.show_legacy_slideshow %}
+    <section class="martial-arts-hero" aria-label="{{ section.settings.hero_heading | default: shop.name | escape }}">
+      {%- if section.settings.hero_video != blank and section.settings.hero_video_poster != blank -%}
+        {%- assign hero_video_poster = section.settings.hero_video_poster | image_url: width: 2000 -%}
+      {%- elsif section.settings.hero_video != blank -%}
+        {%- assign hero_video_poster = section.settings.hero_video.preview_image | image_url: width: 2000 -%}
+      {%- else -%}
+        {%- assign hero_video_poster = 'banner01.jpg' | asset_url -%}
+      {%- endif -%}
+      <video class="martial-arts-hero__video" autoplay muted loop playsinline preload="metadata" poster="{{ hero_video_poster | escape }}" aria-hidden="true">
+        {% if section.settings.hero_video != blank %}
+          {% for source in section.settings.hero_video.sources %}
+            <source src="{{ source.url }}" type="{{ source.mime_type }}">
+          {% endfor %}
+        {% else %}
+          <source src="{{ 'american-warrior-hero.mp4' | asset_url }}" type="video/mp4">
+        {% endif %}
+      </video>
+      <div class="martial-arts-hero__overlay"></div>
+      <div class="martial-arts-hero__content page-width">
+        {% if section.settings.hero_eyebrow != blank %}
+          <p class="martial-arts-hero__eyebrow">{{ section.settings.hero_eyebrow | escape }}</p>
+        {% endif %}
+        {% if section.settings.hero_heading != blank %}
+          <h1 class="martial-arts-hero__heading">{{ section.settings.hero_heading | escape }}</h1>
+        {% endif %}
+        {% if section.settings.hero_subheading != blank %}
+          <p class="martial-arts-hero__subheading">{{ section.settings.hero_subheading | escape }}</p>
+        {% endif %}
+        {% if section.settings.hero_button_label != blank and section.settings.hero_button_link != blank %}
+          <a class="martial-arts-hero__button" href="{{ section.settings.hero_button_link }}">
+            {{ section.settings.hero_button_label | escape }}
+          </a>
+        {% endif %}
+      </div>
+      <div class="martial-arts-hero__stamp" aria-hidden="true">
+        <b>01</b>
+        <span>Train your way<br>Every discipline</span>
+      </div>
+      <button class="martial-arts-hero__toggle" type="button" aria-label="Pause background video" aria-pressed="false" data-video-toggle>
+        <span aria-hidden="true" data-video-toggle-label>Pause video</span>
+      </button>
+    </section>
+    <script>
+      (function () {
+        var section = document.querySelector('[data-section-id="{{ section.id }}"]');
+        if (!section) return;
+
+        var video = section.querySelector('.martial-arts-hero__video');
+        var toggle = section.querySelector('[data-video-toggle]');
+        var label = section.querySelector('[data-video-toggle-label]');
+        if (!video || !toggle || !label) return;
+
+        function updateToggle(isPlaying) {
+          toggle.setAttribute('aria-label', isPlaying ? 'Pause background video' : 'Play background video');
+          toggle.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
+          label.textContent = isPlaying ? 'Pause video' : 'Play video';
+        }
+
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          video.pause();
+          updateToggle(false);
+        }
+
+        toggle.addEventListener('click', function () {
+          if (video.paused) {
+            video.play().then(function () {
+              updateToggle(true);
+            }).catch(function () {
+              updateToggle(false);
+              label.textContent = 'Video unavailable';
+            });
+          } else {
+            video.pause();
+            updateToggle(false);
+          }
+        });
+
+        video.addEventListener('play', function () { updateToggle(true); });
+        video.addEventListener('pause', function () { updateToggle(false); });
+      })();
+    </script>
+  {% else %}
   {% if section.blocks.size > 0 %}
     <div class="slideshow-wrapper">
       <button type="button" class="visually-hidden slideshow__pause" data-id="{{ section.id }}" aria-live="polite">
@@ -112,6 +195,7 @@
       {{ 'homepage.onboarding.no_content' | t }}
     </div>
   {% endif %}
+  {% endunless %}
 </div>
 
 {% schema %}
@@ -120,6 +204,52 @@
     "class": "index-section index-section--flush",
     "max_blocks": 4,
     "settings": [
+      {
+        "type": "video",
+        "id": "hero_video",
+        "label": "Hero background video",
+        "info": "Upload a short landscape training clip to Shopify Files, then select it here. It will autoplay muted and loop; visitors can pause it."
+      },
+      {
+        "type": "checkbox",
+        "id": "show_legacy_slideshow",
+        "label": "Show image slideshow instead of video",
+        "default": false
+      },
+      {
+        "type": "image_picker",
+        "id": "hero_video_poster",
+        "label": "Video poster image"
+      },
+      {
+        "type": "text",
+        "id": "hero_eyebrow",
+        "label": "Eyebrow",
+        "default": "Built for the work"
+      },
+      {
+        "type": "text",
+        "id": "hero_heading",
+        "label": "Hero heading",
+        "default": "Gear up. Show up."
+      },
+      {
+        "type": "textarea",
+        "id": "hero_subheading",
+        "label": "Hero description",
+        "default": "Training gear for the mat, the ring, and every discipline in between."
+      },
+      {
+        "type": "text",
+        "id": "hero_button_label",
+        "label": "Button label",
+        "default": "Shop the collection"
+      },
+      {
+        "type": "url",
+        "id": "hero_button_link",
+        "label": "Button link"
+      },
       {
         "type": "checkbox",
         "id": "autoplay",

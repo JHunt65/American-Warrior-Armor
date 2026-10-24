@@ -59,6 +59,9 @@
                 <a href="{{ link.url }}">{{ link.title }}</a>
               </li>
             {% endfor %}
+              <li class="site-footer__linklist-item">
+                <a href="{{ routes.root_url }}#story">Our Story</a>
+              </li>
           </ul>
         {% endif %}
         </div>
@@ -407,7 +410,7 @@
         <div class="footerBottom">
         	<div class="page-width">
                 <div class="ftrbtmLeft">
-                    &copy; 2023 <a href="https://jitsuarmor.com/" title=""><strong>Jitsu Armor</strong></a>, All rights reserved. <span class="bull">|</span> <a href="https://monroemountainmarketing.com/" target="_blank">Powered By</a> by <strong>Monroe Mountain Marketing</strong>
+                    &copy; {{ 'now' | date: "%Y" }} <a href="https://jitsuarmor.com/" title=""><strong>Jitsu Armor</strong></a>, All rights reserved. <span class="bull">|</span> <a href="https://monroemountainmarketing.com/" target="_blank">Powered By</a> by <strong>Monroe Mountain Marketing</strong>
                 </div>
               {% if section.settings.show_payment_icons %}
                 <div class="ftrbtmRight">

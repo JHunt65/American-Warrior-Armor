@@ -27,7 +27,8 @@
   <nav class="mobile-nav-wrapper medium-up--hide" role="navigation">
     <ul id="MobileNav" class="mobile-nav">
       {% for link in linklists[section.settings.main_linklist].links %}
-        {%- assign child_list_handle = link.title | handleize -%}
+             {%- assign link_handle = link.title | handleize -%}
+             {%- assign child_list_handle = link.title | handleize -%}
 
         <li class="mobile-nav__item{% unless forloop.last %} border-bottom{% endunless %}">
           {% if linklists[child_list_handle].links != blank %}
@@ -223,6 +224,8 @@
     <nav class="mobile-nav-wrapper medium-up--hide" role="navigation">
       <ul id="MobileNav" class="mobile-nav">
  {% for link in linklists[section.settings.main_linklist].links %}
+        {%- assign link_handle = link.title | handleize -%}
+        {% unless link_handle == 'shop-all' or link_handle == 'our-story' %}
         {%- assign child_list_handle = link.title | handleize -%}
 
         <li class="mobile-nav__item{% unless forloop.last %} border-bottom{% endunless %}">
@@ -297,7 +300,16 @@
             </a>
           {% endif %}
         </li>
+        {% endunless %}
       {% endfor %}
+      <li class="mobile-nav__item border-bottom">
+        <span class="mobile-nav__link">Shop by martial art</span>
+      </li>
+      <li class="mobile-nav__item border-bottom"><a href="/pages/mma" class="mobile-nav__link">MMA</a></li>
+      <li class="mobile-nav__item border-bottom"><a href="/pages/kickboxing" class="mobile-nav__link">KICKBOXING</a></li>
+      <li class="mobile-nav__item border-bottom"><a href="/pages/judo" class="mobile-nav__link">JUDO</a></li>
+      <li class="mobile-nav__item border-bottom"><a href="/pages/bjj" class="mobile-nav__link">BJJ</a></li>
+      <li class="mobile-nav__item border-bottom"><a href="/pages/karate" class="mobile-nav__link">KARATE</a></li>
       </ul>
     </nav>
     <header class="site-header logo--left{% unless template == 'index' %} header--page{% endunless %}" role="banner">
@@ -354,22 +366,13 @@
             <div class="headerLeft">
                 <h1 class="h2 site-header__logo" itemscope itemtype="http://schema.org/Organization"> 
                   
-                  {% if template == 'index' %}
                   <a href="/" itemprop="url" class="site-header__logo-image"> 
-                    <img class="lazyload js" src="{{ section.settings.logo | img_url: 'master' }}" data-sizes="auto" alt="Jitsu Armor">
-                <noscript>
-                <img src="{{ section.settings.logo | img_url: 'master' }}" alt="Jitsu Armor" itemprop="logo">
-                </noscript>
-                </a> 
-                  {% else %}
-                  <a href="/" itemprop="url" class="site-header__logo-image"> 
-                    <img class="lazyload js" src="{{ section.settings.logo-page | img_url: 'master' }}" data-sizes="auto" alt="Jitsu Armor">
-                <noscript>
-                <img src="{{ section.settings.logo-page | img_url: 'master' }}" alt="Jitsu Armor" itemprop="logo">
-                </noscript>
-                </a> 
-                  
-                  {% endif %}
+                    {% if section.settings.brand_logo != blank %}
+                      <img src="{{ section.settings.brand_logo | img_url: '400x' }}" alt="{{ section.settings.brand_logo.alt | default: shop.name | escape }}" itemprop="logo">
+                    {% else %}
+                      <img src="{{ 'american-warrior-armor-logo.png' | asset_url }}" alt="{{ shop.name | escape }}" itemprop="logo" width="486" height="430">
+                    {% endif %}
+                  </a>
                   
               </h1>
                 <div class="menuToogle">
@@ -402,19 +405,9 @@
     "settings": [
       {
         "type": "image_picker",
-        "id": "logo",
-        "label": "Home Logo image"
-      },
-	  {
-        "type": "image_picker",
-        "id": "logo-page",
-        "label": "Other Logo image"
-      },	
-      {
-        "type": "text",
-        "id": "logo_max_width",
-        "label": "Custom logo width (in pixels)",
-        "default": "100"
+        "id": "brand_logo",
+        "label": "Custom brand logo",
+        "info": "Optional. Leave blank to use the American Warrior Armor theme logo."
       },
       {
         "type": "text",

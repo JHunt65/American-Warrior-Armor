@@ -1,4 +1,4 @@
-<div class="aboutSec">
+<div class="aboutSec" id="story">
   <div class="page-width">
     <div class="aboutLeft">
       {% if section.settings.title != blank %}
@@ -12,8 +12,10 @@
       {% endif %}
     </div>
     <div class="aboutRight">
-      {% if section.settings.img != blank %}
-      <img src="{{ section.settings.img | img_url: 'master' }}" alt="">
+      {% if section.settings.brand_logo != blank %}
+      <img src="{{ section.settings.brand_logo | img_url: '400x' }}" alt="{{ section.settings.brand_logo.alt | default: shop.name | escape }}">
+      {% else %}
+      <img src="{{ 'american-warrior-armor-logo.png' | asset_url }}" alt="{{ shop.name | escape }}" width="486" height="430">
       {% endif %}
     </div>
   </div>
@@ -45,8 +47,9 @@
 	},
 	{
 		"type":"image_picker",
-		"id":"img",
-		"label":"Image"
+		"id":"brand_logo",
+		"label":"Brand logo",
+		"info":"Optional. Leave blank to use the American Warrior Armor theme logo."
 	}
 
 ],

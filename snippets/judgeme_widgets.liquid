@@ -47,7 +47,7 @@ data-auto-install='{% if auto_install != nil %}{{ auto_install }}{% else %}false
 data-from-snippet='{% if concierge_install != nil %}{{ concierge_install }}{% else %}true{% endif %}'
 data-auto-install='{% if auto_install != nil %}{{ auto_install }}{% else %}false{% endif %}' >
   <div class="jdgm-carousel-title-and-link">
-    <h2 class='jdgm-carousel-title'>Let customers speak for us</h2>
+    <h2 class='jdgm-carousel-title'>Reviews from the training community</h2>
     <span class="jdgm-all-reviews-rating-wrapper" href="javascript:void(0)">
       <span style="display:block"  data-score='{{ shop.metafields.judgeme.all_reviews_rating }}' class='jdgm-all-reviews-rating' aria-label='{{ shop.metafields.judgeme.all_reviews_rating }} stars' tabindex='0'></span>
       <span style="display: block">
@@ -65,4 +65,3 @@ data-auto-install='{% if auto_install != nil %}{{ auto_install }}{% else %}false
   {{ product.metafields.judgeme.badge }}
 </div>
 {% endif %}
-

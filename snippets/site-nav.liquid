@@ -1,5 +1,7 @@
 <ul class="site-nav list--inline {{ nav_alignment }}" id="SiteNav">
   {% for link in linklists[section.settings.main_linklist].links %}
+    {%- assign link_handle = link.title | handleize -%}
+    {% unless link_handle == 'shop-all' or link_handle == 'our-story' %}
     {% comment %}
       Check if third-level nav exists on each parent link.
     {% endcomment %}
@@ -17,7 +19,7 @@
 
     {% if linklists[child_list_handle].links != blank %}
   <li class="site-nav--has-dropdown{% if three_level_nav %} site-nav--has-centered-dropdown{% endif %}{% if link.active %} site-nav--active{% endif %}" aria-has-popup="true" aria-controls="SiteNavLabel-{{ child_list_handle }}">
-        <a href="{{ link.url }}" class="site-nav__link site-nav__link--main"  style="font-weight: bold;">
+        <a href="{{ link.url }}" class="site-nav__link site-nav__link--main{% if link_handle == 'training-gear' %} site-nav__martial-link{% endif %}"  style="font-weight: bold;">
           {{ link.title }}
           {% include 'icon-chevron-down' %}
           <span class="visually-hidden">{{ 'layout.navigation.expand' | t }}</span>
@@ -58,9 +60,18 @@
       </li>
     {% else %}
       <li {% if link.active %}class="site-nav--active"{% endif %}>
-        <a href="{{ link.url }}" class="site-nav__link site-nav__link--main" style="font-weight: bold;">{{ link.title }}</a>
+        <a href="{{ link.url }}" class="site-nav__link site-nav__link--main{% if link_handle == 'training-gear' %} site-nav__martial-link{% endif %}" style="font-weight: bold;">{{ link.title }}</a>
       </li>
     {% endif %}
+    {% endunless %}
   {% endfor %}
-  
+  <li class="site-nav__discipline-wrap">
+    <ul class="site-nav__disciplines list--inline">
+      <li><a href="/pages/mma" class="site-nav__link site-nav__link--main site-nav__martial-link">MMA</a></li>
+      <li><a href="/pages/kickboxing" class="site-nav__link site-nav__link--main site-nav__martial-link">KICKBOXING</a></li>
+      <li><a href="/pages/judo" class="site-nav__link site-nav__link--main site-nav__martial-link">JUDO</a></li>
+      <li><a href="/pages/bjj" class="site-nav__link site-nav__link--main site-nav__martial-link">BJJ</a></li>
+      <li><a href="/pages/karate" class="site-nav__link site-nav__link--main site-nav__martial-link">KARATE</a></li>
+    </ul>
+  </li>
 </ul>
