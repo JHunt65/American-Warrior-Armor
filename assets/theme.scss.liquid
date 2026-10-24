@@ -1966,24 +1966,17 @@ h1.product-single__title {font-size: 22px;margin-bottom: 10px;}
 }
 
 /* Modern storefront refresh */
-:root {
-  --armor-ink: #111111;
-  --armor-muted: #666666;
-  --armor-coral: #e53935;
-  --armor-paper: #f7f7f7;
-  --armor-line: #e7e7e7;
-}
 
 html { scroll-behavior:smooth }
 body, input, textarea, button, select {
   font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
-body { color:var(--armor-ink); background:#fff }
+body { color:#111111; background:#fff }
 a { transition:color .2s ease, background-color .2s ease, border-color .2s ease }
 .page-width { max-width:1440px; padding-left:32px; padding-right:32px }
 
 .announcement-bar,
-.announcement-bar--link:hover { background-color:var(--armor-coral) !important }
+.announcement-bar--link:hover { background-color:#e53935 !important }
 .announcement-bar__message {
   padding:10px 20px;
   font-size:12px;
@@ -1993,9 +1986,9 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
 }
 
 .site-header { background:#fff; box-shadow:0 5px 22px rgba(17,24,39,.07); z-index:11 }
-.headerTop { height:auto; min-height:48px; padding:6px 0; background:var(--armor-ink); color:#fff; font-size:13px }
+.headerTop { height:auto; min-height:48px; padding:6px 0; background:#111111; color:#fff; font-size:13px }
 .headerTop a { color:#fff }
-.headerTop a:hover { color:var(--armor-coral) }
+.headerTop a:hover { color:#e53935 }
 .headerTop ul li { line-height:34px; border-color:rgba(255,255,255,.16) }
 .headerTop .page-width { display:flex; justify-content:flex-end; align-items:center }
 .site-header__icons-wrapper { display:flex; align-items:center }
@@ -2015,8 +2008,8 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
 .site-header .search-header__submit { right:5px; width:36px; height:36px }
 .site-header__cart { position:relative; display:flex; align-items:center; min-height:34px }
 .site-header__cart img { width:23px; height:auto; padding:0; filter:brightness(0) invert(1) }
-.cartCount { top:-5px; right:-12px; width:19px; height:19px; border:0; background:var(--armor-coral); color:#fff; font-size:11px; line-height:19px }
-.headerBottom { background:#fff; border-bottom:1px solid var(--armor-line) }
+.cartCount { top:-5px; right:-12px; width:19px; height:19px; border:0; background:#e53935; color:#fff; font-size:11px; line-height:19px }
+.headerBottom { background:#fff; border-bottom:1px solid #e7e7e7 }
 .headerBottom > .page-width { display:flex; align-items:center; justify-content:space-between; min-height:92px }
 .headerLeft,
 .headerRight { display:block; width:auto; margin:0; text-align:initial }
@@ -2024,7 +2017,7 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
 .site-header__logo img { width:140px; height:auto; max-height:none; object-fit:contain }
 .header--page .headerBottom { background:#fff }
 .header--page .site-header__logo { margin:0; padding:0 }
-.header--page .headerBottom #SiteNav a { color:var(--armor-ink) }
+.header--page .headerBottom #SiteNav a { color:#111111 }
 .site-nav { display:flex; align-items:center; gap:clamp(12px, 1.5vw, 22px); margin:0; padding:0 }
 .site-nav li { display:inline-block }
 .site-nav > li > a.site-nav__link--main {
@@ -2041,7 +2034,7 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
   overflow:hidden;
   padding:14px 13px;
   border-radius:6px;
-  color:var(--armor-ink);
+  color:#111111;
   font-size:12px;
   font-weight:700;
   letter-spacing:.07em;
@@ -2051,11 +2044,11 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
 .template-index .site-nav a:after { display:none }
 .site-nav a.site-nav__martial-link::after,
 .template-index .site-nav a.site-nav__martial-link::after,
-.header--page .headerBottom #SiteNav a.site-nav__martial-link::after { display:block; width:60px; height:6px; background:var(--armor-coral) !important }
+.header--page .headerBottom #SiteNav a.site-nav__martial-link::after { display:block; width:60px; height:6px; background:#e53935 !important }
 .site-nav a:hover,
 .template-index .site-nav a:hover,
 .header--page .headerBottom #SiteNav a:hover {
-  color:var(--armor-coral) !important;
+  color:#e53935 !important;
   background:rgba(229,57,53,.08);
 }
 .site-nav__link .icon-chevron-down,
@@ -2094,16 +2087,16 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
 
 .index-section { padding-top:56px; padding-bottom:56px }
 .index-section.product-slider { padding:64px 0 72px }
-.index-section.product-slider:nth-of-type(even) { background:var(--armor-paper) }
+.index-section.product-slider:nth-of-type(even) { background:#f7f7f7 }
 .index-section .section-header { margin-bottom:28px }
-.secTitle { margin-bottom:0; color:var(--armor-ink); font-size:clamp(28px, 3vw, 38px); font-weight:750; letter-spacing:-.035em }
+.secTitle { margin-bottom:0; color:#111111; font-size:clamp(28px, 3vw, 38px); font-weight:750; letter-spacing:-.035em }
 .product-slider .grid--view-items { display:flex; flex-wrap:wrap; row-gap:24px }
 .product-slider .grid-view-item,
 #Collection .grid-view-item {
   height:100%;
   padding:14px;
   overflow:hidden;
-  border:1px solid var(--armor-line);
+  border:1px solid #e7e7e7;
   border-radius:12px;
   background:#fff;
   box-shadow:0 4px 16px rgba(17,24,39,.035);
@@ -2126,15 +2119,15 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
   min-height:42px;
   margin:0;
   overflow:visible;
-  color:var(--armor-ink);
+  color:#111111;
   font-family:inherit;
   font-size:15px;
   font-weight:650;
   line-height:1.4;
 }
 .grid-view-item__meta { margin-top:10px }
-.product-price__price { color:var(--armor-ink); font-weight:700 }
-.product-price__sale { color:var(--armor-coral) }
+.product-price__price { color:#111111; font-weight:700 }
+.product-price__sale { color:#e53935 }
 .btn,
 .shopBtn,
 .moreBtn,
@@ -2147,7 +2140,7 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
   padding:12px 22px;
   border:0;
   border-radius:6px;
-  background:var(--armor-ink);
+  background:#111111;
   color:#fff;
   font-size:12px;
   font-weight:750;
@@ -2159,28 +2152,28 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
 .shopBtn:hover,
 .moreBtn:hover,
 .article--listing .btn.btn--small:hover,
-.return-link-wrapper a:hover { transform:translateY(-2px); background:var(--armor-coral); color:#fff }
+.return-link-wrapper a:hover { transform:translateY(-2px); background:#e53935; color:#fff }
 
 .cateSec { padding:24px 0 8px }
 .cateSec ul { display:flex; gap:24px; margin:0; }
 .cateSec ul li { flex:1 1 0; width:auto; margin:0; padding:0 }
-.cateSec .cateBox { overflow:hidden; border-radius:14px; background:var(--armor-ink) }
+.cateSec .cateBox { overflow:hidden; border-radius:14px; background:#111111 }
 .cateSec .cateBox img { width:100%; transition:transform .4s ease; }
 .cateSec .cateBox:hover img { transform:scale(1.035) }
 .cateSec .cateBox .cateDtl { display:flex; flex-direction:column; align-items:flex-start; justify-content:space-between; padding:clamp(20px, 3vw, 42px) }
 .cateSec .cateBox .cateDtl .cateTitle { font-size:clamp(26px, 3vw, 42px); line-height:1.05; letter-spacing:-.03em }
 .cateSec .cateBox .cateDtl .shopBtn { position:static; margin-top:24px }
 
-.aboutSec { margin:56px 0; padding:24px 0; border-radius:14px; background-color:var(--armor-paper); color:var(--armor-muted) }
+.aboutSec { margin:56px 0; padding:24px 0; border-radius:14px; background-color:#f7f7f7; color:#666666 }
 .aboutSec .aboutLeft { padding-top:40px; padding-bottom:40px }
 .aboutSec .secTitle { margin-bottom:18px }
 .aboutSec .aboutLeft p { line-height:1.75 }
 .aboutSec .aboutRight img { border-radius:12px }
 .moreBtn { margin-top:8px }
-.site-footer { padding-top:0; background:var(--armor-ink); color:#e5e7eb }
+.site-footer { padding-top:0; background:#111111; color:#e5e7eb }
 .site-footer p { color:#aeb7c6 }
 .site-footer a { color:#d5dbe5 }
-.site-footer a:hover { color:var(--armor-coral) }
+.site-footer a:hover { color:#e53935 }
 .footerTop { padding:58px 0 20px; background:none }
 .footerCols { display:flex; flex-wrap:wrap; gap:28px 20px; margin:0 }
 .footerCol,
@@ -2193,8 +2186,8 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
 .site-footer__linklist-item { padding:0 }
 .contactInfo { padding:5px 0 24px }
 .site-footer__newsletter p { font-size:14px; line-height:1.6 }
-.site-footer__newsletter .input-group__field { border-radius:6px; background:#fff; color:var(--armor-ink) }
-.site-footer__newsletter .input-group__btn .btn { border-radius:6px; background:var(--armor-coral); font-size:12px; line-height:46px }
+.site-footer__newsletter .input-group__field { border-radius:6px; background:#fff; color:#111111 }
+.site-footer__newsletter .input-group__btn .btn { border-radius:6px; background:#e53935; font-size:12px; line-height:46px }
 .ftrTxt { border-color:rgba(255,255,255,.14); color:#aeb7c6; font-size:14px; line-height:1.7 }
 .footerBottom { padding:18px 0; background:#0b101a; font-size:12px }
 .footerBottom .ftrbtmLeft { width:60% }
@@ -2203,7 +2196,7 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
 .site-nav__discipline-wrap { display:flex; align-items:center; margin:0; padding:10px 0; list-style:none }
 .site-nav__disciplines { position:relative; z-index:1; display:flex; align-items:center; gap:clamp(16px, 2vw, 28px); margin:0; padding:0; list-style:none }
 .site-nav__disciplines .site-nav__link { padding:16px 4px; font-size:15px; font-weight:800; letter-spacing:.05em; white-space:nowrap }
-.site-nav__disciplines .site-nav__link:hover { color:var(--armor-coral) }
+.site-nav__disciplines .site-nav__link:hover { color:#e53935 }
 .site-nav a.site-nav__martial-link { overflow:visible }
 .site-nav a.site-nav__martial-link::before,
 .site-nav a.site-nav__martial-link::after {
@@ -2214,25 +2207,30 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
   display:block;
   width:60px;
   height:6px;
-  transform:translate(-50%, -50%) rotate(var(--martial-x-angle)) scaleX(0);
+  transform:translate(-50%, -50%) scaleX(0);
   border-radius:3px;
-  background:var(--armor-coral);
+  background:#e53935;
   content:"";
   opacity:0;
   pointer-events:none;
 }
-.site-nav a.site-nav__martial-link::before { --martial-x-angle:45deg }
-.site-nav a.site-nav__martial-link::after { --martial-x-angle:-45deg }
+.site-nav a.site-nav__martial-link::before { transform:translate(-50%, -50%) rotate(45deg) scaleX(0) }
+.site-nav a.site-nav__martial-link::after { transform:translate(-50%, -50%) rotate(-45deg) scaleX(0) }
 .site-nav a.site-nav__martial-link:hover,
-.site-nav a.site-nav__martial-link:focus-visible { color:var(--armor-coral) !important }
+.site-nav a.site-nav__martial-link:focus-visible { color:#e53935 !important }
 .site-nav a.site-nav__martial-link:hover::before,
+.site-nav a.site-nav__martial-link:focus-visible::before { animation:martial-x-slam-positive .38s cubic-bezier(.2, 1.7, .45, 1) forwards }
 .site-nav a.site-nav__martial-link:hover::after,
-.site-nav a.site-nav__martial-link:focus-visible::before,
-.site-nav a.site-nav__martial-link:focus-visible::after { animation:martial-x-slam .38s cubic-bezier(.2, 1.7, .45, 1) forwards }
-@keyframes martial-x-slam {
-  0% { transform:translate(-50%, -50%) rotate(var(--martial-x-angle)) scaleX(0); opacity:0 }
-  65% { transform:translate(-50%, -50%) rotate(var(--martial-x-angle)) scaleX(1.12); opacity:1 }
-  100% { transform:translate(-50%, -50%) rotate(var(--martial-x-angle)) scaleX(1); opacity:1 }
+.site-nav a.site-nav__martial-link:focus-visible::after { animation:martial-x-slam-negative .38s cubic-bezier(.2, 1.7, .45, 1) forwards }
+@keyframes martial-x-slam-positive {
+  0% { transform:translate(-50%, -50%) rotate(45deg) scaleX(0); opacity:0 }
+  65% { transform:translate(-50%, -50%) rotate(45deg) scaleX(1.12); opacity:1 }
+  100% { transform:translate(-50%, -50%) rotate(45deg) scaleX(1); opacity:1 }
+}
+@keyframes martial-x-slam-negative {
+  0% { transform:translate(-50%, -50%) rotate(-45deg) scaleX(0); opacity:0 }
+  65% { transform:translate(-50%, -50%) rotate(-45deg) scaleX(1.12); opacity:1 }
+  100% { transform:translate(-50%, -50%) rotate(-45deg) scaleX(1); opacity:1 }
 }
 
 .martial-arts-hero {
@@ -2279,7 +2277,7 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
   height:235px;
   place-content:center;
   transform:translateY(-50%) rotate(-10deg);
-  border:2px solid var(--armor-coral);
+  border:2px solid #e53935;
   border-radius:50%;
   color:#fff;
   text-align:center;
@@ -2306,7 +2304,7 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
   justify-content:center;
   padding:13px 24px;
   border-radius:6px;
-  background:var(--armor-coral);
+  background:#e53935;
   color:#fff;
   font-size:12px;
   font-weight:750;
@@ -2331,13 +2329,13 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
 }
 .martial-arts-hero__toggle:hover { background:rgba(0,0,0,.75) }
 
-.martial-art-page { background:#fff; color:var(--armor-ink) }
+.martial-art-page { background:#fff; color:#111111 }
 .martial-art-page__hero {
   padding:clamp(76px, 10vw, 132px) 0 clamp(68px, 8vw, 108px);
   background:radial-gradient(circle at 78% 48%, rgba(229,57,53,.12), transparent 24%), linear-gradient(120deg, #111722 0%, #202a39 100%);
   color:#fff;
 }
-.martial-art-page__eyebrow { margin:0 0 16px; color:var(--armor-coral); font-size:12px; font-weight:750; letter-spacing:.18em; text-transform:uppercase }
+.martial-art-page__eyebrow { margin:0 0 16px; color:#e53935; font-size:12px; font-weight:750; letter-spacing:.18em; text-transform:uppercase }
 .martial-art-page__hero h1 { margin:0 0 20px; color:#fff; font-size:clamp(48px, 8vw, 88px); font-weight:850; letter-spacing:-.06em; line-height:.98; text-transform:uppercase }
 .martial-art-page__intro { max-width:650px; margin:0 0 28px; color:#d5dbe5; font-size:clamp(17px, 2vw, 20px); line-height:1.7 }
 .martial-art-page__button {
@@ -2347,7 +2345,7 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
   justify-content:center;
   padding:13px 24px;
   border-radius:6px;
-  background:var(--armor-coral);
+  background:#e53935;
   color:#fff;
   font-size:12px;
   font-weight:750;
@@ -2356,16 +2354,16 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
 }
 .martial-art-page__button:hover { background:#c92e2b; color:#fff }
 .martial-art-page__nav { display:flex; flex-wrap:wrap; gap:10px; padding-top:24px; padding-bottom:24px; border-bottom:1px solid #e5e7eb }
-.martial-art-page__nav a { padding:10px 16px; border:1px solid #d8dde5; border-radius:999px; color:var(--armor-ink); font-size:12px; font-weight:750 }
+.martial-art-page__nav a { padding:10px 16px; border:1px solid #d8dde5; border-radius:999px; color:#111111; font-size:12px; font-weight:750 }
 .martial-art-page__nav a:hover,
-.martial-art-page__nav a[aria-current="page"] { border-color:var(--armor-coral); background:var(--armor-coral); color:#fff }
+.martial-art-page__nav a[aria-current="page"] { border-color:#e53935; background:#e53935; color:#fff }
 .martial-art-page__gear { padding-top:clamp(48px, 7vw, 88px); padding-bottom:clamp(56px, 8vw, 100px) }
 .martial-art-page__section-heading { max-width:700px; margin-bottom:32px }
 .martial-art-page__section-heading h2 { margin:0 0 12px; font-size:clamp(30px, 4vw, 46px); font-weight:800; letter-spacing:-.04em; line-height:1.08 }
 .martial-art-page__section-heading > p:last-child { color:#5e6877; font-size:16px; line-height:1.65 }
 .martial-art-page__grid { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:16px; margin:0; padding:0; list-style:none }
 .martial-art-page__card { min-height:190px; padding:24px; border:1px solid #e5e7eb; border-radius:12px; background:#fff; box-shadow:0 8px 28px rgba(17,24,39,.045) }
-.martial-art-page__number { display:inline-flex; width:30px; height:30px; align-items:center; justify-content:center; margin-bottom:18px; border-radius:50%; background:#fff0ef; color:var(--armor-coral); font-size:11px; font-weight:800 }
+.martial-art-page__number { display:inline-flex; width:30px; height:30px; align-items:center; justify-content:center; margin-bottom:18px; border-radius:50%; background:#fff0ef; color:#e53935; font-size:11px; font-weight:800 }
 .martial-art-page__card h3 { margin:0 0 10px; font-size:18px; font-weight:800; line-height:1.25 }
 .martial-art-page__card p { margin:0; color:#5e6877; font-size:14px; line-height:1.65 }
 .martial-art-page__note { margin:22px 0 0; color:#687385; font-size:13px }
@@ -2380,8 +2378,8 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
   margin:0 auto;
 }
 .curated-reviews__heading { margin-bottom:44px; text-align:center }
-.curated-reviews__eyebrow { margin:0 0 8px; color:var(--armor-coral); font-size:12px; font-weight:750; letter-spacing:.2em; text-transform:uppercase }
-.curated-reviews__heading h2 { margin:0; color:var(--armor-ink); font-size:clamp(26px, 3vw, 38px); font-weight:800; letter-spacing:-.04em; line-height:1.1 }
+.curated-reviews__eyebrow { margin:0 0 8px; color:#e53935; font-size:12px; font-weight:750; letter-spacing:.2em; text-transform:uppercase }
+.curated-reviews__heading h2 { margin:0; color:#111111; font-size:clamp(26px, 3vw, 38px); font-weight:800; letter-spacing:-.04em; line-height:1.1 }
 .curated-reviews__viewport { position:relative; overflow-x:auto; overscroll-behavior-x:contain; scroll-behavior:smooth; scroll-snap-type:x mandatory; scrollbar-width:none }
 .curated-reviews__viewport::-webkit-scrollbar { display:none }
 .curated-reviews__track { display:flex; gap:12px; align-items:stretch }
@@ -2398,8 +2396,8 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
   text-align:center;
   scroll-snap-align:start;
 }
-.curated-review__stars { margin-bottom:10px; color:var(--armor-coral); font-size:13px; letter-spacing:.08em; white-space:nowrap }
-.curated-review__stars--placeholder { color:var(--armor-coral) }
+.curated-review__stars { margin-bottom:10px; color:#e53935; font-size:13px; letter-spacing:.08em; white-space:nowrap }
+.curated-review__stars--placeholder { color:#e53935 }
 .curated-review__text,
 .curated-review__empty { margin:auto 0; color:#4b5563; font-size:12px; line-height:1.5; overflow-wrap:anywhere; text-align:center }
 .curated-review__empty { color:#8a929e; font-style:italic }
@@ -2412,7 +2410,11 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
   .site-nav a.site-nav__martial-link:hover::before,
   .site-nav a.site-nav__martial-link:hover::after,
   .site-nav a.site-nav__martial-link:focus-visible::before,
-  .site-nav a.site-nav__martial-link:focus-visible::after { animation:none; transform:translate(-50%, -50%) rotate(var(--martial-x-angle)); opacity:1 }
+  .site-nav a.site-nav__martial-link:focus-visible::after { animation:none; opacity:1 }
+  .site-nav a.site-nav__martial-link:hover::before,
+  .site-nav a.site-nav__martial-link:focus-visible::before { transform:translate(-50%, -50%) rotate(45deg) scaleX(1) }
+  .site-nav a.site-nav__martial-link:hover::after,
+  .site-nav a.site-nav__martial-link:focus-visible::after { transform:translate(-50%, -50%) rotate(-45deg) scaleX(1) }
 }
 
 input:not([type="checkbox"]):not([type="radio"]),
