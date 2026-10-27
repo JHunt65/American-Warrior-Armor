@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Storefront refresh — local preview</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #111;
+      --muted: #666;
+      --red: #e53935;
+      --paper: #f7f7f7;
+      --line: #e7e7e7;
+    }
+    * { box-sizing: border-box }
+    body { margin: 0; color: var(--ink); background: #fff; font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif }
+    a { color: inherit; text-decoration: none }
+    .announcement { padding: 9px 20px; background: var(--red); color: #fff; text-align: center; font-size: 11px; font-weight: 750; letter-spacing: .1em; text-transform: uppercase }
+    .utility { padding: 9px max(5vw, 24px); background: var(--ink); color: #ddd; display: flex; justify-content: space-between; font-size: 12px }
+    .utility a { color: #fff }
+    header { background: #fff; box-shadow: 0 5px 22px #1111110e }
+    .nav { min-height: 84px; max-width: 1440px; margin: auto; padding: 10px 5vw; display: flex; align-items: center; justify-content: space-between; gap: 28px }
+    .logo { display: block; flex: 0 0 148px; width: 148px; height: 131px }
+    .logo img { display: block; width: 100%; height: 100%; object-fit: contain }
+    .logo { height: auto; display: flex; flex-direction: row; align-items: center; gap: 14px; flex: 0 0 auto; width: auto }
+    .logo img { width: 148px; height: auto }
+    .formerly { display: block; max-width: 190px; color: #555; text-align: left; white-space: normal }
+    .formerly b { display: block; color: #555; font-size: 11px; font-weight: 800; line-height: 1.2; letter-spacing: .1em; text-transform: uppercase }
+    .formerly em { display: block; margin-top: 3px; color: #e53935; font-size: 20px; font-style: normal; font-weight: 900; line-height: 1.1; letter-spacing: .08em; text-transform: uppercase }
+    @media (max-width: 760px) { .formerly { display: none } }
+    .menu-toggle { display: none; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--ink); cursor: pointer }
+    .menu-toggle svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-width: 2 }
+    .links { display: flex; gap: 30px; align-items: center }
+    .links > a { font-size: 15px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; white-space: nowrap }
+    .discipline-links > a { font-size: 15px; font-weight: 800; letter-spacing: .05em }
+    .links a:hover { color: var(--red) }
+    .discipline-links { display: flex; align-items: center; gap: 28px; margin: 0; padding: 14px 0 }
+    .discipline-links > a { position: relative; z-index: 1; padding: 8px 4px; white-space: nowrap }
+    .discipline-links > a:hover { color: var(--red) }
+    .links .martial-nav-link { position: relative; overflow: visible }
+    .martial-nav-link > span { position: relative; display: inline-block }
+    .martial-nav-link > span::before, .martial-nav-link > span::after { position: absolute; top: 50%; left: 50%; z-index: 2; width: 60px; height: 6px; transform: translate(-50%, -50%) rotate(var(--x-angle)) scaleX(0); border-radius: 4px; background: var(--red); content: ""; opacity: 0; pointer-events: none }
+    .martial-nav-link > span::before { --x-angle: 45deg }
+    .martial-nav-link > span::after { --x-angle: -45deg }
+    .links .martial-nav-link:hover, .links .martial-nav-link:focus-visible { color: var(--red) }
+    .martial-nav-link:hover > span::before, .martial-nav-link:hover > span::after, .martial-nav-link:focus-visible > span::before, .martial-nav-link:focus-visible > span::after { animation: martial-x-slam .38s cubic-bezier(.2, 1.7, .45, 1) forwards }
+    @keyframes martial-x-slam { 0% { transform: translate(-50%, -50%) rotate(var(--x-angle)) scaleX(0); opacity: 0 } 65% { transform: translate(-50%, -50%) rotate(var(--x-angle)) scaleX(1.12); opacity: 1 } 100% { transform: translate(-50%, -50%) rotate(var(--x-angle)) scaleX(1); opacity: 1 } }
+    .cart { border: 1px solid var(--line); border-radius: 6px; padding: 10px 14px; font-weight: 700 }
+    .hero { min-height: 490px; overflow: hidden; position: relative; display: flex; align-items: center; background: #111; color: #fff }
+    .hero > video, .hero::before { content: ""; position: absolute; inset: 0; width: 100%; height: 100% }
+    .hero > video { z-index: 1; object-fit: cover; object-position: center 45% }
+    .hero::before { z-index: 2; background: linear-gradient(90deg, #000c 0%, #0008 43%, #0002 100%), linear-gradient(0deg, #0004, transparent 55%) }
+    .hero::after { content: ""; position: absolute; z-index: 0; width: 490px; height: 490px; right: 7%; top: 50%; transform: translateY(-50%); border: 1px solid #ffffff23; border-radius: 50%; box-shadow: 0 0 0 34px #ffffff08, 0 0 0 80px #ffffff06 }
+    .hero-copy { position: relative; z-index: 3; width: min(680px, 62%); margin-left: max(8vw, 34px); padding: 52px 0 }
+    .eyebrow { color: #ff7770; font-size: 11px; font-weight: 750; letter-spacing: .2em; text-transform: uppercase }
+    h1 { margin: 16px 0; max-width: 650px; font-size: clamp(48px, 6.4vw, 82px); font-weight: 850; letter-spacing: -.065em; line-height: .96 }
+    .hero p { max-width: 440px; margin: 0 0 26px; color: #d0d0d0; font-size: 17px; line-height: 1.7 }
+    .actions { display: flex; gap: 12px; align-items: center }
+    .button { min-height: 46px; padding: 13px 21px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px; background: var(--red); color: #fff; font-size: 11px; font-weight: 750; letter-spacing: .1em; text-transform: uppercase }
+    .button.outline { border: 1px solid #ffffff61; background: transparent }
+    .hero-stamp { position: absolute; z-index: 3; right: 15%; top: 50%; transform: translateY(-50%); width: 235px; height: 235px; display: grid; place-content: center; border: 2px solid #e53935; border-radius: 50%; color: #fff; text-align: center }
+    .video-toggle { position: absolute; z-index: 4; right: 22px; bottom: 18px; padding: 9px 13px; border: 1px solid #ffffff77; border-radius: 5px; background: #0008; color: #fff; font: inherit; font-size: 11px; cursor: pointer }
+    .hero-stamp b { display: block; margin-top: -22px; color: #ff625c; font-size: 92px; line-height: .9; letter-spacing: 0; text-align: center; transform: rotate(-10deg) }
+    .hero-stamp span { display: block; margin-top: 10px; font-size: 14px; line-height: 1.35; font-weight: 700; letter-spacing: .1em; text-indent: .1em; text-align: center; transform: rotate(-10deg); text-transform: uppercase }
+    .trust { display: grid; grid-template-columns: repeat(3, 1fr); max-width: 1440px; margin: auto; padding: 24px 5vw; border-bottom: 1px solid var(--line) }
+    .trust div { text-align: center; font-size: 12px; font-weight: 700 }
+    .trust div+div { border-left: 1px solid var(--line) }
+    .trust span { color: var(--red); padding-right: 8px }
+    .reviews { padding: 42px 5vw 40px; border-bottom: 1px solid var(--line); background: #fbfbfb }
+    .reviews-inner { max-width: 1080px; margin: auto; text-align: center }
+    .reviews .eyebrow { margin: 0 0 8px }
+    .reviews h2 { margin-bottom: 44px; font-size: clamp(26px, 3vw, 38px) }
+    .review-viewport { position: relative; overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory; scrollbar-width: none; }
+    .review-viewport::-webkit-scrollbar { display: none }
+    .review-track { display: flex; gap: 12px; text-align: left }
+    .review-card { display: grid; grid-template-rows: auto 1fr auto auto; flex: 0 0 calc((100% - 72px) / 7); min-width: 0; min-height: 140px; padding: 12px; border: 1px solid var(--line); border-radius: 9px; background: #fff; text-align: center; scroll-snap-align: start }
+    .review-stars { margin-bottom: 8px; color: var(--red); font-size: 13px; letter-spacing: .08em }
+    .review-stars.placeholder { color: var(--red) }
+    .review-card p { align-self: center; margin: 0; color: #4b5563; font-size: 12px; line-height: 1.5; text-align: center }
+    .review-card b { margin-top: 0; padding-top: 10px; border-top: 1px solid #f0f1f3; color: var(--ink); font-size: 11px; text-align: center }
+    .review-card small { margin-top: 3px; color: #77808e; font-size: 10px; line-height: 1.35; text-align: center }
+    .section { max-width: 1440px; margin: auto; padding: 66px 5vw 72px }
+    .section-head { display: flex; justify-content: space-between; align-items: end; margin-bottom: 25px }
+    h2 { margin: 0; font-size: clamp(28px, 3vw, 38px); font-weight: 800; letter-spacing: -.04em; line-height: 1.1 }
+    .section-head p { margin: 7px 0 0; color: var(--muted) }
+    .text-link { color: var(--red); font-size: 11px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase }
+    .products { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px }
+    .product { padding: 11px; overflow: hidden; border: 1px solid var(--line); border-radius: 11px; transition: transform .2s ease, box-shadow .2s ease }
+    .product:hover { transform: translateY(-4px); box-shadow: 0 14px 28px #11111112 }
+    .product img { display: block; width: 100%; aspect-ratio: 1.15; object-fit: cover; border-radius: 7px; background: var(--paper) }
+    .product img.brand-mark { padding: 12px; object-fit: contain; }
+    .tag { display: inline-block; margin-top: 12px; color: var(--red); font-size: 9px; font-weight: 750; letter-spacing: .12em; text-transform: uppercase }
+    .product h3 { margin: 5px 0; font-size: 14px }
+    .product p { margin: 4px 0 7px; color: var(--muted); font-size: 12px }
+    .price { font-size: 13px; font-weight: 750 }
+    .feature { margin: 10px 5vw 70px; padding: 52px; display: flex; justify-content: space-between; align-items: center; gap: 30px; overflow: hidden; border-radius: 13px; background: var(--paper) }
+    .feature-copy { max-width: 540px }
+    .feature h2 { margin: 13px 0 }
+    .feature p { color: var(--muted); line-height: 1.8 }
+    .feature img { width: 250px; align-self: end; margin: -42px 8% -52px 0 }
+    footer { padding: 45px 5vw 22px; background: var(--ink); color: #fff }
+    .footer-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 28px }
+    footer h3 { margin: 0 0 12px; font-size: 13px }
+    footer p, footer a { color: #b9b9b9; font-size: 12px }
+    footer a:hover { color: #fff }
+    .footer-links { display: grid; gap: 7px }
+    .copyright { margin-top: 30px; padding-top: 18px; border-top: 1px solid #ffffff25; color: #aaa; font-size: 11px }
+    .note { padding: 14px 5vw; background: #fff3e0; color: #60451e; font-size: 12px; text-align: center }
+    @media(max-width:1000px) {
+      .links { gap: 12px }
+      .links > a, .discipline-links > a { font-size: 12px }
+      .discipline-links { gap: 12px; margin: 0; padding: 12px 0 }
+      .nav { gap: 12px }
+      .review-card { flex-basis: calc((100% - 48px) / 5) }
+    }
+    @media(max-width:760px) {
+      .utility { padding: 8px 18px }
+      .utility span:first-child { display: none }
+      .nav { position: relative; min-height: 70px; padding: 8px 18px }
+      .logo { flex-basis: 96px; width: 96px; height: 85px }
+      .menu-toggle { display: inline-flex }
+      .links { display: none }
+      .links.is-open { position: absolute; top: 100%; right: 0; left: 0; z-index: 5; display: flex; flex-direction: column; align-items: stretch; gap: 0; padding: 8px 18px 16px; border-top: 1px solid var(--line); background: #fff; box-shadow: 0 12px 18px #1112 }
+      .links.is-open .discipline-links { flex-direction: column; align-items: stretch; gap: 0; padding: 0 }
+      .links.is-open .discipline-links > a, .links.is-open > a { display: block; padding: 12px 4px; border-bottom: 1px solid var(--line); font-size: 13px }
+      .hero { min-height: 410px }
+      .hero-copy { width: 82%; margin-left: 25px }
+      .hero-stamp { right: -85px; opacity: .25 }
+      .trust { padding: 19px 12px }
+      .trust div { padding: 0 8px; font-size: 10px }
+      .reviews { padding: 38px 18px 34px }
+      .reviews h2 { margin-bottom: 32px }
+      .review-track { gap: 10px }
+      .review-card { flex-basis: calc((100% - 20px) / 3); min-height: 130px; padding: 12px 10px }
+      .section { padding: 46px 18px }
+      .products { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 11px }
+      .section-head { align-items: start; gap: 12px }
+      .section-head .text-link { padding-top: 8px; white-space: nowrap }
+      .feature { margin: 0 18px 44px; padding: 26px; }
+      .feature img { width: 120px; margin: 0 -24px -26px 0 }
+    }
+    @media(max-width:420px) {
+      .hero { min-height: 370px }
+      h1 { font-size: 46px }
+      .hero p { font-size: 14px }
+      .actions { flex-wrap: wrap }
+      .trust div { font-size: 9px }
+      .section-head p { font-size: 12px }
+      .feature img { display: none }
+      .review-card { flex-basis: calc((100% - 10px) / 2) }
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement">Free shipping on orders over $125 — use code FREESHIPPING</div>
+  <div class="utility"><span>Equipment for every kind of fighter.</span><span>Questions? <a href="mailto:info@jitsuarmor.com">info@jitsuarmor.com</a></span></div>
+  <header>
+    <nav class="nav" aria-label="Main navigation">
+      <a class="logo" href="#top" aria-label="American Warrior Armor home"><img src="../assets/american-warrior-armor-logo.png" alt="American Warrior Armor logo"><span class="formerly"><b>Formerly Jitsu Armor</b><em>Upgraded</em></span></a>
+      <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="storefront-links">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+      </button>
+      <div class="links" id="storefront-links">
+        <div class="discipline-links">
+          <a class="martial-nav-link" href="/pages/mma"><span>MMA</span></a>
+          <a class="martial-nav-link" href="/pages/kickboxing"><span>KICKBOXING</span></a>
+          <a class="martial-nav-link" href="/pages/judo"><span>JUDO</span></a>
+          <a class="martial-nav-link" href="/pages/bjj"><span>BJJ</span></a>
+          <a class="martial-nav-link" href="/pages/karate"><span>KARATE</span></a>
+        </div>
+        <a class="martial-nav-link" href="#shop"><span>TRAINING GEAR</span></a>
+      </div>
+      <a class="cart" href="#shop" aria-label="Shopping bag">Bag&nbsp; 0</a>
+    </nav>
+  </header>
+  <main id="top">
+    <section class="hero">
+      <video class="hero-video" src="../assets/american-warrior-hero.mp4" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+      <div class="hero-copy">
+        <div class="eyebrow">Built for the work</div>
+        <h1>GEAR UP.<br>SHOW UP.</h1>
+        <p>Find the fit that keeps you moving. Explore trusted training gear for the mat, the ring, and everywhere you put in the work.</p>
+        <div class="actions"><a class="button" href="#shop">Shop the collection</a></div>
+      </div>
+      <div class="hero-stamp" aria-hidden="true"><b>01</b><span>Train your way<br>Every discipline</span></div>
+      <button class="video-toggle" type="button" aria-pressed="false">Pause video</button>
+    </section>
+    <div class="trust" aria-label="Store benefits"><div><span>✦</span>Curated for training</div><div><span>✦</span>Trusted gear</div><div><span>✦</span>Free shipping over $125</div></div>
+    <section class="reviews" aria-labelledby="reviews-heading">
+      <div class="reviews-inner">
+        <div class="eyebrow">Customer voices</div>
+        <h2 id="reviews-heading">Reviews from the training community</h2>
+        <div class="review-viewport" id="review-viewport">
+          <div class="review-track">
+            <article class="review-card"><div class="review-stars">★★★★★</div><p>“Fast Shipping, would buy again.”</p><b>Christopher S.</b><small>FUJI Adult Premium Pearl Weave BJJ Belts</small></article>
+            <article class="review-card"><div class="review-stars">★★★★★</div><p>“It fit my 9year old daughter very well and she loved the designs on it. It seems to be very well made”</p><b>Matthew S.</b><small>FUJI Blossom Kids Jiu Jitsu Gi</small></article>
+            <article class="review-card"><div class="review-stars">★★★★★</div><p>“Fit like a glove and was exactly as described.”</p><b>Jeffrey R.</b><small>FUJI Sekai 2.0 BJJ Gi</small></article>
+            <article class="review-card"><div class="review-stars">★★★★★</div><p>“Beautiful gi”</p><b>Oscar C.</b><small>Flow Kimonos Kids 5.0 Gi</small></article>
+            <article class="review-card"><div class="review-stars">★★★★★</div><p>“I just loooove these last two Gi’s I’ve purchased.”</p><b>Ivory W.</b><small>FUJI Suparaito BJJ Gi XTR Edition</small></article>
+            <article class="review-card"><div class="review-stars">★★★★★</div><p>“Fast delivery! High quality. Love it!”</p><b>Sean L.</b><small>FUJI Lightweight BJJ Gi Sheepdog Response Edition</small></article>
+            <article class="review-card"><div class="review-stars">★★★★★</div><p>“Awesome bag to have !”</p><b>Sergiu P.</b><small>FUJI Comp Convertible Backpack Duffle</small></article>
+            <article class="review-card"><div class="review-stars">★★★★★</div><p>“I first ordered a certain size on-line then I realized I would need a larger size belt. Contacted customer service and they were successful in catching my order, then updated my order. I would definitely order from them again!”</p><b>Linda D.</b><small>Fuji Jiu Jitsu Adult Belt, Brown</small></article>
+            <article class="review-card"><div class="review-stars">★★★★★</div><p>“This belt is exactly what I was looking for. Great quality. Thanks guys.”</p><b>BENZILLA</b><small>Fuji Premium Pearl Weave BJJ Belt, Black</small></article>
+            <article class="review-card"><div class="review-stars">★★★★★</div><p>“Fits well comfortable and durable…. Couldn’t ask for a better product”</p><b>Bradford E.</b><small>FUJI Lightweight Pearl Weave BJJ Gi, Black</small></article>
+            <article class="review-card"><div class="review-stars">★★★★★</div><p>“Got this for my kids and they loved it, the gis fit great and the colors are what they really wanted. 100% satisfied with this purchase.”</p><b>Mario M.</b><small>Fuji All Around BJJ Gi, Navy</small></article>
+            <article class="review-card"><div class="review-stars">★★★★★</div><p>“Good quality”</p><b>Skyler L.</b><small>FUJI Lightweight Pearl Weave BJJ Gi, Black</small></article>
+            <article class="review-card"><div class="review-stars">★★★★★</div><p>“Awesome”</p><b>Leonidas T.</b><small>FUJI Lightweight Pearl Weave BJJ Gi, Grey</small></article>
+            <article class="review-card"><div class="review-stars">★★★★★</div><p>“Fast delivery. Exactly what I wanted”</p><b>Buford P.</b><small>FUJI Jiu Jitsu Adult Belt, White</small></article>
+            <article class="review-card"><div class="review-stars">★★★★★</div><p>“Great belt, fits exactly the way it should.”</p><b>Ryan N.</b><small>FUJI Adult Premium Pearl Weave BJJ Belts</small></article>
+            <article class="review-card"><div class="review-stars">★★★★★</div><p>“My 8 year old granddaughter takes Jiu Jitsu and wanted a pink Gi. Fits perfectly with room to grow.”</p><b>Mary F.</b><small>FUJI All Around Kids BJJ Gi, Pink</small></article>
+            <article class="review-card"><div class="review-stars">★★★★★</div><p>“Everything was beautiful. Thank you.”</p><b>Venancio F.</b><small>FUJI All Around BJJ Gi, White</small></article>
+            <article class="review-card"><div class="review-stars">★★★★★</div><p>“It showed up fast and its good quality”</p><b>Eugene P.</b><small>FUJI All Around BJJ Gi, Black</small></article>
+            <article class="review-card"><div class="review-stars">★★★★★</div><p>“Great price and fit! It seems to hold its color with gentle wash cycle and cold water.”</p><b>Paul H.</b><small>FUJI All Around BJJ Gi, Navy</small></article>
+            <article class="review-card"><div class="review-stars">★★★★★</div><p>“My daughter loves the new gi will order from customer service again”</p><b>David S.</b><small>FUJI All Around BJJ Gi, Pink</small></article>
+            <article class="review-card"><div class="review-stars">★★★★★</div><p>“I will definitely order more GIS from here”</p><b>Lucia C.</b><small>FUJI All Around BJJ Gi, Pink</small></article>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="shop">
+      <div class="section-head"><div><div class="eyebrow">Find your fit</div><h2>Training essentials</h2><p>Shop the gear our community reaches for.</p></div><a class="text-link" href="#shop">Shop all&nbsp; →</a></div>
+      <div class="products">
+        <article class="product"><img src="../assets/cate-img01.png" alt="Athlete wearing a blue uniform"><div class="tag">Grappling</div><h3>Made for the mat</h3><p>Gear built to move with you.</p><div class="price">Explore collection &nbsp;→</div></article>
+        <article class="product"><img src="../assets/cate-img02.png" alt="Athlete wearing a black uniform"><div class="tag">Training</div><h3>Ready for every round</h3><p>Find your next training essential.</p><div class="price">Explore collection &nbsp;→</div></article>
+        <article class="product"><img class="brand-mark" src="../assets/american-warrior-armor-logo.png" alt="American Warrior Armor logo"><div class="tag">New arrivals</div><h3>Fresh from the brands you love</h3><p>Discover what's new this season.</p><div class="price">Explore collection &nbsp;→</div></article>
+        <article class="product"><img src="../assets/about-img-right.png" alt="Martial artist in training gear"><div class="tag">Community picks</div><h3>Chosen by practitioners</h3><p>Explore our most-loved gear.</p><div class="price">Explore collection &nbsp;→</div></article>
+      </div>
+    </section>
+    <section class="feature" id="story">
+      <div class="feature-copy"><div class="eyebrow">More than a workout</div><h2>Made for the journey.</h2><p>Every discipline. Every round. Every step along the way. Find gear that feels right for how you train.</p><a class="button" href="#shop">Discover our story</a></div>
+      <img src="../assets/about-img-right.png" alt="" aria-hidden="true">
+    </section>
+  </main>
+  <footer>
+    <div class="footer-row">
+      <div><h3>Gear for the work.</h3><p>Find your next training essential.</p></div>
+      <div><h3>Explore</h3><div class="footer-links"><a href="#shop">Shop all</a><a href="#shop">New arrivals</a><a href="#shop">Best sellers</a></div></div>
+      <div><h3>Need a hand?</h3><div class="footer-links"><a href="mailto:info@jitsuarmor.com">Contact us</a><a href="#story">Shipping & returns</a><a href="#story">Our Story</a></div></div>
+      <div><h3>Stay in the loop</h3><p>New gear, training stories, and more.</p><a class="button" href="mailto:info@jitsuarmor.com">Join the list</a></div>
+    </div>
+    <div class="copyright">© 2026 American Warrior Armor · Local design preview</div>
+  </footer>
+  <div class="note">Design preview only. The new brand name, logo, discipline-specific categories, and product photos are placeholders until your new identity and broader catalog are ready.</div>
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const menuLinks = document.querySelector('.links');
+    menuToggle.addEventListener('click', () => {
+      const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', String(!isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? 'Open menu' : 'Close menu');
+      menuLinks.classList.toggle('is-open', !isOpen);
+    });
+    menuLinks.addEventListener('click', event => {
+      if (event.target.closest('a')) {
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Open menu');
+        menuLinks.classList.remove('is-open');
+      }
+    });
+
+    const heroVideo = document.querySelector('.hero-video');
+    const videoToggle = document.querySelector('.video-toggle');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) heroVideo.pause();
+    videoToggle.addEventListener('click', () => {
+      if (heroVideo.paused) {
+        heroVideo.play();
+        videoToggle.textContent = 'Pause video';
+        videoToggle.setAttribute('aria-pressed', 'true');
+      } else {
+        heroVideo.pause();
+        videoToggle.textContent = 'Play video';
+        videoToggle.setAttribute('aria-pressed', 'false');
+      }
+    });
+    const reviewViewport = document.querySelector('#review-viewport');
+    const reviewCards = Array.from(document.querySelectorAll('.review-card'));
+    function currentReviewIndex() {
+      return reviewCards.reduce((closest, card, index) => {
+        return Math.abs(card.offsetLeft - reviewViewport.scrollLeft) < Math.abs(reviewCards[closest].offsetLeft - reviewViewport.scrollLeft) ? index : closest;
+      }, 0);
+    }
+    let reviewTimer;
+    let reviewResumeTimer;
+    let reviewsPaused = false;
+    function scheduleReview() {
+      window.clearTimeout(reviewTimer);
+      if (reviewsPaused || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      reviewTimer = window.setTimeout(() => {
+        const current = currentReviewIndex();
+        const gap = parseFloat(getComputedStyle(reviewCards[0].parentElement).gap) || 0;
+        const step = reviewCards[0].offsetWidth + gap;
+        const visibleCount = Math.floor((reviewViewport.clientWidth + gap) / step);
+        const maxIndex = Math.max(0, reviewCards.length - visibleCount);
+        if (current >= maxIndex) {
+          reviewViewport.style.scrollBehavior = 'auto';
+          reviewViewport.scrollLeft = 0;
+          reviewViewport.style.scrollBehavior = '';
+          scheduleReview();
+          return;
+        }
+        reviewViewport.scrollTo({ left: reviewCards[current + 1].offsetLeft, behavior: 'smooth' });
+        scheduleReview();
+      }, 3500);
+    }
+    function pauseReviews() {
+      reviewsPaused = true;
+      window.clearTimeout(reviewTimer);
+      window.clearTimeout(reviewResumeTimer);
+      reviewViewport.style.scrollBehavior = 'auto';
+      reviewViewport.scrollLeft = reviewViewport.scrollLeft;
+      reviewViewport.style.scrollBehavior = '';
+    }
+    function resumeReviews() {
+      reviewsPaused = false;
+      scheduleReview();
+    }
+    reviewViewport.addEventListener('mouseenter', pauseReviews);
+    reviewViewport.addEventListener('mouseleave', resumeReviews);
+    reviewViewport.addEventListener('focusin', pauseReviews);
+    reviewViewport.addEventListener('focusout', event => {
+      if (!reviewViewport.contains(event.relatedTarget)) resumeReviews();
+    });
+    reviewViewport.addEventListener('touchstart', pauseReviews, { passive: true });
+    reviewViewport.addEventListener('touchend', () => {
+      reviewResumeTimer = window.setTimeout(resumeReviews, 2500);
+    }, { passive: true });
+    reviewViewport.addEventListener('touchcancel', () => {
+      reviewResumeTimer = window.setTimeout(resumeReviews, 2500);
+    }, { passive: true });
+    reviewViewport.addEventListener('scroll', () => {
+      if (!reviewsPaused) scheduleReview();
+    }, { passive: true });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) window.clearTimeout(reviewTimer);
+      else scheduleReview();
+    });
+    scheduleReview();
+  </script>
+</body>
+</html>
