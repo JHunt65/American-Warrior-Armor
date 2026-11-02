@@ -1,8 +1,11 @@
 {%- assign is_martial_art_collection = false -%}
 {%- assign martial_art_name = '' -%}
 {%- assign martial_art_tag = '' -%}
-{%- if collection.handle == 'all' and current_tags != blank -%}
-  {%- assign martial_art_tag = current_tags.first | handleize | remove: '-' -%}
+{%- if collection.handle == 'all' -%}
+  {%- assign martial_art_tag = request.path | split: '/' | last | handleize | remove: '-' -%}
+  {%- if current_tags != blank -%}
+    {%- assign martial_art_tag = current_tags.first | handleize | remove: '-' -%}
+  {%- endif -%}
   {%- case martial_art_tag -%}
     {%- when 'mma', 'mixedmartialarts' -%}
       {%- assign martial_art_name = 'MMA' -%}
