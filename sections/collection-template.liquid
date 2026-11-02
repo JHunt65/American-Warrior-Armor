@@ -324,10 +324,23 @@
                 {% endfor %}
               </div>
             </div>
-          {% else %}
+          {% elsif is_martial_art_collection == false %}
             {%- assign is_empty_collection = true -%}
           {% endif %}
         {% endfor %}
+        {% if is_martial_art_collection %}
+          {%- assign placeholder_count = limit | minus: collection.products.size -%}
+          {% for i in (1..placeholder_count) %}
+            <div class="grid__item {{ grid_item_width }}">
+              <div class="grid-view-item martial-art-placeholder">
+                <div class="grid-view-item__image martial-art-placeholder__image">
+                  {{ forloop.index0 | modulo: 6 | plus: 1 | prepend: 'product-' | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+                <div class="h4 grid-view-item__title">Coming soon</div>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
       </div>
     {% else %}
       <div class="list-view-items">
