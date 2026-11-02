@@ -2,15 +2,15 @@
 {%- assign martial_art_name = '' -%}
 {%- assign martial_art_tag = '' -%}
 {%- if collection.handle == 'all' and current_tags != blank -%}
-  {%- assign martial_art_tag = current_tags.first | handleize -%}
+  {%- assign martial_art_tag = current_tags.first | handleize | remove: '-' -%}
   {%- case martial_art_tag -%}
-    {%- when 'mma' -%}
+    {%- when 'mma', 'mixedmartialarts' -%}
       {%- assign martial_art_name = 'MMA' -%}
     {%- when 'kickboxing' -%}
       {%- assign martial_art_name = 'Kickboxing' -%}
-    {%- when 'judo' -%}
+    {%- when 'judo', 'judogear' -%}
       {%- assign martial_art_name = 'Judo' -%}
-    {%- when 'bjj' -%}
+    {%- when 'bjj', 'brazilianjiujitsu', 'brazilianjiujitsubjj' -%}
       {%- assign martial_art_name = 'BJJ' -%}
     {%- when 'karate' -%}
       {%- assign martial_art_name = 'Karate' -%}
