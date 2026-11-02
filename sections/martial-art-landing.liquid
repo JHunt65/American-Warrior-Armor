@@ -31,16 +31,16 @@
       <p class="martial-art-page__eyebrow">Train your way · Every discipline</p>
       <h1>{{ martial_art_name | escape }}</h1>
       <p class="martial-art-page__intro">{{ martial_art_intro | escape }}</p>
-      <a class="martial-art-page__button" href="{{ routes.all_products_collection_url }}">Shop all gear</a>
+      <a class="martial-art-page__button" href="{{ routes.all_products_collection_url }}/{{ page.handle }}">Shop {{ martial_art_name | escape }} gear</a>
     </div>
   </header>
 
   <nav class="martial-art-page__nav page-width" aria-label="Shop by martial art">
-    <a href="/pages/mma"{% if page.handle == 'mma' %} aria-current="page"{% endif %}>MMA</a>
-    <a href="/pages/kickboxing"{% if page.handle == 'kickboxing' %} aria-current="page"{% endif %}>KICKBOXING</a>
-    <a href="/pages/judo"{% if page.handle == 'judo' %} aria-current="page"{% endif %}>JUDO</a>
-    <a href="/pages/bjj"{% if page.handle == 'bjj' %} aria-current="page"{% endif %}>BJJ</a>
-    <a href="/pages/karate"{% if page.handle == 'karate' %} aria-current="page"{% endif %}>KARATE</a>
+    <a href="{{ routes.all_products_collection_url }}/mma"{% if page.handle == 'mma' %} aria-current="page"{% endif %}>MMA</a>
+    <a href="{{ routes.all_products_collection_url }}/kickboxing"{% if page.handle == 'kickboxing' %} aria-current="page"{% endif %}>KICKBOXING</a>
+    <a href="{{ routes.all_products_collection_url }}/judo"{% if page.handle == 'judo' %} aria-current="page"{% endif %}>JUDO</a>
+    <a href="{{ routes.all_products_collection_url }}/bjj"{% if page.handle == 'bjj' %} aria-current="page"{% endif %}>BJJ</a>
+    <a href="{{ routes.all_products_collection_url }}/karate"{% if page.handle == 'karate' %} aria-current="page"{% endif %}>KARATE</a>
   </nav>
 
   {% if gear_items.size > 0 %}

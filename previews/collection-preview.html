@@ -163,8 +163,14 @@
 .side ul{margin:0;padding:0;list-style:none}.side li{border-bottom:1px solid #f0f0f0}
 .side a{display:block;padding:10px 16px;color:#111;font-size:14px;font-weight:600}
 .side a:hover,.side a.on{background:rgba(229,57,53,.08);color:#e53935}
-.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:24px}
+.cgrid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
 .cgrid .product img{aspect-ratio:1;object-fit:contain;padding:14px}
+.preview-pagination{display:flex;align-items:center;justify-content:center;gap:18px;margin:28px 0 0}
+.preview-pagination button{display:inline-flex;width:42px;height:42px;align-items:center;justify-content:center;border:0;border-radius:50%;background:#e53935;color:#fff;font-size:28px;line-height:1;cursor:pointer}
+.preview-pagination button:disabled{background:#ddd;color:#777;cursor:not-allowed}
+.preview-pagination span{color:#555;font-size:13px;font-weight:700}
+@media(max-width:1000px){.cgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){.cgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}}
 
   </style>
 </head>
@@ -179,21 +185,21 @@
       </button>
       <div class="links" id="storefront-links">
         <div class="discipline-links">
-          <a class="martial-nav-link" href="/pages/mma"><span>MMA</span></a>
-          <a class="martial-nav-link" href="/pages/kickboxing"><span>KICKBOXING</span></a>
-          <a class="martial-nav-link" href="/pages/judo"><span>JUDO</span></a>
-          <a class="martial-nav-link" href="/pages/bjj"><span>BJJ</span></a>
-          <a class="martial-nav-link" href="/pages/karate"><span>KARATE</span></a>
+          <a class="martial-nav-link" href="collection-preview.html?art=mma"><span>MMA</span></a>
+          <a class="martial-nav-link" href="collection-preview.html?art=kickboxing"><span>KICKBOXING</span></a>
+          <a class="martial-nav-link" href="collection-preview.html?art=judo"><span>JUDO</span></a>
+          <a class="martial-nav-link" href="collection-preview.html?art=bjj"><span>BJJ</span></a>
+          <a class="martial-nav-link" href="collection-preview.html?art=karate"><span>KARATE</span></a>
         </div>
         <a class="martial-nav-link" href="#shop"><span>TRAINING GEAR</span></a>
       </div>
       <a class="cart" href="#shop" aria-label="Shopping bag">Bag&nbsp; 0</a>
     </nav>
   </header>
-<main id="top"><div class="cwrap"><div class="crumb">Home / MMA</div><h1>MMA Gear</h1>
-<div class="ctool"><select><option>Filter: All</option></select><span>8 items</span><select><option>Sort: Featured</option></select></div>
+<main id="top"><div class="cwrap"><div class="crumb">Home / <span id="art-breadcrumb">MMA</span></div><h1 id="art-heading">MMA Gear</h1>
+<div class="ctool"><select><option>Filter: All</option></select><span id="product-count">15 items</span><select><option>Sort: Featured</option></select></div>
 <div class="clay"><aside class="side"><h4>Brands</h4><ul><li><a class="on" href="#">All brands</a></li><li><a href="#">Venum</a></li><li><a href="#">Hayabusa</a></li><li><a href="#">Fairtex</a></li></ul><h4>Gear type</h4><ul><li><a href="#">Gloves</a></li><li><a href="#">Shin guards</a></li><li><a href="#">Apparel</a></li></ul></aside>
-<div class="cgrid"><article class="product"><img class="brand-mark" src="../assets/american-warrior-armor-logo.png" alt=""><div class="tag">Brand name</div><h3>Sample product 1</h3><div class="price">$49.99</div></article><article class="product"><img class="brand-mark" src="../assets/american-warrior-armor-logo.png" alt=""><div class="tag">Brand name</div><h3>Sample product 2</h3><div class="price">$49.99</div></article><article class="product"><img class="brand-mark" src="../assets/american-warrior-armor-logo.png" alt=""><div class="tag">Brand name</div><h3>Sample product 3</h3><div class="price">$49.99</div></article><article class="product"><img class="brand-mark" src="../assets/american-warrior-armor-logo.png" alt=""><div class="tag">Brand name</div><h3>Sample product 4</h3><div class="price">$49.99</div></article><article class="product"><img class="brand-mark" src="../assets/american-warrior-armor-logo.png" alt=""><div class="tag">Brand name</div><h3>Sample product 5</h3><div class="price">$49.99</div></article><article class="product"><img class="brand-mark" src="../assets/american-warrior-armor-logo.png" alt=""><div class="tag">Brand name</div><h3>Sample product 6</h3><div class="price">$49.99</div></article><article class="product"><img class="brand-mark" src="../assets/american-warrior-armor-logo.png" alt=""><div class="tag">Brand name</div><h3>Sample product 7</h3><div class="price">$49.99</div></article><article class="product"><img class="brand-mark" src="../assets/american-warrior-armor-logo.png" alt=""><div class="tag">Brand name</div><h3>Sample product 8</h3><div class="price">$49.99</div></article></div></div></div></main>
+<div><div class="cgrid" id="product-grid"></div><nav class="preview-pagination" aria-label="Product pages"><button id="previous-page" type="button" aria-label="Previous 15 products" disabled>‹</button><span id="page-status">Page 1 of 2</span><button id="next-page" type="button" aria-label="Next 15 products">›</button></nav></div></div></div></main>
   <footer>
     <div class="footer-row">
       <div><h3>Gear for the work.</h3><p>Find your next training essential.</p></div>
@@ -205,6 +211,44 @@
   </footer>
   <div class="note">Design preview only. The new brand name, logo, discipline-specific categories, and product photos are placeholders until your new identity and broader catalog are ready.</div>
   <script>
+    const disciplines = {
+      mma: 'MMA',
+      kickboxing: 'KICKBOXING',
+      judo: 'JUDO',
+      bjj: 'BJJ',
+      karate: 'KARATE'
+    };
+    const params = new URLSearchParams(window.location.search);
+    const disciplineKey = params.get('art') in disciplines ? params.get('art') : 'mma';
+    const disciplineName = disciplines[disciplineKey];
+    const page = params.get('page') === '2' ? 2 : 1;
+    document.title = `${disciplineName} Gear — Local preview`;
+    document.querySelector('#art-breadcrumb').textContent = disciplineName;
+    document.querySelector('#art-heading').textContent = `${disciplineName} Gear`;
+    document.querySelector('#product-count').textContent = '15 items';
+    document.querySelectorAll('.discipline-links a').forEach(link => {
+      const linkArt = new URL(link.href).searchParams.get('art');
+      if (linkArt === disciplineKey) link.setAttribute('aria-current', 'page');
+    });
+
+    const productGrid = document.querySelector('#product-grid');
+    const startProduct = (page - 1) * 15 + 1;
+    for (let productNumber = startProduct; productNumber < startProduct + 15; productNumber += 1) {
+      const card = document.createElement('article');
+      card.className = 'product';
+      card.innerHTML = `<img class="brand-mark" src="../assets/american-warrior-armor-logo.png" alt=""><div class="tag">Sample product</div><h3>${disciplineName} Training Gear ${String(productNumber).padStart(2, '0')}</h3><div class="price">$49.99</div>`;
+      productGrid.append(card);
+    }
+
+    document.querySelector('#page-status').textContent = `Page ${page} of 2`;
+    const pageUrl = nextPage => `?art=${encodeURIComponent(disciplineKey)}${nextPage === 1 ? '' : '&page=2'}`;
+    const previousPage = document.querySelector('#previous-page');
+    const nextPage = document.querySelector('#next-page');
+    previousPage.disabled = page === 1;
+    nextPage.disabled = page === 2;
+    previousPage.addEventListener('click', () => { window.location.search = pageUrl(1); });
+    nextPage.addEventListener('click', () => { window.location.search = pageUrl(2); });
+
     const menuToggle = document.querySelector('.menu-toggle');
     const menuLinks = document.querySelector('.links');
     menuToggle.addEventListener('click', () => {
@@ -221,83 +265,6 @@
       }
     });
 
-    const heroVideo = document.querySelector('.hero-video');
-    const videoToggle = document.querySelector('.video-toggle');
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) heroVideo.pause();
-    videoToggle.addEventListener('click', () => {
-      if (heroVideo.paused) {
-        heroVideo.play();
-        videoToggle.textContent = 'Pause video';
-        videoToggle.setAttribute('aria-pressed', 'true');
-      } else {
-        heroVideo.pause();
-        videoToggle.textContent = 'Play video';
-        videoToggle.setAttribute('aria-pressed', 'false');
-      }
-    });
-    const reviewViewport = document.querySelector('#review-viewport');
-    const reviewCards = Array.from(document.querySelectorAll('.review-card'));
-    function currentReviewIndex() {
-      return reviewCards.reduce((closest, card, index) => {
-        return Math.abs(card.offsetLeft - reviewViewport.scrollLeft) < Math.abs(reviewCards[closest].offsetLeft - reviewViewport.scrollLeft) ? index : closest;
-      }, 0);
-    }
-    let reviewTimer;
-    let reviewResumeTimer;
-    let reviewsPaused = false;
-    function scheduleReview() {
-      window.clearTimeout(reviewTimer);
-      if (reviewsPaused || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      reviewTimer = window.setTimeout(() => {
-        const current = currentReviewIndex();
-        const gap = parseFloat(getComputedStyle(reviewCards[0].parentElement).gap) || 0;
-        const step = reviewCards[0].offsetWidth + gap;
-        const visibleCount = Math.floor((reviewViewport.clientWidth + gap) / step);
-        const maxIndex = Math.max(0, reviewCards.length - visibleCount);
-        if (current >= maxIndex) {
-          reviewViewport.style.scrollBehavior = 'auto';
-          reviewViewport.scrollLeft = 0;
-          reviewViewport.style.scrollBehavior = '';
-          scheduleReview();
-          return;
-        }
-        reviewViewport.scrollTo({ left: reviewCards[current + 1].offsetLeft, behavior: 'smooth' });
-        scheduleReview();
-      }, 3500);
-    }
-    function pauseReviews() {
-      reviewsPaused = true;
-      window.clearTimeout(reviewTimer);
-      window.clearTimeout(reviewResumeTimer);
-      reviewViewport.style.scrollBehavior = 'auto';
-      reviewViewport.scrollLeft = reviewViewport.scrollLeft;
-      reviewViewport.style.scrollBehavior = '';
-    }
-    function resumeReviews() {
-      reviewsPaused = false;
-      scheduleReview();
-    }
-    reviewViewport.addEventListener('mouseenter', pauseReviews);
-    reviewViewport.addEventListener('mouseleave', resumeReviews);
-    reviewViewport.addEventListener('focusin', pauseReviews);
-    reviewViewport.addEventListener('focusout', event => {
-      if (!reviewViewport.contains(event.relatedTarget)) resumeReviews();
-    });
-    reviewViewport.addEventListener('touchstart', pauseReviews, { passive: true });
-    reviewViewport.addEventListener('touchend', () => {
-      reviewResumeTimer = window.setTimeout(resumeReviews, 2500);
-    }, { passive: true });
-    reviewViewport.addEventListener('touchcancel', () => {
-      reviewResumeTimer = window.setTimeout(resumeReviews, 2500);
-    }, { passive: true });
-    reviewViewport.addEventListener('scroll', () => {
-      if (!reviewsPaused) scheduleReview();
-    }, { passive: true });
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) window.clearTimeout(reviewTimer);
-      else scheduleReview();
-    });
-    scheduleReview();
   </script>
 </body>
 </html>

@@ -1,4 +1,35 @@
-{% case section.settings.grid %}
+{%- assign is_martial_art_collection = false -%}
+{%- assign martial_art_name = '' -%}
+{%- assign martial_art_tag = '' -%}
+{%- if collection.handle == 'all' and current_tags != blank -%}
+  {%- assign martial_art_tag = current_tags.first | handleize -%}
+  {%- case martial_art_tag -%}
+    {%- when 'mma' -%}
+      {%- assign martial_art_name = 'MMA' -%}
+    {%- when 'kickboxing' -%}
+      {%- assign martial_art_name = 'Kickboxing' -%}
+    {%- when 'judo' -%}
+      {%- assign martial_art_name = 'Judo' -%}
+    {%- when 'bjj' -%}
+      {%- assign martial_art_name = 'BJJ' -%}
+    {%- when 'karate' -%}
+      {%- assign martial_art_name = 'Karate' -%}
+  {%- endcase -%}
+  {%- if martial_art_name != blank -%}
+    {%- assign is_martial_art_collection = true -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- assign product_columns = section.settings.grid -%}
+{%- assign product_rows = section.settings.rows -%}
+{%- assign collection_layout = section.settings.layout -%}
+{%- if is_martial_art_collection -%}
+  {%- assign product_columns = '5' -%}
+  {%- assign product_rows = 3 -%}
+  {%- assign collection_layout = 'grid' -%}
+{%- endif -%}
+
+{% case product_columns %}
   {% when '2' %}
     {%- assign max_height = 730 -%}
   {% when '3' %}
@@ -9,8 +40,8 @@
     {%- assign max_height = 295 -%}
 {% endcase %}
 
-{% if section.settings.layout == 'grid' %}
-  {%- assign limit = section.settings.grid | times: section.settings.rows -%}
+{% if collection_layout == 'grid' %}
+  {%- assign limit = product_columns | times: product_rows -%}
 {% else %}
   {%- assign limit = 16 -%}
 {% endif %}
@@ -31,7 +62,7 @@
           <div class="collection-hero__image" style="background-image: url({{ collection.image | img_url: '2048x600', crop: 'top' }});"></div>
         </noscript>
         <div class="collection-hero__title-wrapper">
-          <h1 class="collection-hero__title page-width">{{ collection.title }}</h1>
+          <h1 class="collection-hero__title page-width">{% if is_martial_art_collection %}{{ martial_art_name | escape }}{% else %}{{ collection.title }}{% endif %}</h1>
         </div>
       </div>
 
@@ -43,7 +74,7 @@
     {% else %}
       <div class="page-width">
         <div class="section-header">
-          <h1 class="h3">{{ collection.title }}</h1>
+          <h1 class="h3">{% if is_martial_art_collection %}{{ martial_art_name | escape }} Gear{% else %}{{ collection.title }}{% endif %}</h1>
           {% if collection.description != blank %}
             <div class="rte">
               {{ collection.description }}
@@ -139,10 +170,20 @@
   </header>
   
 
-  <div class="page-width" id="Collection">
+  {% if is_martial_art_collection %}
+    <nav class="martial-art-page__nav page-width" aria-label="Shop by martial art">
+      <a href="{{ routes.all_products_collection_url }}/mma"{% if martial_art_tag == 'mma' %} aria-current="page"{% endif %}>MMA</a>
+      <a href="{{ routes.all_products_collection_url }}/kickboxing"{% if martial_art_tag == 'kickboxing' %} aria-current="page"{% endif %}>KICKBOXING</a>
+      <a href="{{ routes.all_products_collection_url }}/judo"{% if martial_art_tag == 'judo' %} aria-current="page"{% endif %}>JUDO</a>
+      <a href="{{ routes.all_products_collection_url }}/bjj"{% if martial_art_tag == 'bjj' %} aria-current="page"{% endif %}>BJJ</a>
+      <a href="{{ routes.all_products_collection_url }}/karate"{% if martial_art_tag == 'karate' %} aria-current="page"{% endif %}>KARATE</a>
+    </nav>
+  {% endif %}
+
+  <div class="page-width{% if is_martial_art_collection %} martial-art-collection{% endif %}" id="Collection">
   <div class="grid">
     
-  {% if section.settings.show_sidebar %}  
+  {% if section.settings.show_sidebar and is_martial_art_collection == false %}
   <div class="grid__item small--one-whole medium-up--one-fifth col-sidebar">
     
     <input type='button' class="medium-up--hide" onclick="toggle_visibility('foo');" id='hideshow' value='Hide/Show Sidebar Filters' style="margin-bottom: 15px;">
@@ -231,10 +272,10 @@
     
      {% endif %}
     
-  <div class="grid__item small--one-whole {% if section.settings.show_sidebar %}medium-up--four-fifths{% else %}medium-up--one-whole{% endif %} col-side">
+  <div class="grid__item small--one-whole {% if section.settings.show_sidebar and is_martial_art_collection == false %}medium-up--four-fifths{% else %}medium-up--one-whole{% endif %} col-side">
     
-    {% if section.settings.layout == 'grid' %}
-      {% case section.settings.grid %}
+    {% if collection_layout == 'grid' %}
+      {% case product_columns %}
       {% when '2' %}
         {%- assign grid_item_width = 'medium-up--one-half' -%}
       {% when '3' %}
