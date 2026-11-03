@@ -2677,3 +2677,14 @@ h1.product-single__title, .product-single__title.h1 { color:#111111; font-size:c
 .aboutSec.is-visible .about-swoosh path { animation:about-swoosh-draw 1.2s cubic-bezier(.3,.7,.2,1) forwards }
 @keyframes about-swoosh-draw { to { stroke-dashoffset:0 } }
 @media (prefers-reduced-motion: reduce) { .aboutSec .about-swoosh path { stroke-dashoffset:0; animation:none !important } }
+
+/* About section: dark band, text left, logo right */
+.aboutSec { background:#111 !important; color:#ddd; margin:56px 0 84px !important; padding:0 !important; border-radius:0 !important }
+.aboutSec .page-width { display:flex; align-items:center; justify-content:space-between; gap:40px; max-width:none; padding:40px 5vw }
+.aboutSec .aboutLeft { width:auto; flex:1 1 60%; max-width:760px; padding:0 !important }
+.aboutSec .aboutRight { width:auto; flex:0 0 340px; margin:0 !important; text-align:center }
+.aboutSec .aboutRight img { display:block; width:340px; max-width:100%; height:auto; margin:0 auto !important; border-radius:0; background:#fff }
+.aboutSec .secTitle { color:#fff; text-transform:uppercase; margin-bottom:24px }
+.aboutSec .aboutLeft p { color:#ddd; font-size:15px; line-height:1.6; margin:0 0 14px }
+.aboutSec .aboutLeft p strong { color:#fff; font-weight:700 }
+@media (max-width:900px) { .aboutSec .page-width { flex-direction:column; align-items:flex-start } .aboutSec .aboutRight { display:block; flex-basis:auto; align-self:center } .aboutSec .aboutRight img { width:240px } }
