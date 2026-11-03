@@ -10,7 +10,7 @@
   {% unless blog.articles_count == 0 %}
     <div class="grid grid--uniform grid--blog">
       {% for article in blog.articles limit: section.settings.post_limit %}
-        <div class="grid__item medium-up--one-half">
+        <div class="grid__item medium-up--one-third">
             <div class="blogBox">
           {% if article.image %}
             {% capture img_id %}ArticleImage-{{ article.image.id }}{% endcapture %}
@@ -153,7 +153,7 @@
         "min": 2,
         "max": 12,
         "step": 1,
-        "default": 2
+        "default": 3
       },
       {
         "type": "checkbox",
