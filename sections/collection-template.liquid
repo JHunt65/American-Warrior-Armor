@@ -177,11 +177,11 @@
 
   {% if is_martial_art_collection %}
     <nav class="martial-art-page__nav page-width" aria-label="Shop by martial art">
-      <a href="{{ routes.all_products_collection_url }}/mma"{% if martial_art_tag == 'mma' %} aria-current="page"{% endif %}>MMA</a>
-      <a href="{{ routes.all_products_collection_url }}/kickboxing"{% if martial_art_tag == 'kickboxing' %} aria-current="page"{% endif %}>KICKBOXING</a>
-      <a href="{{ routes.all_products_collection_url }}/judo"{% if martial_art_tag == 'judo' %} aria-current="page"{% endif %}>JUDO</a>
-      <a href="{{ routes.all_products_collection_url }}/bjj"{% if martial_art_tag == 'bjj' %} aria-current="page"{% endif %}>BJJ</a>
-      <a href="{{ routes.all_products_collection_url }}/karate"{% if martial_art_tag == 'karate' %} aria-current="page"{% endif %}>KARATE</a>
+      <a href="{{ routes.all_products_collection_url }}/mma?art=mma"{% if martial_art_tag == 'mma' %} aria-current="page"{% endif %}>MMA</a>
+      <a href="{{ routes.all_products_collection_url }}/kickboxing?art=kickboxing"{% if martial_art_tag == 'kickboxing' %} aria-current="page"{% endif %}>KICKBOXING</a>
+      <a href="{{ routes.all_products_collection_url }}/judo?art=judo"{% if martial_art_tag == 'judo' %} aria-current="page"{% endif %}>JUDO</a>
+      <a href="{{ routes.all_products_collection_url }}/bjj?art=bjj"{% if martial_art_tag == 'bjj' %} aria-current="page"{% endif %}>BJJ</a>
+      <a href="{{ routes.all_products_collection_url }}/karate?art=karate"{% if martial_art_tag == 'karate' %} aria-current="page"{% endif %}>KARATE</a>
     </nav>
   {% endif %}
 
@@ -401,6 +401,41 @@
 </div>
 
 {% endpaginate %}
+
+{% if is_martial_art_collection and martial_art_tag == 'all' %}
+<template id="martial-empty-card">
+  <div class="grid__item small--one-half medium-up--one-fifth">
+    <div class="grid-view-item martial-art-placeholder">
+      <div class="grid-view-item__image martial-art-placeholder__image">{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+      <div class="h4 grid-view-item__title">Coming soon</div>
+    </div>
+  </div>
+</template>
+<script>
+  /* Shopify redirects tag URLs with no tagged products back to /collections/all?art=<tag>; show that art's page instead */
+  (function () {
+    var names = { mma: 'MMA', kickboxing: 'Kickboxing', judo: 'Judo', bjj: 'BJJ', karate: 'Karate' };
+    var art = new URLSearchParams(window.location.search).get('art');
+    if (!art || !names[art]) return;
+    var heading = document.querySelectorAll('.collection-header h1');
+    for (var i = 0; i < heading.length; i++) {
+      heading[i].textContent = heading[i].classList.contains('h3') ? names[art] + ' Gear' : names[art];
+    }
+    document.title = names[art] + ' – ' + document.title.split('–').pop().trim();
+    var pills = document.querySelectorAll('.martial-art-page__nav a');
+    for (var p = 0; p < pills.length; p++) {
+      if (pills[p].href.indexOf('/' + art) > -1) pills[p].setAttribute('aria-current', 'page');
+    }
+    var grid = document.querySelector('#Collection .col-page');
+    var tpl = document.getElementById('martial-empty-card');
+    if (!grid || !tpl) return;
+    grid.innerHTML = '';
+    for (var n = 0; n < 15; n++) grid.appendChild(tpl.content.cloneNode(true));
+    var pager = document.querySelector('#Collection .pagination');
+    if (pager) pager.style.display = 'none';
+  })();
+</script>
+{% endif %}
 
 <script type="text/javascript">
 <!--

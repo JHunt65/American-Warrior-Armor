@@ -5,11 +5,11 @@
       <form class="gear-jump gear-bar__form" action="{{ routes.all_products_collection_url }}">
         <select class="gear-jump__select" aria-label="Shop by martial art">
           <option value="">Shop by Martial Art</option>
-          <option value="{{ routes.all_products_collection_url }}/mma">MMA</option>
-          <option value="{{ routes.all_products_collection_url }}/kickboxing">Kickboxing</option>
-          <option value="{{ routes.all_products_collection_url }}/judo">Judo</option>
-          <option value="{{ routes.all_products_collection_url }}/bjj">BJJ</option>
-          <option value="{{ routes.all_products_collection_url }}/karate">Karate</option>
+          <option value="{{ routes.all_products_collection_url }}/mma?art=mma">MMA</option>
+          <option value="{{ routes.all_products_collection_url }}/kickboxing?art=kickboxing">Kickboxing</option>
+          <option value="{{ routes.all_products_collection_url }}/judo?art=judo">Judo</option>
+          <option value="{{ routes.all_products_collection_url }}/bjj?art=bjj">BJJ</option>
+          <option value="{{ routes.all_products_collection_url }}/karate?art=karate">Karate</option>
           <option value="{{ routes.all_products_collection_url }}">All Training Gear</option>
         </select>
         <button class="gear-bar__go" type="submit" aria-label="Go">&rarr;</button>
