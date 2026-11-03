@@ -1,5 +1,5 @@
 (function () {
-  var links = document.querySelectorAll('.site-nav__martial-link');
+  var links = document.querySelectorAll('.site-nav__martial-link, .martial-link-mobile');
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   links.forEach(function (link) {
@@ -23,7 +23,14 @@
         label.appendChild(s);
       });
       link.classList.add('martial-exploding');
-      setTimeout(function () { window.location.href = link.href; }, 450);
+      setTimeout(function () {
+        var same = link.href.split('#')[0] === window.location.href.split('#')[0];
+        if (same) {
+          label.textContent = text;
+          link.classList.remove('martial-exploding');
+        }
+        window.location.href = link.href;
+      }, 450);
     });
   });
 })();
