@@ -19,7 +19,21 @@
       {% endif %}
     </div>
   </div>
+  <svg class="about-swoosh" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <path d="M0 26 C 220 4, 470 4, 700 20 S 1100 36, 1200 8" pathLength="1" />
+  </svg>
 </div>
+<script>
+  (function () {
+    var el = document.querySelector('.aboutSec');
+    if (!el) return;
+    if (!('IntersectionObserver' in window)) { el.classList.add('is-visible'); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { el.classList.add('is-visible'); io.disconnect(); } });
+    }, { threshold: 0.35 });
+    io.observe(el);
+  })();
+</script>
 
 {% schema %}
   {
