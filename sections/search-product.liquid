@@ -8,19 +8,30 @@
       </div>
       <div class="custom__item custom__item--1516211716652 small--one-half medium-up--one-third " >
         <div class="custom__item-inner custom__item-inner--html">
-          <form action="/search">
-            <input type="hidden" name="type" value="product">
-            <input type="text" name="q" placeholder="Search by Category" value="" autocapitalize="off" autocomplete="off" autocorrect="off" style="width: 100%;">
-            <button class="btn search__submit" type="submit">{{ 'general.search.submit' | t }}</button>
+          <form class="gear-jump" action="{{ routes.all_products_collection_url }}">
+            <select class="gear-jump__select" aria-label="Shop by martial art" style="width: 100%;">
+              <option value="">Shop by Martial Art</option>
+              <option value="{{ routes.all_products_collection_url }}/mma">MMA</option>
+              <option value="{{ routes.all_products_collection_url }}/kickboxing">Kickboxing</option>
+              <option value="{{ routes.all_products_collection_url }}/judo">Judo</option>
+              <option value="{{ routes.all_products_collection_url }}/bjj">BJJ</option>
+              <option value="{{ routes.all_products_collection_url }}/karate">Karate</option>
+              <option value="{{ routes.all_products_collection_url }}">All Training Gear</option>
+            </select>
+            <button class="btn search__submit" type="submit">Go</button>
           </form>
         </div>
       </div>
       <div class="custom__item custom__item--1516211725802 small--one-half medium-up--one-third " >
         <div class="custom__item-inner custom__item-inner--html">
-          <form action="/search">
-            <input type="hidden" name="type" value="product">
-            <input type="text" name="q" placeholder="Search by Brand" value="" autocapitalize="off" autocomplete="off" autocorrect="off" style="width: 100%;">
-            <button class="btn search__submit" type="submit">{{ 'general.search.submit' | t }}</button>
+          <form class="gear-jump" action="{{ routes.all_products_collection_url }}">
+            <select class="gear-jump__select" aria-label="Shop by brand" style="width: 100%;">
+              <option value="">Shop by Brand</option>
+              {%- for vendor in shop.vendors | sort_natural -%}
+                <option value="{{ vendor | url_for_vendor }}">{{ vendor | escape }}</option>
+              {%- endfor -%}
+            </select>
+            <button class="btn search__submit" type="submit">Go</button>
           </form>
         </div>
       </div>
@@ -53,4 +64,11 @@
 {% endstylesheet %}
 
 {% javascript %}
+  document.addEventListener('submit', function (e) {
+    var form = e.target.closest ? e.target.closest('.gear-jump') : null;
+    if (!form) return;
+    e.preventDefault();
+    var url = form.querySelector('.gear-jump__select').value;
+    if (url) window.location.href = url;
+  });
 {% endjavascript %}
