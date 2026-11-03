@@ -190,7 +190,7 @@
           <a class="martial-nav-link" href="collection-preview.html?art=bjj"><span>BJJ</span></a>
           <a class="martial-nav-link" href="collection-preview.html?art=karate"><span>KARATE</span></a>
         </div>
-        <a class="martial-nav-link" href="#shop"><span>TRAINING GEAR</span></a>
+        <a class="martial-nav-link" href="collection-preview.html?art=training"><span>TRAINING GEAR</span></a>
       </div>
       <a class="cart" href="#shop" aria-label="Shopping bag">Bag&nbsp; 0</a>
     </nav>
@@ -215,7 +215,8 @@
       kickboxing: 'KICKBOXING',
       judo: 'JUDO',
       bjj: 'BJJ',
-      karate: 'KARATE'
+      karate: 'KARATE',
+      training: 'TRAINING'
     };
     const params = new URLSearchParams(window.location.search);
     const disciplineKey = params.get('art') in disciplines ? params.get('art') : 'mma';
