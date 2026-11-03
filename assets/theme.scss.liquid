@@ -2217,39 +2217,14 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
 .site-nav__disciplines .site-nav__link:hover { color:#e53935 }
 .site-nav a.site-nav__martial-link { overflow:visible }
 .site-nav a.site-nav__martial-link > span { position:relative; display:inline-block }
-.site-nav a.site-nav__martial-link > span::before,
-.site-nav a.site-nav__martial-link > span::after {
-  position:absolute;
-  top:50%;
-  left:50%;
-  z-index:2;
-  display:block;
-  width:60px;
-  height:6px;
-  transform:translate(-50%, -50%) scaleX(0);
-  border-radius:3px;
-  background:#e53935;
-  content:"";
-  opacity:0;
-  pointer-events:none;
-}
-.site-nav a.site-nav__martial-link > span::before { transform:translate(-50%, -50%) rotate(45deg) scaleX(0) }
-.site-nav a.site-nav__martial-link > span::after { transform:translate(-50%, -50%) rotate(-45deg) scaleX(0) }
 .site-nav a.site-nav__martial-link:hover,
 .site-nav a.site-nav__martial-link:focus-visible { color:#e53935 !important }
-.site-nav a.site-nav__martial-link:hover > span::before,
-.site-nav a.site-nav__martial-link:focus-visible > span::before { animation:martial-x-slam-positive .38s cubic-bezier(.2, 1.7, .45, 1) forwards }
-.site-nav a.site-nav__martial-link:hover > span::after,
-.site-nav a.site-nav__martial-link:focus-visible > span::after { animation:martial-x-slam-negative .38s cubic-bezier(.2, 1.7, .45, 1) forwards }
-@keyframes martial-x-slam-positive {
-  0% { transform:translate(-50%, -50%) rotate(45deg) scaleX(0); opacity:0 }
-  65% { transform:translate(-50%, -50%) rotate(45deg) scaleX(1.12); opacity:1 }
-  100% { transform:translate(-50%, -50%) rotate(45deg) scaleX(1); opacity:1 }
-}
-@keyframes martial-x-slam-negative {
-  0% { transform:translate(-50%, -50%) rotate(-45deg) scaleX(0); opacity:0 }
-  65% { transform:translate(-50%, -50%) rotate(-45deg) scaleX(1.12); opacity:1 }
-  100% { transform:translate(-50%, -50%) rotate(-45deg) scaleX(1); opacity:1 }
+.martial-letter { display:inline-block; will-change:transform, opacity }
+.martial-exploding { pointer-events:none }
+.martial-exploding .martial-letter { animation:martial-letter-explode .6s cubic-bezier(.15, .8, .3, 1) forwards }
+@keyframes martial-letter-explode {
+  0% { transform:translate(0, 0) rotate(0) scale(1); opacity:1; color:#e53935 }
+  100% { transform:translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(var(--sc)); opacity:0; color:#e53935 }
 }
 
 .martial-arts-hero {
@@ -2509,14 +2484,7 @@ a { transition:color .2s ease, background-color .2s ease, border-color .2s ease 
 
 @media (prefers-reduced-motion: reduce) {
   .martial-arts-hero__video { display:none }
-  .site-nav a.site-nav__martial-link:hover > span::before,
-  .site-nav a.site-nav__martial-link:hover > span::after,
-  .site-nav a.site-nav__martial-link:focus-visible > span::before,
-  .site-nav a.site-nav__martial-link:focus-visible > span::after { animation:none; opacity:1 }
-  .site-nav a.site-nav__martial-link:hover > span::before,
-  .site-nav a.site-nav__martial-link:focus-visible > span::before { transform:translate(-50%, -50%) rotate(45deg) scaleX(1) }
-  .site-nav a.site-nav__martial-link:hover > span::after,
-  .site-nav a.site-nav__martial-link:focus-visible > span::after { transform:translate(-50%, -50%) rotate(-45deg) scaleX(1) }
+  .martial-exploding .martial-letter { animation:none; opacity:0 }
 }
 
 input:not([type="checkbox"]):not([type="radio"]),
