@@ -334,39 +334,6 @@
           "title": "@<strong>american</strong>warriorarmor"
         }
       },
-      "55614573-1de2-45bf-a883-268658486328": {
-        "type": "collection-list",
-        "blocks": {
-          "55614573-1de2-45bf-a883-268658486328-featured_collection-1": {
-            "type": "featured_collection",
-            "disabled": true,
-            "settings": {
-              "collection": "wartribe"
-            }
-          },
-          "55614573-1de2-45bf-a883-268658486328-featured_collection-3": {
-            "type": "featured_collection",
-            "settings": {
-              "collection": "fuji"
-            }
-          },
-          "featured_collection_4rQEBT": {
-            "type": "featured_collection",
-            "settings": {
-              "collection": "flow-kimonos"
-            }
-          }
-        },
-        "block_order": [
-          "55614573-1de2-45bf-a883-268658486328-featured_collection-1",
-          "55614573-1de2-45bf-a883-268658486328-featured_collection-3",
-          "featured_collection_4rQEBT"
-        ],
-        "settings": {
-          "title": "Favorite Brands",
-          "grid": 2
-        }
-      },
       "9b5e64f9-c24e-4cdd-924b-1bcdf7b18fae": {
         "type": "feature-row",
         "settings": {
