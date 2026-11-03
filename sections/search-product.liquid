@@ -22,19 +22,6 @@
           </form>
         </div>
       </div>
-      <div class="custom__item custom__item--1516211725802 small--one-half medium-up--one-third " >
-        <div class="custom__item-inner custom__item-inner--html">
-          <form class="gear-jump" action="{{ routes.all_products_collection_url }}">
-            <select class="gear-jump__select" aria-label="Shop by brand" style="width: 100%;">
-              <option value="">Shop by Brand</option>
-              {%- for vendor in shop.vendors | sort_natural -%}
-                <option value="{{ vendor | url_for_vendor }}">{{ vendor | escape }}</option>
-              {%- endfor -%}
-            </select>
-            <button class="btn search__submit" type="submit">Go</button>
-          </form>
-        </div>
-      </div>
       <!-- <div class="custom__item custom__item--1565781378951 small--one-half medium-up--one-half " >
 <div class="custom__item-inner custom__item-inner--html">
 <p></p>
