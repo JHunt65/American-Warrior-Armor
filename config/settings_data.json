@@ -612,6 +612,11 @@
         "type": "shopify://apps/redirect-hero/blocks/live-redirect/303f77a4-ad21-4d11-82f8-47eb94136aff",
         "disabled": false,
         "settings": {}
+      },
+      "14060646107696862457": {
+        "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "disabled": false,
+        "settings": {}
       }
     }
   },
