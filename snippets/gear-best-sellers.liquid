@@ -40,4 +40,32 @@
     <h2>Best Sellers</h2>
     <div class="gear-best-sellers__grid">{{ best_seller_cards }}</div>
   </section>
+{%- elsif collection.products_count > 0 -%}
+  {% comment %}Use Shopify's sales ranking for this exact tagged collection when curated collections have no matches.{% endcomment %}
+  <section class="gear-best-sellers" data-gear-best-sellers data-gear-best-sellers-fallback hidden aria-label="{{ gear_name | escape }} best sellers">
+    <h2>Best Sellers</h2>
+    <div class="gear-best-sellers__grid"></div>
+  </section>
+  <script>
+    (function () {
+      var target = document.querySelector('[data-gear-best-sellers-fallback]');
+      var url = new URL(window.location.href);
+      // A missing tag may redirect to all products; never show unrelated gear.
+      if (url.pathname.replace(/\/$/, '').endsWith('/collections/all') && url.searchParams.has('art')) return;
+      url.searchParams.set('sort_by', 'best-selling');
+      url.searchParams.set('view', 'gear-best-sellers');
+      url.searchParams.delete('page');
+      fetch(url.toString()).then(function (response) {
+        if (!response.ok || response.redirected) return '';
+        return response.text();
+      }).then(function (html) {
+        if (!html || !target) return;
+        var documentFragment = new DOMParser().parseFromString(html, 'text/html');
+        var cards = documentFragment.querySelector('[data-ranked-gear-cards]');
+        if (!cards || !cards.children.length) return;
+        target.querySelector('.gear-best-sellers__grid').innerHTML = cards.innerHTML;
+        target.hidden = false;
+      }).catch(function () { /* Keep the regular product grid usable if the request fails. */ });
+    })();
+  </script>
 {%- endif -%}

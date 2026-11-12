@@ -1,0 +1,6 @@
+{% layout none %}
+<div data-ranked-gear-cards>
+  {% for product in collection.products limit: 4 %}
+    {% render 'product-card-grid', product: product, collection: collection, max_height: 450, card_context: 'gear-best-sellers' %}
+  {% endfor %}
+</div>
