@@ -290,7 +290,7 @@
                     {% if section.settings.brand_logo != blank %}
                       <img src="{{ section.settings.brand_logo | img_url: '400x' }}" alt="{{ section.settings.brand_logo.alt | default: shop.name | escape }}" itemprop="logo">
                     {% else %}
-                      <img src="{{ 'american-warrior-armor-logo.png' | asset_url }}" alt="{{ shop.name | escape }}" itemprop="logo" width="486" height="430">
+                      <img src="{{ 'american-warrior-armor-logo.webp' | asset_url }}" alt="{{ shop.name | escape }}" itemprop="logo" width="640" height="640">
                     {% endif %}
                     <span class="site-header__formerly"><b>Formerly Jitsu Armor</b><em>Upgraded</em></span>
                   </a>
