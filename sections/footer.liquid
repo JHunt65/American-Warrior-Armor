@@ -374,10 +374,12 @@
                     <div class="footerCol">
                     	<div class="site-footer__menu">
                           <h4>Join our mailing list</h4>
-                          <div class="site-footer__newsletter">
-                              <form method="post" action="/contact#contact_form" id="contact_form" accept-charset="UTF-8" class="contact-form">
-                                <input type="hidden" name="form_type" value="customer" />
-                                <input type="hidden" name="utf8" value="✓" />
+                          <div id="footer-newsletter" class="site-footer__newsletter" tabindex="-1">
+                              {% form 'customer', id: 'FooterNewsletterForm', class: 'contact-form' %}
+                                {% if form.posted_successfully? %}
+                                  <p class="form--success" role="status" tabindex="-1">{{ 'general.newsletter_form.confirmation' | t }}</p>
+                                {% else %}
+                                <div id="FooterNewsletterErrors" role="alert">{{ form.errors | default_errors }}</div>
                                 {% if section.settings.newsletter_text != blank %}
                                 <p>{{ section.settings.newsletter_text }}</p>
                                 {% endif %}
@@ -385,16 +387,21 @@
                                   <input type="hidden" name="contact[tags]" value="newsletter">
                                   <input type="email"
                                     name="contact[email]"
-                                    id="Email"
+                                    id="FooterNewsletterEmail"
+                                    aria-label="{{ 'general.newsletter_form.email_placeholder' | t | escape }}"
+                                    {% if form.errors %}aria-invalid="true" aria-describedby="FooterNewsletterErrors"{% endif %}
                                     class="input-group__field newsletter__input"
-                                    value=""
+                                    value="{{ form.email | escape }}"
+                                    required
+                                    autocomplete="email"
                                     placeholder="Email address"
                                     autocorrect="off"
                                     autocapitalize="off">
                                   <span class="input-group__btn">
-                                  <button type="submit" class="btn newsletter__submit" name="commit" id="Subscribe"> <span class="newsletter__submit-text--large">Subscribe</span> </button>
+                                  <button type="submit" class="btn newsletter__submit" name="commit" id="FooterNewsletterSubscribe"> <span class="newsletter__submit-text--large">Subscribe</span> </button>
                                   </span> </div>
-                              </form>
+                                {% endif %}
+                              {% endform %}
                             </div>
                         </div>
                     </div>
