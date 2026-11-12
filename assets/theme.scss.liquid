@@ -2927,7 +2927,8 @@ h1.store-page-title { max-width:100%; overflow-wrap:break-word; margin-bottom:4p
   align-items:center;
   gap:0;
   margin:0;
-  padding:24px max(24px, 5vw);
+  /* Mobile padding is set below; desktop 5vw already exceeds 24px. */
+  padding:24px 5vw;
   list-style:none;
   border-bottom:1px solid #e7e7e7;
   background:#fff;
