@@ -222,6 +222,7 @@
 
 .cwrap h1.gear-page-title { margin-bottom:28px }
 </style>
+<link rel="stylesheet" href="footer-preview.css">
 </head>
 <body>
   <div class="announcement"><a href="#footer-newsletter">Join our list for email-only discounts</a></div>
@@ -250,15 +251,96 @@
 <div class="ctool"><select><option>Filter: All</option></select><select><option>Sort: Featured</option></select></div>
 <div class="clay"><aside class="side"><h4>Brands</h4><ul><li><a class="on" href="#">All brands</a></li><li><a href="#">Venum</a></li><li><a href="#">Hayabusa</a></li><li><a href="#">Fairtex</a></li></ul><h4>Gear type</h4><ul><li><a href="#">Gloves</a></li><li><a href="#">Shin guards</a></li><li><a href="#">Apparel</a></li></ul></aside>
 <div><div class="cgrid" id="product-grid"></div><nav class="preview-pagination" aria-label="Product pages"><button id="previous-page" type="button" aria-label="Previous 15 products" disabled>‹</button><span id="page-status">Page 1 of 2</span><button id="next-page" type="button" aria-label="Next 15 products">›</button></nav></div></div></div></main>
-  <footer>
-    <div class="footer-row">
-      <div><h3>Gear for the work.</h3><p>Find your next training essential.</p></div>
-      <div><h3>Explore</h3><div class="footer-links"><a href="#shop">Shop all</a><a href="#shop">New arrivals</a><a href="#shop">Best sellers</a></div></div>
-      <div><h3>Need a hand?</h3><div class="footer-links"><a href="mailto:info@jitsuarmor.com">Contact us</a><a href="#story">Shipping & returns</a><a href="#story">Our Story</a></div></div>
-      <div id="footer-newsletter" tabindex="-1"><h3>Stay in the loop</h3><p>New gear, training stories, and more.</p><a class="button" href="mailto:info@jitsuarmor.com">Join the list</a></div>
+  <footer class="site-footer footer-minimal" role="contentinfo">
+  <div class="page-width">
+    <div class="footer-minimal__grid">
+      <nav aria-label="Explore">
+        <h2>Explore</h2>
+        <ul class="footer-minimal__explore">
+
+
+
+            <li><a href="https://jitsuarmor.com/collections/all/mma?art=mma">MMA</a></li>
+
+            <li><a href="https://jitsuarmor.com/collections/all/kickboxing?art=kickboxing">KICKBOXING</a></li>
+
+            <li><a href="https://jitsuarmor.com/collections/all/judo?art=judo">JUDO | SAMBO</a></li>
+
+            <li><a href="https://jitsuarmor.com/collections/all/bjj?art=bjj">BJJ</a></li>
+
+            <li><a href="https://jitsuarmor.com/collections/all/karate?art=karate">KARATE</a></li>
+
+          <li><a href="https://jitsuarmor.com/collections/all">TRAINING GEAR</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Customer help">
+        <h2>Need a hand?</h2>
+        <ul>
+          <li><a href="mailto:support@jitsuarmor.com">Contact us</a></li>
+          <li><a href="https://jitsuarmor.com/pages/shipping">Shipping</a> &amp; <a href="https://jitsuarmor.com/pages/returns">returns</a></li>
+          <li><a href="https://jitsuarmor.com/#story">Our Story</a></li>
+        </ul>
+      </nav>
+      <div id="footer-newsletter" class="site-footer__newsletter" tabindex="-1">
+        <h2>Stay in the loop</h2>
+        <p>New gear, training stories, and more.</p>
+        <form method="post" action="https://jitsuarmor.com/contact#FooterNewsletterForm" id="FooterNewsletterForm" accept-charset="UTF-8" class="contact-form"><input type="hidden" name="form_type" value="customer" /><input type="hidden" name="utf8" value="✓" />
+              <details data-footer-signup>
+                <summary class="footer-minimal__join">Join the list</summary>
+                <div class="footer-minimal__form">
+
+                                <div id="FooterNewsletterErrors" role="alert"></div>
+                                <div class="input-group">
+                                  <input type="hidden" name="contact[tags]" value="newsletter">
+                                  <input type="email"
+                                    name="contact[email]"
+                                    id="FooterNewsletterEmail"
+                                    aria-label="Email address"
+
+                                    class="input-group__field newsletter__input"
+                                    value=""
+                                    required
+                                    autocomplete="email"
+                                    placeholder="Email address"
+                                    autocorrect="off"
+                                    autocapitalize="off">
+                                  <span class="input-group__btn">
+                                  <button type="submit" class="btn newsletter__submit" name="commit" id="FooterNewsletterSubscribe"> <span class="newsletter__submit-text--large">Subscribe</span> </button>
+                                  </span> </div>
+
+                                              </div>
+              </details>
+            </form>
+      </div>
     </div>
-    <div class="copyright">© 2026 American Warrior Armor · Local design preview</div>
-  </footer>
+    <div class="footer-minimal__bottom">&copy; 2026 American Warrior Armor. All rights reserved.</div>
+  </div>
+</footer>
+<script>
+  (function () {
+    var signup = document.querySelector('[data-footer-signup]');
+    if (signup) signup.addEventListener('toggle', function () {
+      if (!signup.open) return;
+      var input = signup.querySelector('input[type="email"]');
+      if (input) input.focus({preventScroll: true});
+    });
+    function revealSignup() {
+      var signup = document.querySelector('[data-footer-signup]');
+      if (!signup) return;
+      signup.open = true;
+      var input = document.getElementById('FooterNewsletterEmail');
+      if (input) input.focus({preventScroll: true});
+    }
+    document.addEventListener('click', function (event) {
+      var link = event.target.closest('a[href="#footer-newsletter"]');
+      if (link) revealSignup();
+    });
+    window.addEventListener('hashchange', function () {
+      if (window.location.hash === '#footer-newsletter') revealSignup();
+    });
+    if (window.location.hash === '#footer-newsletter') revealSignup();
+  })();
+</script>
   <div class="note">Design preview only. The new brand name, logo, discipline-specific categories, and product photos are placeholders until your new identity and broader catalog are ready.</div>
   <script>
     const disciplines = {
