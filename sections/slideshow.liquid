@@ -196,6 +196,9 @@
     </div>
   {% endif %}
   {% endunless %}
+  {% if template.name == 'index' %}
+    {% render 'store-benefits' %}
+  {% endif %}
 </div>
 
 {% schema %}

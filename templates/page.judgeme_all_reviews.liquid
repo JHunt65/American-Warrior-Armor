@@ -1,6 +1,9 @@
 <div id='judgeme_all_reviews_page' class="page clearfix jdgm-all-reviews-page">
   <div class="jdgm-all-reviews-page__wrapper">
-    <h1 class="jdgm-all-reviews-page__title">{{ page.title }}</h1>
+    <h1 class="store-page-title jdgm-all-reviews-page__title">{{ page.title }}</h1>
+      {% if page.metafields.custom.subtitle.value != blank %}
+        <p class="store-page-subtitle">{{ page.metafields.custom.subtitle.value | escape }}</p>
+      {% endif %}
     <div class='jdgm-all-reviews-page__description'>{{ page.content }}</div>
 
     {% include 'judgeme_all_reviews' %}

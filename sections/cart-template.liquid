@@ -2,7 +2,7 @@
 
   {% if cart.item_count > 0 %}
     <div class="section-header text-center">
-      <h1>{{ 'cart.general.title' | t }}</h1>
+      <h1 class="store-page-title">{{ 'cart.general.title' | t }}</h1>
     </div>
 
     <form action="/cart" method="post" novalidate class="cart">
@@ -143,8 +143,8 @@
     </form>
   {% else %}
     <div class="empty-page-content text-center">
-      <h1>{{ 'cart.general.title' | t }}</h1>
-      <p class="cart--empty-message">{{ 'cart.general.empty' | t }}</p>
+      <h1 class="store-page-title">{{ 'cart.general.title' | t }}</h1>
+      <p class="cart--empty-message store-page-subtitle">{{ 'cart.general.empty' | t }}</p>
       <div class="cookie-message">
         <p>{{ 'cart.general.cookies_required' | t }}</p>
       </div>

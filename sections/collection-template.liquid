@@ -67,21 +67,21 @@
           <div class="collection-hero__image" style="background-image: url({{ collection.image | img_url: '2048x600', crop: 'top' }});"></div>
         </noscript>
         <div class="collection-hero__title-wrapper">
-          <h1 class="collection-hero__title page-width{% if is_martial_art_collection %} gear-page-title{% endif %}">{% if is_martial_art_collection %}{{ martial_art_name | escape }}{% else %}{{ collection.title }}{% endif %}</h1>
+          <h1 class="collection-hero__title page-width store-page-title{% if is_martial_art_collection %} gear-page-title{% endif %}">{% if is_martial_art_collection %}{{ martial_art_name | escape }}{% else %}{{ collection.title }}{% endif %}</h1>
         </div>
       </div>
 
       {% if collection.description != blank %}
-        <div class="rte collection-description page-width">
+        <div class="rte collection-description page-width store-page-description">
           {{ collection.description }}
         </div>
       {% endif %}
     {% else %}
       <div class="page-width">
         <div class="section-header">
-          <h1 class="h3{% if is_martial_art_collection %} gear-page-title{% endif %}">{% if is_martial_art_collection %}{{ martial_art_name | escape }} Gear{% else %}{{ collection.title }}{% endif %}</h1>
+          <h1 class="store-page-title h3{% if is_martial_art_collection %} gear-page-title{% endif %}">{% if is_martial_art_collection %}{{ martial_art_name | escape }} Gear{% else %}{{ collection.title }}{% endif %}</h1>
           {% if collection.description != blank %}
-            <div class="rte">
+            <div class="rte store-page-description">
               {{ collection.description }}
             </div>
           {% endif %}

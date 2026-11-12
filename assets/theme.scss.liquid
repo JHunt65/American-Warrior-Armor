@@ -1887,7 +1887,6 @@ ul.tabs li a {font-size: 14px;padding: 0 16px;}
 }
 
 @media only screen and (max-width:767px){
-#shopify-section-cart-template .section-header h1 { font-size: 30px;}
 .col-page .grid__item--collection-template:nth-child(2n+1) {clear:unset}
 .col-page .grid__item--collection-template:nth-child(3n+1) {clear:unset}
 .cateSec ul li{width:100%;}
@@ -1948,7 +1947,6 @@ ul.tabs li a {font-size: 14px;padding: 0 16px;}
 }
 
 @media only screen and (max-width:479px){
-#shopify-section-cart-template .section-header h1 { font-size: 24px;}
 h1.product-single__title {font-size: 22px;margin-bottom: 10px;}
 .h2.site-header__logo {width: 100%; margin: 0 auto;text-align:center}
 .h2.site-header__logo img {margin: 0 auto;}
@@ -2842,8 +2840,8 @@ h1.product-single__title, .product-single__title.h1 { color:#111111; font-size:c
 }
 
 /* Center the blog title and introduction on the same responsive axis. */
-.blog-page-header { display:flex; flex-direction:column; align-items:center; width:100%; text-align:center }
-.blog-page-header h1 { width:100%; max-width:100%; margin-left:auto; margin-right:auto; text-align:center; text-wrap:balance; overflow-wrap:break-word }
+.blog-page-header, .store-page-header { display:flex; flex-direction:column; align-items:center; width:100%; text-align:center }
+.blog-page-header h1, .store-page-header h1 { width:100%; max-width:100%; margin-left:auto; margin-right:auto; text-align:center; text-wrap:balance; overflow-wrap:break-word }
 .blog-page-header .blog-page-intro { width:100%; max-width:960px; margin-left:auto; margin-right:auto; text-align:center; text-wrap:balance }
 
 .blog-subtitle { width:100%; margin:12px auto 0; color:#333; font-size:clamp(17px, 2vw, 21px); line-height:1.5; text-align:center; text-wrap:balance }
@@ -2858,7 +2856,11 @@ h1.product-single__title, .product-single__title.h1 { color:#111111; font-size:c
 .blog-page-header h1.blog-brand-title,
 .featured-blog-header .blog-brand-title,
 .collection-header h1.gear-page-title,
-.martial-art-page__hero h1.gear-page-title {
+.martial-art-page__hero h1.gear-page-title,
+.store-page-header h1.store-page-title,
+.page-width h1.store-page-title,
+.collection-header h1.store-page-title,
+.jdgm-all-reviews-page h1.store-page-title {
   width:100%;
   margin:0 auto;
   color:#d90000;
@@ -2873,7 +2875,8 @@ h1.product-single__title, .product-single__title.h1 { color:#111111; font-size:c
   text-wrap:balance;
 }
 .blog-page-header .blog-subtitle,
-.featured-blog-header .blog-subtitle { margin:4px auto 0 }
+.featured-blog-header .blog-subtitle,
+.store-page-header .blog-subtitle { margin:4px auto 0 }
 
 /* Discipline-specific best sellers, using the image-first product cards. */
 .gear-best-sellers { margin:24px 0 40px; color:#111 }
@@ -2888,4 +2891,58 @@ h1.product-single__title, .product-single__title.h1 { color:#111111; font-size:c
 .gear-best-sellers .grid-view-item__meta { padding:10px 14px 14px }
 @media screen and (max-width:749px) {
   .gear-best-sellers__grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px }
+}
+
+/* Consistent page headings and existing supporting copy across the storefront. */
+h1.store-page-title { max-width:100%; overflow-wrap:break-word; margin-bottom:4px }
+.store-page-subtitle,
+.store-page-description {
+  width:100%;
+  max-width:960px;
+  margin:4px auto 0;
+  color:#333;
+  font-size:clamp(17px, 2vw, 21px);
+  line-height:1.5;
+  text-align:center;
+  text-wrap:balance;
+  overflow-wrap:break-word;
+}
+.store-page-description > :first-child { margin-top:0 }
+.store-page-description > :last-child { margin-bottom:0 }
+.jdgm-all-reviews-page__description { max-width:960px; margin:4px auto 28px; text-align:center; font-size:clamp(17px, 2vw, 21px); line-height:1.5; text-wrap:balance }
+.article__title.store-page-title ~ .article__author,
+.article__title.store-page-title ~ .article__date { display:block; margin:4px auto 0; text-align:center }
+
+/* Keep the announcement readable against its red background. */
+.announcement-bar.announcement-bar--link,
+.announcement-bar.announcement-bar--link:visited,
+.announcement-bar.announcement-bar--link:hover,
+.announcement-bar.announcement-bar--link:focus,
+.announcement-bar .announcement-bar__message { color:#fff }
+
+/* Benefits shown immediately below the homepage hero. */
+.store-benefits {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  align-items:center;
+  gap:0;
+  margin:0;
+  padding:24px max(24px, 5vw);
+  list-style:none;
+  border-bottom:1px solid #e7e7e7;
+  background:#fff;
+  color:#111;
+}
+.store-benefits > li { display:flex; justify-content:center; align-items:center; gap:8px; margin:0; padding:0 16px; font-size:14px; font-weight:700; line-height:1.5; text-align:center }
+.store-benefits > li + li { border-left:1px solid #e7e7e7 }
+.store-benefits > li > span { flex:none; color:#e53935 }
+.store-benefits a { color:inherit; text-decoration:none }
+.store-benefits a:hover, .store-benefits a:focus-visible { text-decoration:underline }
+@media screen and (max-width:749px) {
+  .store-benefits { padding:20px 12px }
+  .store-benefits > li { gap:5px; padding:0 8px; font-size:12px }
+}
+@media screen and (max-width:479px) {
+  .store-benefits { grid-template-columns:minmax(0,1fr); gap:12px }
+  .store-benefits > li + li { border-left:0 }
 }

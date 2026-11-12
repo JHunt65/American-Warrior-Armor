@@ -239,6 +239,41 @@
 .blog-page-header .blog-subtitle,
 .featured-blog-header .blog-subtitle { margin:4px auto 0 }
 
+
+/* Keep the announcement readable against its red background. */
+.announcement-bar.announcement-bar--link,
+.announcement-bar.announcement-bar--link:visited,
+.announcement-bar.announcement-bar--link:hover,
+.announcement-bar.announcement-bar--link:focus,
+.announcement-bar .announcement-bar__message { color:#fff }
+
+/* Benefits shown immediately below the homepage hero. */
+.store-benefits {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  align-items:center;
+  gap:0;
+  margin:0;
+  padding:24px max(24px, 5vw);
+  list-style:none;
+  border-bottom:1px solid #e7e7e7;
+  background:#fff;
+  color:#111;
+}
+.store-benefits > li { display:flex; justify-content:center; align-items:center; gap:8px; margin:0; padding:0 16px; font-size:14px; font-weight:700; line-height:1.5; text-align:center }
+.store-benefits > li + li { border-left:1px solid #e7e7e7 }
+.store-benefits > li > span { flex:none; color:#e53935 }
+.store-benefits a { color:inherit; text-decoration:none }
+.store-benefits a:hover, .store-benefits a:focus-visible { text-decoration:underline }
+@media screen and (max-width:749px) {
+  .store-benefits { padding:20px 12px }
+  .store-benefits > li { gap:5px; padding:0 8px; font-size:12px }
+}
+@media screen and (max-width:479px) {
+  .store-benefits { grid-template-columns:minmax(0,1fr); gap:12px }
+  .store-benefits > li + li { border-left:0 }
+}
+
 </style>
 </head>
 <body>
@@ -275,7 +310,11 @@
       <div class="hero-stamp" aria-hidden="true"><b>01</b><span>Train your way<br>Every discipline</span></div>
       <button class="video-toggle" type="button" aria-pressed="false">Pause video</button>
     </section>
-    <div class="trust" aria-label="Store benefits"><div><span>✦</span>Curated for training</div><div><span>✦</span>Trusted gear</div><div><span>✦</span><a href="#footer-newsletter">Join our list for email-only discounts</a></div></div>
+    <ul class="store-benefits" aria-label="Store benefits" role="list">
+  <li><span aria-hidden="true">✦</span>Curated for training</li>
+  <li><span aria-hidden="true">✦</span>Trusted gear</li>
+  <li><span aria-hidden="true">✦</span><a href="#footer-newsletter">Join our list for email-only discounts</a></li>
+</ul>
     <section class="reviews" aria-labelledby="reviews-heading">
       <div class="reviews-inner">
         <div class="eyebrow">Customer voices</div>
