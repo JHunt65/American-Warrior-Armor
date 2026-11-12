@@ -187,13 +187,13 @@
           <!-- change by ENTS to use current variant-->  
 
           {% if section.settings.product_quantity_message %}
-          <div id="variant-inventory">
+          <div id="variant-inventory" aria-live="polite">
             <p>
               {% if current_variant.inventory_management == "shopify" %}
-              {% if current_variant.inventory_quantity > 0 %}
-              Only {{ product.variants.first.inventory_quantity }} left in stock!
-              {% elsif product.variants.first.inventory_quantity > 11 %}
+              {% if current_variant.inventory_quantity > 11 %}
               We have plenty available.
+              {% elsif current_variant.inventory_quantity > 0 %}
+              Only {{ current_variant.inventory_quantity }} left in stock!
               {% else %}
               {% if current_variant.inventory_policy == "continue" %}
               This product is on back order. Contact us for ETA.
@@ -211,10 +211,8 @@
 
 
           <!-- added by ENTS for estimated shipping 8/11/17-->  
-          {% if current_variant.inventory_management == "shopify" %}
-          {% if current_variant.inventory_quantity > 0 %}       
           {% if section.settings.show_eta %}
-          <div id="eta-text">
+          <div id="eta-text"{% unless current_variant.inventory_management == "shopify" and current_variant.inventory_quantity > 0 %} style="display:none"{% endunless %}>
             {% assign early_delivery = section.settings.early_delivery| times:86400 %}
             {% assign late_delivery = section.settings.late_delivery| times:86400 %}
 
@@ -227,8 +225,6 @@
               {% endif %}
             </p>
           </div>  
-          {% endif %}
-          {% endif %}
           {% endif %}
 
 
@@ -383,6 +379,17 @@
   {% endif %}
 
   {% unless product == empty %}
+  <script type="application/json" data-variant-inventory>
+    {
+      {% for variant in product.variants %}
+        "{{ variant.id }}": {
+          "inventory_management": {{ variant.inventory_management | json }},
+          "inventory_quantity": {{ variant.inventory_quantity | json }},
+          "inventory_policy": {{ variant.inventory_policy | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    }
+  </script>
   <script type="application/json" id="ProductJson-{{ section.id }}">
     {{ product | json }}
   </script>

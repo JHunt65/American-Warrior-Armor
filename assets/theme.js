@@ -457,6 +457,8 @@ slate.Variants = (function() {
   function Variants(options) {
     this.$container = options.$container;
     this.product = options.product;
+    var inventoryData = this.$container.find('[data-variant-inventory]').first().text();
+    this.inventoryByVariant = inventoryData ? JSON.parse(inventoryData) : {};
     this.singleOptionSelector = options.singleOptionSelector;
     this.originalSelectorId = options.originalSelectorId;
     this.enableHistoryState = options.enableHistoryState;
@@ -532,39 +534,11 @@ slate.Variants = (function() {
         variant: variant
       });
 
+      this._updateInventory(variant);
       if (!variant) {
         return;
       }
- /**
-     * ENTS JL 19/11/17- display inventory qty on variant change and hide/show eta text
-     */
-   if (variant.inventory_management == "shopify") {
-    if (variant.inventory_quantity > 11) {
-      jQuery('#variant-inventory').text('We have plenty available.');
-          jQuery('#eta-text').show();
-    } 
-    else if (variant.inventory_quantity > 0) {
-      jQuery('#variant-inventory').text('Only ' + variant.inventory_quantity + ' left in stock!');
-      jQuery('#eta-text').show();
 
-    } 
-    else {
-     if (variant.inventory_policy == "continue") {
-       jQuery('#variant-inventory').text("This product is on back order. Contact us for ETA.");
-       jQuery('#eta-text').hide();}
-      
-      else {
-    	jQuery('#variant-inventory').text("This product is sold out.");
-        jQuery('#eta-text').hide(); }
-     	
-    }
-  } else {
-    jQuery('#variant-inventory').text(" ");
-     jQuery('#eta-text').hide();
-  }
-
-      
-      
       this._updateMasterSelect(variant);
       this._updateImages(variant);
       this._updatePrice(variant);
@@ -574,6 +548,29 @@ slate.Variants = (function() {
       if (this.enableHistoryState) {
         this._updateHistoryState(variant);
       }
+    },
+
+    _updateInventory: function(variant) {
+      var inventory = variant && (this.inventoryByVariant[variant.id] || variant);
+      var message = '';
+      var showEta = false;
+      if (!variant) {
+        message = 'This combination is unavailable.';
+      } else if (inventory.inventory_management === 'shopify') {
+        if (inventory.inventory_quantity > 11) {
+          message = 'We have plenty available.';
+          showEta = true;
+        } else if (inventory.inventory_quantity > 0) {
+          message = 'Only ' + inventory.inventory_quantity + ' left in stock!';
+          showEta = true;
+        } else if (inventory.inventory_policy === 'continue') {
+          message = 'This product is on back order. Contact us for ETA.';
+        } else {
+          message = 'This product is sold out.';
+        }
+      }
+      this.$container.find('#variant-inventory').text(message);
+      this.$container.find('#eta-text').toggle(showEta);
     },
 
     /**
