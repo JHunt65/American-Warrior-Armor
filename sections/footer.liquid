@@ -242,32 +242,21 @@
 {% endcomment %}
 
 
-  <div id="shopify-section-footer" class="shopify-section">
-    <footer class="site-footer" role="contentinfo">
+  <div class="footer-shell">
+    <footer class="site-footer site-footer--refresh" role="contentinfo">
     	<div class="footerTop">
         	<div class="page-width">
             	<div class="footerCols">
                 	<div class="footerCol">
                     	<div class="site-footer__menu">
-                          <h4>{{ section.settings.footer_title_1 }}</h4>
+                          <h4>Categories</h4>
                           <ul class="site-footer__linklist">
-                            {% for link in linklists[section.settings.footer_linklist].links %}
-                            <li class="site-footer__linklist-item">
-                              <a href="{{ link.url }}">{{ link.title }}</a>
-                            </li>
-							{% endfor %}
-                          </ul>
-                        </div>
-                    </div>
-                    <div class="footerCol">
-                    	<div class="site-footer__menu">
-                          <h4>{{ section.settings.footer_title_2 }}</h4>
-                          <ul class="site-footer__linklist">
-                            {% for link in linklists[section.settings.footer_linklist_two].links %}
-                            <li class="site-footer__linklist-item">
-                              <a href="{{ link.url }}">{{ link.title }}</a>
-                            </li>
-							{% endfor %}
+                            {% assign footer_disciplines = 'mma,kickboxing,judo,bjj,karate' | split: ',' %}
+                            {% assign footer_discipline_labels = 'MMA,KICKBOXING,JUDO | SAMBO,BJJ,KARATE' | split: ',' %}
+                            {% for discipline in footer_disciplines %}
+                              <li class="site-footer__linklist-item"><a href="{{ routes.all_products_collection_url }}/{{ discipline }}?art={{ discipline }}">{{ footer_discipline_labels[forloop.index0] }}</a></li>
+                            {% endfor %}
+                            <li class="site-footer__linklist-item"><a href="{{ routes.all_products_collection_url }}">TRAINING GEAR</a></li>
                           </ul>
                         </div>
                     </div>
@@ -417,7 +406,7 @@
         <div class="footerBottom">
         	<div class="page-width">
                 <div class="ftrbtmLeft">
-                    &copy; {{ 'now' | date: "%Y" }} <a href="https://jitsuarmor.com/" title=""><strong>Jitsu Armor</strong></a>, All rights reserved.</strong>
+                    &copy; {{ 'now' | date: "%Y" }} <a href="{{ routes.root_url }}">{{ shop.name | escape }}</a>. All rights reserved.
                 </div>
               {% if section.settings.show_payment_icons %}
                 <div class="ftrbtmRight">
@@ -428,6 +417,9 @@
         </div>
 
 
+
+    </footer>
+  </div>
 
 {% schema %}
   {
