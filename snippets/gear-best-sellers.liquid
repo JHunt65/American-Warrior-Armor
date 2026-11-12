@@ -1,0 +1,43 @@
+{%- assign best_seller_tag = gear_tag | handleize | remove: '-' -%}
+{%- case best_seller_tag -%}
+  {%- when 'mixedmartialarts' -%}{%- assign best_seller_tag = 'mma' -%}
+  {%- when 'judogear', 'sambo' -%}{%- assign best_seller_tag = 'judo' -%}
+  {%- when 'brazilianjiujitsu', 'brazilianjiujitsubjj' -%}{%- assign best_seller_tag = 'bjj' -%}
+{%- endcase -%}
+{%- assign best_seller_handle = best_seller_tag | append: '-best-sellers' -%}
+{%- assign best_seller_collection = collections[best_seller_handle] -%}
+{%- assign dedicated_best_sellers = false -%}
+{%- if best_seller_collection.products_count > 0 -%}
+  {%- assign dedicated_best_sellers = true -%}
+{%- else -%}
+  {%- assign best_seller_collection = collections['best-sellers'] -%}
+{%- endif -%}
+{%- assign best_seller_count = 0 -%}
+{%- capture best_seller_cards -%}
+  {%- for product in best_seller_collection.products -%}
+    {%- assign matches_gear = dedicated_best_sellers -%}
+    {%- if best_seller_tag == 'all' or best_seller_tag == 'training' -%}
+      {%- assign matches_gear = true -%}
+    {%- endif -%}
+    {%- for product_tag in product.tags -%}
+      {%- assign normalized_tag = product_tag | handleize | remove: '-' -%}
+      {%- case normalized_tag -%}
+        {%- when 'mixedmartialarts' -%}{%- assign normalized_tag = 'mma' -%}
+        {%- when 'judogear', 'sambo' -%}{%- assign normalized_tag = 'judo' -%}
+        {%- when 'brazilianjiujitsu', 'brazilianjiujitsubjj' -%}{%- assign normalized_tag = 'bjj' -%}
+      {%- endcase -%}
+      {%- if normalized_tag == best_seller_tag -%}{%- assign matches_gear = true -%}{%- endif -%}
+    {%- endfor -%}
+    {%- if matches_gear -%}
+      {% render 'product-card-grid', product: product, collection: best_seller_collection, section: section, max_height: 450, card_context: 'gear-best-sellers' %}
+      {%- assign best_seller_count = best_seller_count | plus: 1 -%}
+      {%- if best_seller_count == 4 -%}{%- break -%}{%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+{%- if best_seller_count > 0 -%}
+  <section class="gear-best-sellers" data-gear-best-sellers aria-label="{{ gear_name | escape }} best sellers">
+    <h2>Best Sellers</h2>
+    <div class="gear-best-sellers__grid">{{ best_seller_cards }}</div>
+  </section>
+{%- endif -%}

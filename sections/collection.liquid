@@ -1,4 +1,4 @@
-<div class="page-width">
+<div class="page-width{% if section.settings.collection == 'new-arrivals' %} new-arrivals-width{% endif %}">
   {% if section.settings.title != blank %}
     <div class="section-header text-center">
       <h2 class="secTitle">{{ section.settings.title | escape }}</h2>
@@ -23,37 +23,38 @@
   {% endcase %}
 
   {%- assign product_limit = section.settings.grid | times: section.settings.rows -%}
+  {%- assign is_new_arrivals = false -%}
+  {% if section.settings.collection == 'new-arrivals' or collection.handle == 'new-arrivals' %}
+    {%- assign is_new_arrivals = true -%}
+    {%- assign product_limit = 20 -%}
+  {% endif %}
 
-  <div class="grid grid--uniform grid--view-items product-list">
+  {% if is_new_arrivals %}
+    <div class="new-arrivals" data-product-carousel>
+      <div class="new-arrivals__controls" aria-label="New Arrivals controls">
+        <button type="button" class="new-arrivals__arrow" data-carousel-prev aria-label="Previous new arrivals" aria-controls="NewArrivals-{{ section.id }}" disabled>‹</button>
+        <button type="button" class="new-arrivals__arrow" data-carousel-next aria-label="Next new arrivals" aria-controls="NewArrivals-{{ section.id }}">›</button>
+      </div>
+  {% endif %}
+
+  <div {% if is_new_arrivals %}id="NewArrivals-{{ section.id }}" class="new-arrivals__track" data-carousel-track tabindex="0" role="region" aria-label="New Arrivals products"{% else %}class="grid grid--uniform grid--view-items product-list"{% endif %}>
     {% for product in collection.products limit: product_limit %}
       <div class="grid__item grid__item--{{section.id}} {{ grid_item_width }}">
         {% include 'product-card-grid', max_height: max_height %}
       </div>
-    {% else %}
-
-      {% for i in (1..product_limit) %}
-        <div class="grid__item .grid__item--{{section.id}} {{ grid_item_width }}">
-          <div class="grid-view-item">
-            <a href="#" class="grid-view-item__link">
-              <div class="grid-view-item__image">
-                {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
-                {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
-              </div>
-              <div class="h4 grid-view-item__title">{{ 'homepage.onboarding.product_title' | t }}</div>
-              <div class="grid-view-item__meta">
-                {% include 'product-price' %}
-              </div>
-            </a>
-          </div>
-        </div>
-      {% endfor %}
     {% endfor %}
   </div>
+
+  {% if is_new_arrivals %}</div>{% endif %}
 
   {% if section.settings.show_view_all %}
     <hr class="hr--invisible"></hr>
     <div class="text-center">
-      <a href="{{ collection.url }}" class="btn">
+      {% if is_new_arrivals %}
+        <a href="{{ routes.collections_url }}/new-arrivals?view=new-arrivals" class="btn">
+      {% else %}
+        <a href="{{ collection.url }}" class="btn">
+      {% endif %}
         {{ 'collections.general.view_all' | t }}
       </a>
     </div>

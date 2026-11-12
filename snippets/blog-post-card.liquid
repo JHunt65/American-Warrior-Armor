@@ -1,0 +1,23 @@
+      <article class="featured-blog-card" data-blog-card>
+        {% if article.image %}
+          <a class="featured-blog-card__image" href="{{ article.url }}" aria-label="{{ article.title | escape }}">
+            <img src="{{ article.image | img_url: '900x' }}"
+                 srcset="{{ article.image | img_url: '360x' }} 360w, {{ article.image | img_url: '540x' }} 540w, {{ article.image | img_url: '900x' }} 900w"
+                 sizes="(min-width: 750px) 33vw, 100vw"
+                 width="{{ article.image.width }}" height="{{ article.image.height }}"
+                 alt="{{ article.image.alt | default: article.title | escape }}" loading="lazy">
+          </a>
+        {% endif %}
+        <div class="featured-blog-card__content">
+          <h3 class="featured-blog-card__title"><a href="{{ article.url }}">{{ article.title | escape }}</a></h3>
+          {% if article.excerpt != blank %}
+            <div class="rte featured-blog-card__synopsis">{{ article.excerpt }}</div>
+          {% endif %}
+          {% if section.settings.blog_show_date %}
+            <div class="featured-blog-card__date">{{ article.published_at | time_tag: format: 'month_day_year' }}</div>
+          {% endif %}
+          {% if section.settings.blog_show_author %}
+            <p class="article__author">{{ 'blogs.article.by_author' | t: author: article.author }}</p>
+          {% endif %}
+        </div>
+      </article>

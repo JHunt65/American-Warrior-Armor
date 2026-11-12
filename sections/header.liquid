@@ -221,11 +221,18 @@
 <div id="shopify-section-header" class="shopify-section">
   
   <div data-section-id="header" data-section-type="header-section">
+    {% if section.settings.message %}
+      {% if section.settings.home_page_only == false or template.name == 'index' %}
+        <a href="{{ section.settings.message_link | default: '#footer-newsletter' }}" class="announcement-bar announcement-bar--link">
+          <p class="announcement-bar__message">{{ section.settings.message_text | escape }}</p>
+        </a>
+      {% endif %}
+    {% endif %}
     <nav class="mobile-nav-wrapper medium-up--hide" role="navigation">
       <ul id="MobileNav" class="mobile-nav">
         <li class="mobile-nav__item border-bottom"><a href="{{ routes.all_products_collection_url }}/mma?art=mma" class="mobile-nav__link martial-link-mobile"><span>MMA</span></a></li>
         <li class="mobile-nav__item border-bottom"><a href="{{ routes.all_products_collection_url }}/kickboxing?art=kickboxing" class="mobile-nav__link martial-link-mobile"><span>KICKBOXING</span></a></li>
-        <li class="mobile-nav__item border-bottom"><a href="{{ routes.all_products_collection_url }}/judo?art=judo" class="mobile-nav__link martial-link-mobile"><span>JUDO</span></a></li>
+        <li class="mobile-nav__item border-bottom"><a href="{{ routes.all_products_collection_url }}/judo?art=judo" class="mobile-nav__link martial-link-mobile"><span>JUDO | SAMBO</span></a></li>
         <li class="mobile-nav__item border-bottom"><a href="{{ routes.all_products_collection_url }}/bjj?art=bjj" class="mobile-nav__link martial-link-mobile"><span>BJJ</span></a></li>
         <li class="mobile-nav__item border-bottom"><a href="{{ routes.all_products_collection_url }}/karate?art=karate" class="mobile-nav__link martial-link-mobile"><span>KARATE</span></a></li>
         <li class="mobile-nav__item border-bottom"><a href="/collections/all" class="mobile-nav__link martial-link-mobile"><span>TRAINING GEAR</span></a></li>

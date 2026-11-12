@@ -1,0 +1,36 @@
+<section class="page-width new-arrivals-width new-arrivals-page" data-section-id="{{ section.id }}" data-section-type="new-arrivals-page">
+  <header class="section-header text-center">
+    <h1>New Arrivals</h1>
+    <p>Check back often—we’re adding new products weekly.</p>
+  </header>
+  {% paginate collection.products by 250 %}
+    <div id="Collection">
+      <div class="grid grid--uniform grid--view-items col-page">
+        {% for product in collection.products %}
+          <div class="grid__item small--one-half medium-up--one-quarter">
+            {% include 'product-card-grid', max_height: 350 %}
+          </div>
+        {% else %}
+          <p>{{ 'collections.general.no_matches' | t }}</p>
+        {% endfor %}
+      </div>
+      {% if paginate.pages > 1 %}
+        {% include 'pagination' %}
+      {% endif %}
+    </div>
+  {% endpaginate %}
+</section>
+
+{% schema %}
+{
+  "name": "New Arrivals page",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show product vendors",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

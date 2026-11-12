@@ -43,7 +43,7 @@
     .martial-nav-link:hover, .martial-nav-link:focus-visible { color: var(--red) }
     .martial-letter { display: inline-block }
     .martial-exploding { pointer-events: none }
-    .martial-exploding .martial-letter { animation: boom .6s cubic-bezier(.15,.8,.3,1) forwards }
+    .martial-exploding .martial-letter { animation: boom 1.2s cubic-bezier(.15,.8,.3,1) var(--delay, 0ms) forwards }
     @keyframes boom { 0% { transform: none; opacity: 1; color: #e53935 } 100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(var(--sc)); opacity: 0; color: #e53935 } }
     .cart { border: 1px solid var(--line); border-radius: 6px; padding: 10px 14px; font-weight: 700 }
     .hero { min-height: 490px; overflow: hidden; position: relative; display: flex; align-items: center; background: #111; color: #fff }
@@ -161,11 +161,89 @@
     .lpost img{width:100%;border-radius:6px}.lpost h3{margin:10px 0}.linsta{display:grid;grid-template-columns:repeat(8,1fr);gap:8px}.linsta img{width:100%;aspect-ratio:1;object-fit:cover}
     .lswoosh{position:absolute;left:0;bottom:-34px;width:100%;height:40px;overflow:visible;pointer-events:none}.lswoosh-top{bottom:auto;top:-34px}.lswoosh path{fill:none;stroke:#e53935;stroke-width:8;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;vector-effect:non-scaling-stroke}.labout.is-visible .lswoosh path{animation:draw 1.2s cubic-bezier(.3,.7,.2,1) forwards}@keyframes draw{to{stroke-dashoffset:0}}
     @media(max-width:900px){.lgrid.c3{grid-template-columns:repeat(2,1fr)}.lgift,.labout{grid-template-columns:1fr}.linsta{grid-template-columns:repeat(4,1fr)}.gs-in{flex-direction:column}.gs-label{text-align:center}}
-  </style>
+      .announcement a { color:inherit; text-decoration:none }
+    #footer-newsletter { scroll-margin-top:24px }
+  /* New Arrivals: one scrollable row, up to twenty actual products. */
+.new-arrivals__controls { display:flex; justify-content:flex-end; gap:8px; margin-bottom:16px }
+.new-arrivals__arrow { display:grid; place-items:center; width:44px; height:44px; padding:0; border:1px solid #ddd; border-radius:50%; background:#fff; color:#111; font-size:30px; cursor:pointer }
+.new-arrivals__arrow:disabled { opacity:.35; cursor:default }
+.new-arrivals__track { display:flex; gap:20px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:thin; padding-bottom:16px }
+.new-arrivals__track > .grid__item { display:flex; flex:0 0 calc((100% - 60px) / 4); width:auto; min-width:0; float:none; clear:none; padding:0; scroll-snap-align:start }
+@media screen and (max-width:991px) {
+  .new-arrivals__track > .grid__item { flex-basis:calc((100% - 40px) / 3) }
+}
+@media screen and (max-width:749px) {
+  .new-arrivals__track { gap:12px }
+  .new-arrivals__track > .grid__item { flex-basis:calc((100% - 12px) / 2) }
+}
+
+
+#shop.lsec, .arrivals-page { max-width:1680px; padding-left:24px; padding-right:24px }
+#shop .lp, .arrivals-grid .lp { padding:18px; border:1px solid var(--line); border-radius:12px; text-align:left }
+#shop .lp-img img, .arrivals-grid .lp-img img { max-width:90%; max-height:90% }
+#shop .lp h3, .arrivals-grid .lp h3 { font-size:17px }
+@media(max-width:749px) {
+  #shop.lsec, .arrivals-page { padding-left:16px; padding-right:16px }
+  #shop .lp, .arrivals-grid .lp { padding:12px }
+  #shop .lp h3, .arrivals-grid .lp h3 { font-size:14px }
+}
+
+#shop .lp, .arrivals-grid .lp { display:flex; flex-direction:column; padding:0; overflow:hidden }
+#shop .lp-img, .arrivals-grid .lp-img { flex:none; width:100%; aspect-ratio:1; border-radius:0 }
+#shop .lp-img img, .arrivals-grid .lp-img img { display:block; width:100%; height:100%; max-width:100%; max-height:100%; object-fit:contain }
+#shop .lp h3, .arrivals-grid .lp h3 { padding:0 14px; font-size:15px; min-height:2.8em }
+#shop .lp-price, .arrivals-grid .lp-price { margin-top:auto; padding:8px 14px 14px }
+
+.featured-blog-cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:28px }
+.featured-blog-card { display:flex; flex-direction:column; min-width:0; overflow:hidden; border:1px solid #e7e7e7; border-radius:12px; background:#fff }
+.featured-blog-card__image { display:block; aspect-ratio:16/9; overflow:hidden }
+.featured-blog-card__image img { display:block; width:100%; height:100%; object-fit:cover }
+.featured-blog-card__content { display:flex; flex:1; flex-direction:column; padding:20px }
+.featured-blog-card__title { margin:0 0 12px; font-size:22px; line-height:1.3 }
+.featured-blog-card__synopsis { margin-bottom:16px; font-size:15px; line-height:1.6; color:#555; overflow-wrap:anywhere }
+.featured-blog-card__date { margin-top:auto; color:#666; font-size:13px }
+.featured-blog-cards__view-all { margin-top:28px }
+@media screen and (max-width:749px) { .featured-blog-cards { grid-template-columns:minmax(0,1fr); gap:24px } }
+
+
+.featured-blog-header { text-align:center }
+.featured-blog-header__intro { max-width:800px; margin:16px auto 0; color:#555; font-size:16px; line-height:1.7; text-align:center }
+
+.featured-blog-header { margin-bottom:28px; box-shadow:none; background:transparent }
+
+.blog-subtitle { width:100%; margin:12px auto 0; color:#333; font-size:clamp(17px, 2vw, 21px); line-height:1.5; text-align:center; text-wrap:balance }
+
+
+@font-face {
+  font-family:'Oxanium';
+  src:url('../assets/Oxanium-Variable.ttf') format('truetype');
+  font-style:normal;
+  font-weight:200 800;
+  font-display:swap;
+}
+.blog-page-header h1.blog-brand-title,
+.featured-blog-header .blog-brand-title {
+  width:100%;
+  margin:0 auto;
+  color:#d90000;
+  font-family:'Oxanium', 'Arial Black', sans-serif;
+  font-size:clamp(36.96px, 5.28vw, 60.72px);
+  font-weight:800;
+  font-style:oblique 10deg;
+  letter-spacing:-.035em;
+  line-height:1.05;
+  text-transform:uppercase;
+  text-align:center;
+  text-wrap:balance;
+}
+.blog-page-header .blog-subtitle,
+.featured-blog-header .blog-subtitle { margin:4px auto 0 }
+
+</style>
 </head>
 <body>
-  <div class="announcement">Free shipping on orders over $125 — use code FREESHIPPING</div>
-  <div class="utility"><span>Equipment for every kind of fighter.</span><span>Questions? <a href="mailto:info@jitsuarmor.com">info@jitsuarmor.com</a></span></div>
+  <div class="announcement"><a href="#footer-newsletter">Join our list for email-only discounts</a></div>
+  <div class="utility"><span>Equipment for every kind of fighter.</span><span>Questions? <a href="mailto:support@jitsuarmor.com">support@jitsuarmor.com</a></span></div>
   <header>
     <nav class="nav" aria-label="Main navigation">
       <a class="logo" href="home-preview.html" aria-label="American Warrior Armor home"><img src="../assets/american-warrior-armor-logo.png" alt="American Warrior Armor logo"><span class="formerly"><b>Formerly Jitsu Armor</b><em>Upgraded</em></span></a>
@@ -176,7 +254,7 @@
         <div class="discipline-links">
           <a class="martial-nav-link" href="collection-preview.html?art=mma"><span>MMA</span></a>
           <a class="martial-nav-link" href="collection-preview.html?art=kickboxing"><span>KICKBOXING</span></a>
-          <a class="martial-nav-link" href="collection-preview.html?art=judo"><span>JUDO</span></a>
+          <a class="martial-nav-link" href="collection-preview.html?art=judo"><span>JUDO | SAMBO</span></a>
           <a class="martial-nav-link" href="collection-preview.html?art=bjj"><span>BJJ</span></a>
           <a class="martial-nav-link" href="collection-preview.html?art=karate"><span>KARATE</span></a>
         </div>
@@ -187,7 +265,7 @@
   </header>
   <main id="top">
     <section class="hero">
-      <video class="hero-video" src="../assets/american-warrior-hero.mp4" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+      <video class="hero-video" poster="../assets/american-warrior-hero-poster.jpg" src="../assets/american-warrior-hero.mp4" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
       <div class="hero-copy">
         <div class="eyebrow">Built for the work</div>
         <h1>GEAR UP.<br>SHOW UP.</h1>
@@ -197,7 +275,7 @@
       <div class="hero-stamp" aria-hidden="true"><b>01</b><span>Train your way<br>Every discipline</span></div>
       <button class="video-toggle" type="button" aria-pressed="false">Pause video</button>
     </section>
-    <div class="trust" aria-label="Store benefits"><div><span>✦</span>Curated for training</div><div><span>✦</span>Trusted gear</div><div><span>✦</span>Free shipping over $125</div></div>
+    <div class="trust" aria-label="Store benefits"><div><span>✦</span>Curated for training</div><div><span>✦</span>Trusted gear</div><div><span>✦</span><a href="#footer-newsletter">Join our list for email-only discounts</a></div></div>
     <section class="reviews" aria-labelledby="reviews-heading">
       <div class="reviews-inner">
         <div class="eyebrow">Customer voices</div>
@@ -233,19 +311,18 @@
       <div class="gs-in"><p class="gs-label">Search for <b>your Gear</b></p>
         <form class="gs-form" onsubmit="event.preventDefault();var v=this.querySelector('select').value;if(v)location.href=v"><select aria-label="Shop by martial art"><option value="">Shop by Martial Art</option><option value="collection-preview.html?art=mma">MMA</option><option value="collection-preview.html?art=kickboxing">Kickboxing</option><option value="collection-preview.html?art=judo">Judo</option><option value="collection-preview.html?art=bjj">BJJ</option><option value="collection-preview.html?art=karate">Karate</option><option value="collection-preview.html?art=training">All Training Gear</option></select><button type="submit" aria-label="Go">&rarr;</button></form></div>
     </section>
-    <section class="lsec" id="shop"><h2 class="ltitle">New Arrivals</h2><div class="lgrid c3"><article class="lp"><div class="lp-img"><img src="../assets/cate-img01.png" alt=""></div><h3>Sample Product 1</h3><div class="lp-price">$89.99</div></article><article class="lp"><div class="lp-img"><img src="../assets/cate-img02.png" alt=""></div><h3>Sample Product 2</h3><div class="lp-price">$129.99</div></article><article class="lp"><div class="lp-img"><img src="../assets/about-img-right.png" alt=""></div><h3>Sample Product 3</h3><div class="lp-price">$59.99</div></article></div><div class="lcenter"><a class="lbtn" href="collection-preview.html?art=training">View all</a></div></section>
-    <section class="lsec"><h2 class="ltitle">Best Sellers</h2><div class="lgrid c3"><article class="lp"><div class="lp-img"><img src="../assets/cate-img02.png" alt=""></div><h3>Sample Product 1</h3><div class="lp-price">$99.99</div></article><article class="lp"><div class="lp-img"><img src="../assets/cate-img01.png" alt=""></div><h3>Sample Product 2</h3><div class="lp-price">$79.99</div></article><article class="lp"><div class="lp-img"><img src="../assets/about-img-right.png" alt=""></div><h3>Sample Product 3</h3><div class="lp-price">$49.99</div></article><article class="lp"><div class="lp-img"><img src="../assets/cate-img01.png" alt=""></div><h3>Sample Product 4</h3><div class="lp-price">$139.99</div></article><article class="lp"><div class="lp-img"><img src="../assets/cate-img02.png" alt=""></div><h3>Sample Product 5</h3><div class="lp-price">$69.99</div></article><article class="lp"><div class="lp-img"><img src="../assets/about-img-right.png" alt=""></div><h3>Sample Product 6</h3><div class="lp-price">$24.99</div></article></div></section>
-    <section class="lgift"><div class="lgift-img"><img src="../assets/about-img-left.png" alt=""></div><div class="lgift-txt"><h2>A gift for your jiu jitsu warrior</h2><p><strong>Experience the satisfaction of giving a</strong></p><p><strong>Jitsu Armor Gift Card!</strong></p><p><em>Empower them to choose their perfect Jitsu Gear!</em></p><p>Purchase Amounts: <strong>$25 - $50 - $100 - $150</strong></p><a class="lbtn" href="#">Buy Them Here Now</a></div></section>
+    <section class="lsec" id="shop"><h2 class="ltitle">New Arrivals</h2><div class="new-arrivals" data-product-carousel><div class="new-arrivals__controls"><button type="button" class="new-arrivals__arrow" data-carousel-prev aria-label="Previous new arrivals" aria-controls="preview-arrivals" disabled>‹</button><button type="button" class="new-arrivals__arrow" data-carousel-next aria-label="Next new arrivals" aria-controls="preview-arrivals">›</button></div><div id="preview-arrivals" class="new-arrivals__track" data-carousel-track tabindex="0" role="region" aria-label="New Arrivals products"><article class="lp grid__item"><div class="lp-img"><img src="../assets/cate-img01.png" alt=""></div><h3>Sample Product 1</h3><div class="lp-price">$89.99</div></article><article class="lp grid__item"><div class="lp-img"><img src="../assets/cate-img02.png" alt=""></div><h3>Sample Product 2</h3><div class="lp-price">$129.99</div></article><article class="lp grid__item"><div class="lp-img"><img src="../assets/about-img-right.png" alt=""></div><h3>Sample Product 3</h3><div class="lp-price">$59.99</div></article><article class="lp grid__item"><div class="lp-img"><img src="../assets/cate-img01.png" alt=""></div><h3>Sample Product 4</h3><div class="lp-price">$89.99</div></article><article class="lp grid__item"><div class="lp-img"><img src="../assets/cate-img02.png" alt=""></div><h3>Sample Product 5</h3><div class="lp-price">$129.99</div></article><article class="lp grid__item"><div class="lp-img"><img src="../assets/about-img-right.png" alt=""></div><h3>Sample Product 6</h3><div class="lp-price">$59.99</div></article><article class="lp grid__item"><div class="lp-img"><img src="../assets/cate-img01.png" alt=""></div><h3>Sample Product 7</h3><div class="lp-price">$89.99</div></article><article class="lp grid__item"><div class="lp-img"><img src="../assets/cate-img02.png" alt=""></div><h3>Sample Product 8</h3><div class="lp-price">$129.99</div></article><article class="lp grid__item"><div class="lp-img"><img src="../assets/about-img-right.png" alt=""></div><h3>Sample Product 9</h3><div class="lp-price">$59.99</div></article><article class="lp grid__item"><div class="lp-img"><img src="../assets/cate-img01.png" alt=""></div><h3>Sample Product 10</h3><div class="lp-price">$89.99</div></article><article class="lp grid__item"><div class="lp-img"><img src="../assets/cate-img02.png" alt=""></div><h3>Sample Product 11</h3><div class="lp-price">$129.99</div></article><article class="lp grid__item"><div class="lp-img"><img src="../assets/about-img-right.png" alt=""></div><h3>Sample Product 12</h3><div class="lp-price">$59.99</div></article><article class="lp grid__item"><div class="lp-img"><img src="../assets/cate-img01.png" alt=""></div><h3>Sample Product 13</h3><div class="lp-price">$89.99</div></article><article class="lp grid__item"><div class="lp-img"><img src="../assets/cate-img02.png" alt=""></div><h3>Sample Product 14</h3><div class="lp-price">$129.99</div></article><article class="lp grid__item"><div class="lp-img"><img src="../assets/about-img-right.png" alt=""></div><h3>Sample Product 15</h3><div class="lp-price">$59.99</div></article><article class="lp grid__item"><div class="lp-img"><img src="../assets/cate-img01.png" alt=""></div><h3>Sample Product 16</h3><div class="lp-price">$89.99</div></article><article class="lp grid__item"><div class="lp-img"><img src="../assets/cate-img02.png" alt=""></div><h3>Sample Product 17</h3><div class="lp-price">$129.99</div></article><article class="lp grid__item"><div class="lp-img"><img src="../assets/about-img-right.png" alt=""></div><h3>Sample Product 18</h3><div class="lp-price">$59.99</div></article><article class="lp grid__item"><div class="lp-img"><img src="../assets/cate-img01.png" alt=""></div><h3>Sample Product 19</h3><div class="lp-price">$89.99</div></article><article class="lp grid__item"><div class="lp-img"><img src="../assets/cate-img02.png" alt=""></div><h3>Sample Product 20</h3><div class="lp-price">$129.99</div></article></div></div><div class="lcenter"><a class="lbtn" href="new-arrivals-preview.html">View all</a></div></section>
+    <section class="lgift"><div class="lgift-img"><img src="../assets/american-warrior-gift-card.png" alt="American Warrior gift card beside a folded black gi and belt"></div><div class="lgift-txt"><h2>A gift for your American Warrior</h2><p><strong>Experience the satisfaction of giving a</strong></p><p><strong>American Warrior Gift Card!</strong></p><p><em>Empower them to choose their perfect American Warrior Gear!</em></p><p>Purchase Amounts: <strong>$25 - $50 - $100 - $150</strong></p><a class="lbtn" href="#">Buy Them Here Now</a></div></section>
     <section class="labout" id="story"><svg class="lswoosh lswoosh-top" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true"><path d="M1200 14 C 980 36, 730 36, 500 20 S 100 4, 0 32" pathLength="1"/></svg><svg class="lswoosh" viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0 26 C 220 4, 470 4, 700 20 S 1100 36, 1200 8" pathLength="1"/></svg><div class="labout-txt"><h2 class="ltitle l-left">A Way of Life</h2><p>Every martial arts journey begins with a first step—walking into a gym, stepping onto the mat, or trying something you never thought you could do. Along the way, you build discipline, confidence, friendships, and a determination that carries into everyday life.</p><p>At <strong>American Warrior Armor, formerly Jitsu Armor</strong>, we’re excited to serve the growing martial arts community. Our next chapter builds on our jiu-jitsu roots while welcoming athletes across more disciplines.</p><p>We’re here to help you find gear that supports your training, your goals, and your progress. Whether you’re preparing for your first class or your next competition, we’re excited to be part of your journey and help you become the best martial artist you can be.</p></div><div class="labout-img"><img src="../assets/american-warrior-armor-logo.png" alt=""></div></section>
-    <section class="lsec"><h2 class="ltitle">American Warrior Armor Blog</h2><div class="lgrid c3"><article class="lpost"><img src="../assets/blog-img01.png" alt=""><h3>Sample blog post 1</h3></article><article class="lpost"><img src="../assets/blog-img02.png" alt=""><h3>Sample blog post 2</h3></article><article class="lpost"><img src="../assets/blog-img01.png" alt=""><h3>Sample blog post 3</h3></article></div><div class="lcenter"><a class="lbtn" href="#">View all</a></div></section>
-    <section class="lsec"><h2 class="ltitle">@<b>american</b>warriorarmor</h2><div class="linsta"><img src="../assets/insta-thum01.png" alt=""><img src="../assets/insta-thum02.png" alt=""><img src="../assets/insta-thum03.png" alt=""><img src="../assets/insta-thum04.png" alt=""><img src="../assets/insta-thum05.png" alt=""><img src="../assets/insta-thum06.png" alt=""><img src="../assets/insta-thum07.png" alt=""><img src="../assets/insta-thum08.png" alt=""></div></section>
+    <section class="lsec"><header class="featured-blog-header"><h2 class="ltitle blog-brand-title">The Warrior’s Edge</h2><p class="blog-subtitle">Your place for martial arts knowledge and inspiration.</p></header><div class="featured-blog-cards"><article class="featured-blog-card"><div class="featured-blog-card__image"><img src="../assets/blog-img01.png" alt="" loading="lazy"></div><div class="featured-blog-card__content"><h3 class="featured-blog-card__title">Sample blog post 1</h3><p class="featured-blog-card__synopsis">Your short synopsis for this post will appear here.</p><div class="featured-blog-card__date">Publication date</div></div></article><article class="featured-blog-card"><div class="featured-blog-card__image"><img src="../assets/blog-img02.png" alt="" loading="lazy"></div><div class="featured-blog-card__content"><h3 class="featured-blog-card__title">Sample blog post 2</h3><p class="featured-blog-card__synopsis">Your short synopsis for this post will appear here.</p><div class="featured-blog-card__date">Publication date</div></div></article><article class="featured-blog-card"><div class="featured-blog-card__image"><img src="../assets/blog-img01.png" alt="" loading="lazy"></div><div class="featured-blog-card__content"><h3 class="featured-blog-card__title">Sample blog post 3</h3><p class="featured-blog-card__synopsis">Your short synopsis for this post will appear here.</p><div class="featured-blog-card__date">Publication date</div></div></article></div><div class="lcenter"><a class="lbtn" href="blog-preview.html">View all</a></div></section>
+    <section class="lsec"><h2 class="ltitle">@<b>american</b>warriorarmor</h2><div class="linsta"><a href="https://www.instagram.com/americanwarriorarmor/" target="_blank" rel="noopener noreferrer" aria-label="View American Warrior Armor on Instagram (opens in a new tab)"><img src="../assets/insta-thum01.png" alt="American Warrior Armor Instagram photo 1" loading="lazy"></a><a href="https://www.instagram.com/americanwarriorarmor/" target="_blank" rel="noopener noreferrer" aria-label="View American Warrior Armor on Instagram (opens in a new tab)"><img src="../assets/insta-thum02.png" alt="American Warrior Armor Instagram photo 2" loading="lazy"></a><a href="https://www.instagram.com/americanwarriorarmor/" target="_blank" rel="noopener noreferrer" aria-label="View American Warrior Armor on Instagram (opens in a new tab)"><img src="../assets/insta-thum03.png" alt="American Warrior Armor Instagram photo 3" loading="lazy"></a><a href="https://www.instagram.com/americanwarriorarmor/" target="_blank" rel="noopener noreferrer" aria-label="View American Warrior Armor on Instagram (opens in a new tab)"><img src="../assets/insta-thum04.png" alt="American Warrior Armor Instagram photo 4" loading="lazy"></a><a href="https://www.instagram.com/americanwarriorarmor/" target="_blank" rel="noopener noreferrer" aria-label="View American Warrior Armor on Instagram (opens in a new tab)"><img src="../assets/insta-thum05.png" alt="American Warrior Armor Instagram photo 5" loading="lazy"></a><a href="https://www.instagram.com/americanwarriorarmor/" target="_blank" rel="noopener noreferrer" aria-label="View American Warrior Armor on Instagram (opens in a new tab)"><img src="../assets/insta-thum06.png" alt="American Warrior Armor Instagram photo 6" loading="lazy"></a><a href="https://www.instagram.com/americanwarriorarmor/" target="_blank" rel="noopener noreferrer" aria-label="View American Warrior Armor on Instagram (opens in a new tab)"><img src="../assets/insta-thum07.png" alt="American Warrior Armor Instagram photo 7" loading="lazy"></a><a href="https://www.instagram.com/americanwarriorarmor/" target="_blank" rel="noopener noreferrer" aria-label="View American Warrior Armor on Instagram (opens in a new tab)"><img src="../assets/insta-thum08.png" alt="American Warrior Armor Instagram photo 8" loading="lazy"></a></div></section>
   </main>
   <footer>
     <div class="footer-row">
       <div><h3>Gear for the work.</h3><p>Find your next training essential.</p></div>
       <div><h3>Explore</h3><div class="footer-links"><a href="#shop">Shop all</a><a href="#shop">New arrivals</a><a href="#shop">Best sellers</a></div></div>
       <div><h3>Need a hand?</h3><div class="footer-links"><a href="mailto:info@jitsuarmor.com">Contact us</a><a href="#story">Shipping & returns</a><a href="#story">Our Story</a></div></div>
-      <div><h3>Stay in the loop</h3><p>New gear, training stories, and more.</p><a class="button" href="mailto:info@jitsuarmor.com">Join the list</a></div>
+      <div id="footer-newsletter" tabindex="-1"><h3>Stay in the loop</h3><p>New gear, training stories, and more.</p><a class="button" href="mailto:info@jitsuarmor.com">Join the list</a></div>
     </div>
     <div class="copyright">© 2026 American Warrior Armor · Local design preview</div>
   </footer>
@@ -260,6 +337,7 @@
       menuLinks.classList.toggle('is-open', !isOpen);
     });
     menuLinks.addEventListener('click', event => {
+      if (event.defaultPrevented) return;
       if (event.target.closest('a')) {
         menuToggle.setAttribute('aria-expanded', 'false');
         menuToggle.setAttribute('aria-label', 'Open menu');
@@ -366,11 +444,12 @@
         s.className = 'martial-letter';
         s.textContent = ch === ' ' ? '\u00a0' : ch;
         var angle = Math.random() * Math.PI * 2;
-        var dist = 50 + Math.random() * 90;
+        var dist = 90 + Math.random() * 200;
         s.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
         s.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
-        s.style.setProperty('--rot', (Math.random() * 720 - 360) + 'deg');
-        s.style.setProperty('--sc', (0.4 + Math.random() * 1.8).toFixed(2));
+        s.style.setProperty('--rot', (Math.random() * 1440 - 720) + 'deg');
+        s.style.setProperty('--sc', (0.2 + Math.random() * 2).toFixed(2));
+        s.style.setProperty('--delay', Math.random() * 300 + 'ms');
         label.appendChild(s);
       });
       link.classList.add('martial-exploding');
@@ -381,10 +460,11 @@
           link.classList.remove('martial-exploding');
         }
         window.location.href = link.href;
-      }, 450);
+      }, 1600);
     });
   });
 })();
   </script>
+<script src="../assets/product-carousel.js"></script>
 </body>
 </html>

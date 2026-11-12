@@ -1,7 +1,15 @@
 <div class="page-width feature-row">
   {% capture image_layout %}
     <div class="feature-row__item">
-      {% if section.settings.image != blank %}
+      {% if section.settings.image_asset != blank %}
+        <img class="feature-row__image"
+             src="{{ section.settings.image_asset | asset_url }}"
+             alt="{{ section.settings.image_alt | escape }}"
+             width="1254"
+             height="1254"
+             loading="lazy"
+             style="display:block;width:100%;height:auto;">
+      {% elsif section.settings.image != blank %}
         {% capture img_id %}FeatureRowImage-{{ section.id }}{% endcapture %}
         {% capture wrapper_id %}FeatureRowImageWrapper-{{ section.id }}{% endcapture %}
         {%- assign img_url = section.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
@@ -62,6 +70,17 @@
         "type": "image_picker",
         "id": "image",
         "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "image_asset",
+        "label": "Theme image asset",
+        "info": "Optional filename from theme assets. Overrides the selected image."
+      },
+      {
+        "type": "text",
+        "id": "image_alt",
+        "label": "Theme image description"
       },
       {
         "type": "select",

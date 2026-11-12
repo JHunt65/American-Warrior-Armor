@@ -8,7 +8,7 @@
     {%- assign martial_art_intro = 'Find the clothing and protective essentials for pad work, technical drills, and sparring.' -%}
     {%- assign gear_items = 'Athletic clothing or kickboxing shorts~Choose breathable training apparel or lightweight shorts for striking.|Boxing gloves~Gloves for bag work, pad rounds, and partner training.|Hand wraps~Support for hands and wrists beneath your gloves.|Shin guards~Protection for kicks, drills, and sparring.|Mouthguard~A key piece of protection for contact training.|Groin protection~Protective support for training and sparring.|Kick shields~A sturdy target for partner pad work and kick drills.' | split: '|' -%}
   {%- when 'judo' -%}
-    {%- assign martial_art_name = 'Judo' -%}
+    {%- assign martial_art_name = 'Judo | Sambo' -%}
     {%- assign martial_art_intro = 'Get ready for throws, groundwork, and repeat practice with durable judo essentials.' -%}
     {%- assign gear_items = 'Heavy-duty judogi~A durable uniform designed for gripping, throwing, and groundwork.|Rank belt~Complete your uniform with the belt for your current rank.|Training mats~A suitable mat surface supports safe throwing and practice.|Knee pads (optional)~Extra cushioning for groundwork and repeated drills.|Finger tape (optional)~A training staple for judoka who want extra finger support.' | split: '|' -%}
   {%- when 'bjj' -%}
@@ -28,17 +28,20 @@
 <main class="martial-art-page">
   <header class="martial-art-page__hero">
     <div class="page-width">
-      <p class="martial-art-page__eyebrow">Train your way · Every discipline</p>
-      <h1>{{ martial_art_name | escape }}</h1>
+      <h1 class="gear-page-title">{{ martial_art_name | escape }}</h1>
       <p class="martial-art-page__intro">{{ martial_art_intro | escape }}</p>
       <a class="martial-art-page__button" href="{{ routes.all_products_collection_url }}/{{ page.handle }}">Shop {{ martial_art_name | escape }} gear</a>
     </div>
   </header>
 
+  <div class="page-width new-arrivals-width">
+    {% render 'gear-best-sellers', gear_tag: page.handle, gear_name: martial_art_name, section: section %}
+  </div>
+
   <nav class="martial-art-page__nav page-width" aria-label="Shop by martial art">
     <a href="{{ routes.all_products_collection_url }}/mma"{% if page.handle == 'mma' %} aria-current="page"{% endif %}>MMA</a>
     <a href="{{ routes.all_products_collection_url }}/kickboxing"{% if page.handle == 'kickboxing' %} aria-current="page"{% endif %}>KICKBOXING</a>
-    <a href="{{ routes.all_products_collection_url }}/judo"{% if page.handle == 'judo' %} aria-current="page"{% endif %}>JUDO</a>
+    <a href="{{ routes.all_products_collection_url }}/judo"{% if page.handle == 'judo' %} aria-current="page"{% endif %}>JUDO | SAMBO</a>
     <a href="{{ routes.all_products_collection_url }}/bjj"{% if page.handle == 'bjj' %} aria-current="page"{% endif %}>BJJ</a>
     <a href="{{ routes.all_products_collection_url }}/karate"{% if page.handle == 'karate' %} aria-current="page"{% endif %}>KARATE</a>
   </nav>

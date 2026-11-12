@@ -5,32 +5,80 @@
     {% endif %}
   </div>
   <div id="instafeed">
-    <a href="http://instagram.com/americanwarriorarmor"><img src="{{ 'insta-thum01.png' | asset_url }}" alt=""></a>
-    <a href="http://instagram.com/americanwarriorarmor"><img src="{{ 'insta-thum02.png' | asset_url }}" alt=""></a>
-    <a href="http://instagram.com/americanwarriorarmor"><img src="{{ 'insta-thum03.png' | asset_url }}" alt=""></a>
-    <a href="http://instagram.com/americanwarriorarmor"><img src="{{ 'insta-thum04.png' | asset_url }}" alt=""></a>
-    <a href="http://instagram.com/americanwarriorarmor"><img src="{{ 'insta-thum05.png' | asset_url }}" alt=""></a>
-    <a href="http://instagram.com/americanwarriorarmor"><img src="{{ 'insta-thum06.png' | asset_url }}" alt=""></a>
-    <a href="http://instagram.com/americanwarriorarmor"><img src="{{ 'insta-thum07.png' | asset_url }}" alt=""></a>
-    <a href="http://instagram.com/americanwarriorarmor"><img src="{{ 'insta-thum08.png' | asset_url }}" alt=""></a>
+    {% for index in (1..8) %}
+      {% assign post_setting = 'post_url_' | append: index %}
+      {% assign post_url = section.settings[post_setting] | default: 'https://www.instagram.com/americanwarriorarmor/' %}
+      {% assign image_asset = 'insta-thum0' | append: index | append: '.png' %}
+      <a href="{{ post_url | escape }}" target="_blank" rel="noopener noreferrer" aria-label="View Instagram {% if section.settings[post_setting] != blank %}post {{ index }}{% else %}profile{% endif %} (opens in a new tab)">
+        <img src="{{ image_asset | asset_url }}" alt="American Warrior Armor Instagram photo {{ index }}" loading="lazy">
+      </a>
+    {% endfor %}
   </div>
 </div>
 
 {% schema %}
-  {
-    "name": "Instagram Section",
-    "settings": [
-	{
-		"type":"text",
-		"id":"title",
-		"label":"Title"
-	}
-],
-"presets":[
-	{
-		"name": "Instagram Section",
-		"category":"New"
-	}
-]
-  }
+{
+  "name": "Instagram Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "url",
+      "id": "post_url_1",
+      "label": "Image 1 Instagram post link",
+      "info": "Paste the matching Instagram post or reel URL. Images run left to right, top row first."
+    },
+    {
+      "type": "url",
+      "id": "post_url_2",
+      "label": "Image 2 Instagram post link",
+      "info": "Paste the matching Instagram post or reel URL. Images run left to right, top row first."
+    },
+    {
+      "type": "url",
+      "id": "post_url_3",
+      "label": "Image 3 Instagram post link",
+      "info": "Paste the matching Instagram post or reel URL. Images run left to right, top row first."
+    },
+    {
+      "type": "url",
+      "id": "post_url_4",
+      "label": "Image 4 Instagram post link",
+      "info": "Paste the matching Instagram post or reel URL. Images run left to right, top row first."
+    },
+    {
+      "type": "url",
+      "id": "post_url_5",
+      "label": "Image 5 Instagram post link",
+      "info": "Paste the matching Instagram post or reel URL. Images run left to right, top row first."
+    },
+    {
+      "type": "url",
+      "id": "post_url_6",
+      "label": "Image 6 Instagram post link",
+      "info": "Paste the matching Instagram post or reel URL. Images run left to right, top row first."
+    },
+    {
+      "type": "url",
+      "id": "post_url_7",
+      "label": "Image 7 Instagram post link",
+      "info": "Paste the matching Instagram post or reel URL. Images run left to right, top row first."
+    },
+    {
+      "type": "url",
+      "id": "post_url_8",
+      "label": "Image 8 Instagram post link",
+      "info": "Paste the matching Instagram post or reel URL. Images run left to right, top row first."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Instagram Section",
+      "category": "New"
+    }
+  ]
+}
 {% endschema %}

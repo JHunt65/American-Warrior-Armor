@@ -12,7 +12,7 @@
     {%- when 'kickboxing' -%}
       {%- assign martial_art_name = 'Kickboxing' -%}
     {%- when 'judo', 'judogear' -%}
-      {%- assign martial_art_name = 'Judo' -%}
+      {%- assign martial_art_name = 'Judo | Sambo' -%}
     {%- when 'bjj', 'brazilianjiujitsu', 'brazilianjiujitsubjj' -%}
       {%- assign martial_art_name = 'BJJ' -%}
     {%- when 'all' -%}
@@ -67,7 +67,7 @@
           <div class="collection-hero__image" style="background-image: url({{ collection.image | img_url: '2048x600', crop: 'top' }});"></div>
         </noscript>
         <div class="collection-hero__title-wrapper">
-          <h1 class="collection-hero__title page-width">{% if is_martial_art_collection %}{{ martial_art_name | escape }}{% else %}{{ collection.title }}{% endif %}</h1>
+          <h1 class="collection-hero__title page-width{% if is_martial_art_collection %} gear-page-title{% endif %}">{% if is_martial_art_collection %}{{ martial_art_name | escape }}{% else %}{{ collection.title }}{% endif %}</h1>
         </div>
       </div>
 
@@ -79,13 +79,19 @@
     {% else %}
       <div class="page-width">
         <div class="section-header">
-          <h1 class="h3">{% if is_martial_art_collection %}{{ martial_art_name | escape }} Gear{% else %}{{ collection.title }}{% endif %}</h1>
+          <h1 class="h3{% if is_martial_art_collection %} gear-page-title{% endif %}">{% if is_martial_art_collection %}{{ martial_art_name | escape }} Gear{% else %}{{ collection.title }}{% endif %}</h1>
           {% if collection.description != blank %}
             <div class="rte">
               {{ collection.description }}
             </div>
           {% endif %}
         </div>
+      </div>
+    {% endif %}
+
+    {% if is_martial_art_collection %}
+      <div class="page-width new-arrivals-width">
+        {% render 'gear-best-sellers', gear_tag: martial_art_tag, gear_name: martial_art_name, section: section %}
       </div>
     {% endif %}
 
@@ -119,9 +125,6 @@
               </div>
             {% endif %}
 
-            <div class="filters-toolbar__item filters-toolbar__item--count">
-              <span class="filters-toolbar__product-count">{{ 'collections.general.items_with_count' | t: count: collection.products_count }}</span>
-            </div>
 
             {% if section.settings.sort_enable %}
               <div class="filters-toolbar__item text-right">
@@ -179,7 +182,7 @@
     <nav class="martial-art-page__nav page-width" aria-label="Shop by martial art">
       <a href="{{ routes.all_products_collection_url }}/mma?art=mma"{% if martial_art_tag == 'mma' %} aria-current="page"{% endif %}>MMA</a>
       <a href="{{ routes.all_products_collection_url }}/kickboxing?art=kickboxing"{% if martial_art_tag == 'kickboxing' %} aria-current="page"{% endif %}>KICKBOXING</a>
-      <a href="{{ routes.all_products_collection_url }}/judo?art=judo"{% if martial_art_tag == 'judo' %} aria-current="page"{% endif %}>JUDO</a>
+      <a href="{{ routes.all_products_collection_url }}/judo?art=judo"{% if martial_art_tag == 'judo' %} aria-current="page"{% endif %}>JUDO | SAMBO</a>
       <a href="{{ routes.all_products_collection_url }}/bjj?art=bjj"{% if martial_art_tag == 'bjj' %} aria-current="page"{% endif %}>BJJ</a>
       <a href="{{ routes.all_products_collection_url }}/karate?art=karate"{% if martial_art_tag == 'karate' %} aria-current="page"{% endif %}>KARATE</a>
     </nav>
@@ -297,52 +300,8 @@
             {% include 'product-card-grid', max_height: max_height %}
           </div>
         {% else %}
-          {% comment %}
-          Add default products to help with onboarding for collections/all only.
-
-          The onboarding styles and products are only loaded if the
-          store has no products.
-          {% endcomment %}
-          {% if collection.handle == 'all' and collection.all_vendors.size == 0 and collection.all_types.size == 0 %}
-            <div class="grid__item">
-              <div class="grid grid--uniform">
-                {% for i in (1..limit) %}
-                  <div class="grid__item {{ grid_item_width }}">
-                    <div class="grid-view-item">
-                      <a href="#" class="grid-view-item__link">
-                        <div class="grid-view-item__image">
-                          {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
-                          {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
-                        </div>
-                        <div class="h4 grid-view-item__title">{{ 'homepage.onboarding.product_title' | t }}</div>
-                                                  {% include 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: true %}
-
-                        <div class="grid-view-item__meta">
-                          <span class="product-price__price">$19.99</span>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                {% endfor %}
-              </div>
-            </div>
-          {% elsif is_martial_art_collection == false %}
-            {%- assign is_empty_collection = true -%}
-          {% endif %}
+          {%- assign is_empty_collection = true -%}
         {% endfor %}
-        {% if is_martial_art_collection %}
-          {%- assign placeholder_count = limit | minus: collection.products.size -%}
-          {% for i in (1..placeholder_count) %}
-            <div class="grid__item {{ grid_item_width }}">
-              <div class="grid-view-item martial-art-placeholder">
-                <div class="grid-view-item__image martial-art-placeholder__image">
-                  {{ forloop.index0 | modulo: 6 | plus: 1 | prepend: 'product-' | placeholder_svg_tag: 'placeholder-svg' }}
-                </div>
-                <div class="h4 grid-view-item__title">Coming soon</div>
-              </div>
-            </div>
-          {% endfor %}
-        {% endif %}
       </div>
     {% else %}
       <div class="list-view-items">
@@ -351,37 +310,7 @@
             {% include 'product-card-list', product: product %}
           </a>
         {% else %}
-
-          {% comment %}
-          Add default products to help with onboarding for collections/all only.
-
-          The onboarding styles and products are only loaded if the
-          store has no products.
-          {% endcomment %}
-          {% if collection.handle == 'all' and collection.all_vendors.size == 0 and collection.all_types.size == 0%}
-            {% for i in (1..4) %}
-              <a href="#" class="list-view-item">
-                <div class="list-view-item__image-column">
-                  <div class="list-view-item__image-wrapper">
-                    <div class="list-view-item__image">
-                      {%- assign placeholder = 'placeholder-product-' | append: i -%}
-                      {% include placeholder %}
-                    </div>
-                  </div>
-                </div>
-
-                <div class="list-view-item__title-column">
-                  <div class="list-view-item__title">{{ 'homepage.onboarding.product_title' | t }}</div>
-                </div>
-
-                <div class="list-view-item__price-column">
-                  <span class="product-price__price">$19.99</span>
-                </div>
-              </a>
-            {% endfor %}
-          {% else %}
-            {%- assign is_empty_collection = true -%}
-          {% endif %}
+          {%- assign is_empty_collection = true -%}
         {% endfor %}
       </div>
     {% endif %}
@@ -403,14 +332,6 @@
 {% endpaginate %}
 
 {% if is_martial_art_collection and martial_art_tag == 'all' %}
-<template id="martial-empty-card">
-  <div class="grid__item small--one-half medium-up--one-fifth">
-    <div class="grid-view-item martial-art-placeholder">
-      <div class="grid-view-item__image martial-art-placeholder__image">{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}</div>
-      <div class="h4 grid-view-item__title">Coming soon</div>
-    </div>
-  </div>
-</template>
 <script>
   /* Shopify redirects tag URLs with no tagged products back to /collections/all?art=<tag>; show that art's page instead */
   (function () {
@@ -426,11 +347,13 @@
     for (var p = 0; p < pills.length; p++) {
       if (pills[p].href.indexOf('/' + art) > -1) pills[p].setAttribute('aria-current', 'page');
     }
+    document.querySelectorAll('[data-gear-best-sellers]').forEach(function (section) { section.hidden = true; });
     var grid = document.querySelector('#Collection .col-page');
-    var tpl = document.getElementById('martial-empty-card');
-    if (!grid || !tpl) return;
-    grid.innerHTML = '';
-    for (var n = 0; n < 15; n++) grid.appendChild(tpl.content.cloneNode(true));
+    if (!grid) return;
+    var message = document.createElement('p');
+    message.className = 'text-center';
+    message.textContent = {{ 'collections.general.no_matches' | t | json }};
+    grid.replaceChildren(message);
     var pager = document.querySelector('#Collection .pagination');
     if (pager) pager.style.display = 'none';
   })();

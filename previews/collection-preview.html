@@ -43,7 +43,7 @@
     .martial-nav-link:hover, .martial-nav-link:focus-visible { color: var(--red) }
     .martial-letter { display: inline-block }
     .martial-exploding { pointer-events: none }
-    .martial-exploding .martial-letter { animation: boom .6s cubic-bezier(.15,.8,.3,1) forwards }
+    .martial-exploding .martial-letter { animation: boom 1.2s cubic-bezier(.15,.8,.3,1) var(--delay, 0ms) forwards }
     @keyframes boom { 0% { transform: none; opacity: 1; color: #e53935 } 100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(var(--sc)); opacity: 0; color: #e53935 } }
     .cart { border: 1px solid var(--line); border-radius: 6px; padding: 10px 14px; font-weight: 700 }
     .hero { min-height: 490px; overflow: hidden; position: relative; display: flex; align-items: center; background: #111; color: #fff }
@@ -171,11 +171,61 @@
 @media(max-width:1000px){.cgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:760px){.cgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}}
 
-  </style>
+      .announcement a { color:inherit; text-decoration:none }
+    #footer-newsletter { scroll-margin-top:24px }
+
+/* Discipline-specific best sellers, using the image-first product cards. */
+.gear-best-sellers { margin:24px 0 40px; color:#111 }
+.gear-best-sellers > h2 { margin:0 0 24px; text-align:center; font-size:30px }
+.gear-best-sellers__grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:20px }
+.gear-best-sellers .grid-view-item { height:auto; margin:0; padding:0; overflow:hidden; border:1px solid #e7e7e7; border-radius:12px; text-align:left }
+.gear-best-sellers .grid-view-item__image-wrapper { margin:0 0 14px; border-radius:0 }
+.gear-best-sellers .grid-view-item__image-wrapper::after { padding-bottom:100% }
+.gear-best-sellers .grid-view-item__title { padding:0 14px; font-size:15px }
+.gear-best-sellers .product-card__reviews,
+.gear-best-sellers .grid-view-item__vendor { padding-left:14px; padding-right:14px }
+.gear-best-sellers .grid-view-item__meta { padding:10px 14px 14px }
+@media screen and (max-width:749px) {
+  .gear-best-sellers__grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px }
+}
+
+.gear-best-sellers .product { display:flex; flex-direction:column; text-align:left }
+.gear-best-sellers .product img { aspect-ratio:1; width:100%; object-fit:contain }
+.gear-best-sellers .product .price { margin-top:auto }
+@font-face {
+  font-family:'Oxanium';
+  src:url('../assets/Oxanium-Variable.ttf') format('truetype');
+  font-style:normal;
+  font-weight:200 800;
+  font-display:swap;
+}
+.blog-page-header h1.blog-brand-title,
+.featured-blog-header .blog-brand-title,
+.cwrap h1.gear-page-title,
+.martial-art-page__hero h1.gear-page-title {
+  width:100%;
+  margin:0 auto;
+  color:#d90000;
+  font-family:'Oxanium', 'Arial Black', sans-serif;
+  font-size:clamp(36.96px, 5.28vw, 60.72px);
+  font-weight:800;
+  font-style:oblique 10deg;
+  letter-spacing:-.035em;
+  line-height:1.05;
+  text-transform:uppercase;
+  text-align:center;
+  text-wrap:balance;
+}
+.blog-page-header .blog-subtitle,
+.featured-blog-header .blog-subtitle { margin:4px auto 0 }
+
+
+.cwrap h1.gear-page-title { margin-bottom:28px }
+</style>
 </head>
 <body>
-  <div class="announcement">Free shipping on orders over $125 — use code FREESHIPPING</div>
-  <div class="utility"><span>Equipment for every kind of fighter.</span><span>Questions? <a href="mailto:info@jitsuarmor.com">info@jitsuarmor.com</a></span></div>
+  <div class="announcement"><a href="#footer-newsletter">Join our list for email-only discounts</a></div>
+  <div class="utility"><span>Equipment for every kind of fighter.</span><span>Questions? <a href="mailto:support@jitsuarmor.com">support@jitsuarmor.com</a></span></div>
   <header>
     <nav class="nav" aria-label="Main navigation">
       <a class="logo" href="home-preview.html" aria-label="American Warrior Armor home"><img src="../assets/american-warrior-armor-logo.png" alt="American Warrior Armor logo"><span class="formerly"><b>Formerly Jitsu Armor</b><em>Upgraded</em></span></a>
@@ -186,7 +236,7 @@
         <div class="discipline-links">
           <a class="martial-nav-link" href="collection-preview.html?art=mma"><span>MMA</span></a>
           <a class="martial-nav-link" href="collection-preview.html?art=kickboxing"><span>KICKBOXING</span></a>
-          <a class="martial-nav-link" href="collection-preview.html?art=judo"><span>JUDO</span></a>
+          <a class="martial-nav-link" href="collection-preview.html?art=judo"><span>JUDO | SAMBO</span></a>
           <a class="martial-nav-link" href="collection-preview.html?art=bjj"><span>BJJ</span></a>
           <a class="martial-nav-link" href="collection-preview.html?art=karate"><span>KARATE</span></a>
         </div>
@@ -195,8 +245,9 @@
       <a class="cart" href="#shop" aria-label="Shopping bag">Bag&nbsp; 0</a>
     </nav>
   </header>
-<main id="top"><div class="cwrap"><div class="crumb">Home / <span id="art-breadcrumb">MMA</span></div><h1 id="art-heading">MMA Gear</h1>
-<div class="ctool"><select><option>Filter: All</option></select><span id="product-count">15 items</span><select><option>Sort: Featured</option></select></div>
+<main id="top"><div class="cwrap"><h1 id="art-heading" class="gear-page-title">MMA Gear</h1>
+<section class="gear-best-sellers" aria-label="Best sellers"><h2>Best Sellers</h2><div class="gear-best-sellers__grid" id="gear-best-sellers-grid"></div></section>
+<div class="ctool"><select><option>Filter: All</option></select><select><option>Sort: Featured</option></select></div>
 <div class="clay"><aside class="side"><h4>Brands</h4><ul><li><a class="on" href="#">All brands</a></li><li><a href="#">Venum</a></li><li><a href="#">Hayabusa</a></li><li><a href="#">Fairtex</a></li></ul><h4>Gear type</h4><ul><li><a href="#">Gloves</a></li><li><a href="#">Shin guards</a></li><li><a href="#">Apparel</a></li></ul></aside>
 <div><div class="cgrid" id="product-grid"></div><nav class="preview-pagination" aria-label="Product pages"><button id="previous-page" type="button" aria-label="Previous 15 products" disabled>‹</button><span id="page-status">Page 1 of 2</span><button id="next-page" type="button" aria-label="Next 15 products">›</button></nav></div></div></div></main>
   <footer>
@@ -204,7 +255,7 @@
       <div><h3>Gear for the work.</h3><p>Find your next training essential.</p></div>
       <div><h3>Explore</h3><div class="footer-links"><a href="#shop">Shop all</a><a href="#shop">New arrivals</a><a href="#shop">Best sellers</a></div></div>
       <div><h3>Need a hand?</h3><div class="footer-links"><a href="mailto:info@jitsuarmor.com">Contact us</a><a href="#story">Shipping & returns</a><a href="#story">Our Story</a></div></div>
-      <div><h3>Stay in the loop</h3><p>New gear, training stories, and more.</p><a class="button" href="mailto:info@jitsuarmor.com">Join the list</a></div>
+      <div id="footer-newsletter" tabindex="-1"><h3>Stay in the loop</h3><p>New gear, training stories, and more.</p><a class="button" href="mailto:info@jitsuarmor.com">Join the list</a></div>
     </div>
     <div class="copyright">© 2026 American Warrior Armor · Local design preview</div>
   </footer>
@@ -213,7 +264,7 @@
     const disciplines = {
       mma: 'MMA',
       kickboxing: 'KICKBOXING',
-      judo: 'JUDO',
+      judo: 'JUDO | SAMBO',
       bjj: 'BJJ',
       karate: 'KARATE',
       training: 'TRAINING'
@@ -223,9 +274,7 @@
     const disciplineName = disciplines[disciplineKey];
     const page = params.get('page') === '2' ? 2 : 1;
     document.title = `${disciplineName} Gear — Local preview`;
-    document.querySelector('#art-breadcrumb').textContent = disciplineName;
     document.querySelector('#art-heading').textContent = `${disciplineName} Gear`;
-    document.querySelector('#product-count').textContent = '15 items';
     document.querySelectorAll('.discipline-links a').forEach(link => {
       const linkArt = new URL(link.href).searchParams.get('art');
       if (linkArt === disciplineKey) link.setAttribute('aria-current', 'page');
@@ -239,6 +288,8 @@
       card.innerHTML = `<img class="brand-mark" src="../assets/american-warrior-armor-logo.png" alt=""><div class="tag">Sample product</div><h3>${disciplineName} Training Gear ${String(productNumber).padStart(2, '0')}</h3><div class="price">$49.99</div>`;
       productGrid.append(card);
     }
+
+    Array.from(productGrid.children).slice(0, 4).forEach(card => { document.querySelector('#gear-best-sellers-grid').append(card.cloneNode(true)); });
 
     document.querySelector('#page-status').textContent = `Page ${page} of 2`;
     const pageUrl = nextPage => `?art=${encodeURIComponent(disciplineKey)}${nextPage === 1 ? '' : '&page=2'}`;
@@ -258,6 +309,7 @@
       menuLinks.classList.toggle('is-open', !isOpen);
     });
     menuLinks.addEventListener('click', event => {
+      if (event.defaultPrevented) return;
       if (event.target.closest('a')) {
         menuToggle.setAttribute('aria-expanded', 'false');
         menuToggle.setAttribute('aria-label', 'Open menu');
@@ -284,11 +336,12 @@
         s.className = 'martial-letter';
         s.textContent = ch === ' ' ? '\u00a0' : ch;
         var angle = Math.random() * Math.PI * 2;
-        var dist = 50 + Math.random() * 90;
+        var dist = 90 + Math.random() * 200;
         s.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
         s.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
-        s.style.setProperty('--rot', (Math.random() * 720 - 360) + 'deg');
-        s.style.setProperty('--sc', (0.4 + Math.random() * 1.8).toFixed(2));
+        s.style.setProperty('--rot', (Math.random() * 1440 - 720) + 'deg');
+        s.style.setProperty('--sc', (0.2 + Math.random() * 2).toFixed(2));
+        s.style.setProperty('--delay', Math.random() * 300 + 'ms');
         label.appendChild(s);
       });
       link.classList.add('martial-exploding');
@@ -299,7 +352,7 @@
           link.classList.remove('martial-exploding');
         }
         window.location.href = link.href;
-      }, 450);
+      }, 1600);
     });
   });
 })();

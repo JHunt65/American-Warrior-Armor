@@ -15,22 +15,26 @@
         s.className = 'martial-letter';
         s.textContent = ch === ' ' ? '\u00a0' : ch;
         var angle = Math.random() * Math.PI * 2;
-        var dist = 50 + Math.random() * 90;
+        var dist = 90 + Math.random() * 200;
         s.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
         s.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
-        s.style.setProperty('--rot', (Math.random() * 720 - 360) + 'deg');
-        s.style.setProperty('--sc', (0.4 + Math.random() * 1.8).toFixed(2));
+        s.style.setProperty('--rot', (Math.random() * 1440 - 720) + 'deg');
+        s.style.setProperty('--sc', (0.2 + Math.random() * 2).toFixed(2));
+        s.style.setProperty('--delay', Math.random() * 300 + 'ms');
         label.appendChild(s);
       });
       link.classList.add('martial-exploding');
+      var mobileMenu = link.closest('.mobile-nav-wrapper');
+      if (mobileMenu) mobileMenu.classList.add('martial-menu-animating');
       setTimeout(function () {
         var same = link.href.split('#')[0] === window.location.href.split('#')[0];
         if (same) {
           label.textContent = text;
           link.classList.remove('martial-exploding');
         }
+        if (mobileMenu) mobileMenu.classList.remove('martial-menu-animating');
         window.location.href = link.href;
-      }, 450);
+      }, 1600);
     });
   });
 })();

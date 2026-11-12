@@ -2,12 +2,12 @@
 
   {% unless section.settings.show_legacy_slideshow %}
     <section class="martial-arts-hero" aria-label="{{ section.settings.hero_heading | default: shop.name | escape }}">
-      {%- if section.settings.hero_video != blank and section.settings.hero_video_poster != blank -%}
+      {%- if section.settings.hero_video_poster != blank -%}
         {%- assign hero_video_poster = section.settings.hero_video_poster | image_url: width: 2000 -%}
       {%- elsif section.settings.hero_video != blank -%}
         {%- assign hero_video_poster = section.settings.hero_video.preview_image | image_url: width: 2000 -%}
       {%- else -%}
-        {%- assign hero_video_poster = 'banner01.jpg' | asset_url -%}
+        {%- assign hero_video_poster = 'american-warrior-hero-poster.jpg' | asset_url -%}
       {%- endif -%}
       <video class="martial-arts-hero__video" autoplay muted loop playsinline preload="metadata" poster="{{ hero_video_poster | escape }}" aria-hidden="true">
         {% if section.settings.hero_video != blank %}

@@ -95,7 +95,7 @@
 
       {% if section.settings.footer_newsletter_enable %}
         <div class="grid__item {% if section.settings.footer_content_enable %}medium-up--two-fifths{% else %}medium-up--three-fifths{% endif %}">
-          <div class="site-footer__newsletter">
+          <div id="footer-newsletter" class="site-footer__newsletter" tabindex="-1">
             {% form 'customer' %}
               {{ form.errors | default_errors }}
               {% if form.posted_successfully? %}
