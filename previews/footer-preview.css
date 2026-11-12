@@ -39,11 +39,15 @@
   .footer-minimal > .page-width { padding-left:24px; padding-right:24px }
   .footer-minimal__grid { grid-template-columns:minmax(0,1fr); gap:32px; padding-bottom:36px }
   .footer-minimal__explore { grid-template-columns:repeat(2,max-content); gap:12px 20px }
-  .footer-minimal .footer-minimal__explore li { font-size:16px }
-  .footer-minimal h2 { margin-bottom:16px; font-size:18px }
-  .footer-minimal p, .footer-minimal li { font-size:16px }
-  .footer-minimal__join { min-height:64px; padding:18px 28px; font-size:16px }
-  .footer-minimal__bottom { font-size:16px; padding:24px 0 }
+  .footer-minimal .footer-minimal__explore li { font-size:14px }
+  .footer-minimal h2 { margin-bottom:16px; font-size:16px }
+  .footer-minimal p, .footer-minimal li { font-size:14px }
+  .footer-minimal__join { min-height:64px; padding:18px 28px; font-size:14px }
+  .footer-minimal__bottom { font-size:14px; padding:24px 0 }
+  .footer-minimal a,
+  .footer-minimal .input-group__field,
+  .footer-minimal .input-group__btn .newsletter__submit,
+  .footer-minimal .footer-minimal__form p { font-size:14px }
 }
 
 .footer-minimal { box-sizing:border-box }
