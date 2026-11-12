@@ -267,7 +267,7 @@
       <div id="footer-newsletter" class="site-footer__newsletter" tabindex="-1">
         <h2>Stay in the loop</h2>
         <p>New gear, training stories, and more.</p>
-        {% form 'customer', id: 'FooterNewsletterForm', class: 'contact-form' %}
+        {% form 'customer', id: 'FooterNewsletterForm', class: 'contact-form', data-shopify-captcha: 'true' %}
               <details data-footer-signup{% if form.errors or form.posted_successfully? %} open{% endif %}>
                 <summary class="footer-minimal__join">Join the list</summary>
                 <div class="footer-minimal__form">
