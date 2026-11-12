@@ -2968,7 +2968,9 @@ h1.store-page-title { max-width:100%; overflow-wrap:break-word; margin-bottom:4p
 .footer-minimal__join::-webkit-details-marker { display:none }
 .footer-minimal__join:hover { background:#ce2525 }
 .footer-minimal__join:focus-visible { outline:2px solid #fff; outline-offset:4px }
-.footer-minimal__form { padding-top:20px }
+/* Replace the invitation with the form instead of pushing it below the button. */
+.footer-minimal [data-footer-signup][open] > .footer-minimal__join { display:none }
+.footer-minimal__form { padding-top:22px }
 .footer-minimal__form p { margin-bottom:14px; font-size:15px }
 .footer-minimal .input-group { display:flex; flex-direction:column; gap:10px; width:100% }
 .footer-minimal .input-group__field { width:100%; height:46px; margin:0; padding:12px 14px; border:1px solid #555; border-radius:6px; background:#fff; color:#111 }

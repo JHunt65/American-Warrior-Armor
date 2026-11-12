@@ -275,9 +275,6 @@
                                   <p class="form--success" role="status" tabindex="-1">{{ 'general.newsletter_form.confirmation' | t }}</p>
                                 {% else %}
                                 <div id="FooterNewsletterErrors" role="alert">{{ form.errors | default_errors }}</div>
-                                {% if section.settings.newsletter_text != blank %}
-                                <p>{{ section.settings.newsletter_text }}</p>
-                                {% endif %}
                                 <div class="input-group">
                                   <input type="hidden" name="contact[tags]" value="newsletter">
                                   <input type="email"
@@ -306,6 +303,12 @@
 </footer>
 <script>
   (function () {
+    var signup = document.querySelector('[data-footer-signup]');
+    if (signup) signup.addEventListener('toggle', function () {
+      if (!signup.open) return;
+      var input = signup.querySelector('input[type="email"]');
+      if (input) input.focus({preventScroll: true});
+    });
     function revealSignup() {
       var signup = document.querySelector('[data-footer-signup]');
       if (!signup) return;
